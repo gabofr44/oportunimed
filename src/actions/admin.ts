@@ -139,6 +139,18 @@ export async function adminDeleteOpportunity(id: string) {
 // Page Sections
 // ============================================
 
+export async function getAllPageSections() {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("page_sections")
+    .select("*")
+    .order("page")
+    .order("sort_order");
+
+  if (error) return { data: [], error: error.message };
+  return { data, error: null };
+}
+
 export async function getPageSections(page: string = "home") {
   const supabase = await createClient();
   const { data, error } = await supabase

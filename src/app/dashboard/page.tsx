@@ -1,6 +1,4 @@
 import { redirect } from "next/navigation";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getCurrentUser } from "@/actions/auth";
@@ -24,9 +22,7 @@ export default async function DashboardPage() {
   const { data: applications } = await getUserApplications();
 
   return (
-    <>
-      <Header />
-      <main className="flex-1 bg-surface">
+    <main className="flex-1 bg-surface">
         <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-text-main">Dashboard</h1>
@@ -110,7 +106,5 @@ export default async function DashboardPage() {
           </div>
         </div>
       </main>
-      <Footer />
-    </>
   );
 }

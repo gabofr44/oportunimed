@@ -49,19 +49,21 @@ function FieldEditor({
   );
 }
 
-function CategoryItemsEditor({
+function ArrayItemsEditor({
+  label,
   items,
   onChange,
+  fields,
 }: {
-  items: Array<{ label: string; description: string; icon: string }>;
-  onChange: (
-    items: Array<{ label: string; description: string; icon: string }>
-  ) => void;
+  label: string;
+  items: Record<string, string | number>[];
+  onChange: (items: Record<string, string | number>[]) => void;
+  fields: { key: string; label: string; type?: "text" | "textarea" | "number" }[];
 }) {
   const updateItem = (
     index: number,
-    field: "label" | "description" | "icon",
-    value: string
+    field: string,
+    value: string | number
   ) => {
     const updated = items.map((item, i) =>
       i === index ? { ...item, [field]: value } : item
@@ -70,7 +72,11 @@ function CategoryItemsEditor({
   };
 
   const addItem = () => {
-    onChange([...items, { label: "", description: "", icon: "📌" }]);
+    const empty: Record<string, string | number> = {};
+    fields.forEach((f) => {
+      empty[f.key] = f.type === "number" ? 0 : "";
+    });
+    onChange([...items, empty]);
   };
 
   const removeItem = (index: number) => {
@@ -78,46 +84,67 @@ function CategoryItemsEditor({
   };
 
   return (
-    <div className="space-y-3">
-      {items.map((item, i) => (
-        <div
-          key={i}
-          className="flex items-start gap-2 rounded-lg border border-border bg-surface p-3"
-        >
-          <Input
-            value={item.icon}
-            onChange={(e) => updateItem(i, "icon", e.target.value)}
-            className="w-14 text-center"
-            placeholder="🎓"
-          />
-          <div className="flex-1 space-y-2">
-            <Input
-              value={item.label}
-              onChange={(e) => updateItem(i, "label", e.target.value)}
-              placeholder="Category name"
-            />
-            <Input
-              value={item.description}
-              onChange={(e) => updateItem(i, "description", e.target.value)}
-              placeholder="Description"
-            />
-          </div>
-          <button
-            onClick={() => removeItem(i)}
-            className="mt-1 text-red-400 hover:text-red-600"
+    <div>
+      <label className="mb-2 block text-xs font-medium uppercase tracking-wider text-text-muted">
+        {label}
+      </label>
+      <div className="space-y-3">
+        {items.map((item, i) => (
+          <div
+            key={i}
+            className="rounded-lg border border-border bg-surface p-3"
           >
-            ✕
-          </button>
-        </div>
-      ))}
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={addItem}
-        className="w-full border-dashed"
-      >
-        + Add Item
-      </Button>
+            <div className="flex items-start gap-2">
+              <div className="flex-1 space-y-2">
+                {fields.map((field) => (
+                  <div key={field.key}>
+                    <label className="mb-0.5 block text-xs text-text-muted">
+                      {field.label}
+                    </label>
+                    {field.type === "textarea" ? (
+                      <textarea
+                        value={String(item[field.key] || "")}
+                        onChange={(e) => updateItem(i, field.key, e.target.value)}
+                        rows={2}
+                        className="w-full rounded border border-border bg-white px-2 py-1.5 text-sm"
+                      />
+                    ) : field.type === "number" ? (
+                      <Input
+                        type="number"
+                        value={String(item[field.key] || 0)}
+                        onChange={(e) =>
+                          updateItem(i, field.key, parseInt(e.target.value) || 0)
+                        }
+                        className="text-sm"
+                      />
+                    ) : (
+                      <Input
+                        value={String(item[field.key] || "")}
+                        onChange={(e) => updateItem(i, field.key, e.target.value)}
+                        className="text-sm"
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+              <button
+                onClick={() => removeItem(i)}
+                className="mt-6 text-red-400 hover:text-red-600"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+        ))}
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={addItem}
+          className="w-full border-dashed"
+        >
+          + Add Item
+        </Button>
+      </div>
     </div>
   );
 }
@@ -129,7 +156,7 @@ function SectionCard({ section }: { section: Section }) {
   const [isPending, startTransition] = useTransition();
   const [saved, setSaved] = useState(false);
 
-  const contentObj = content as Record<string, string>;
+  const c = content as Record<string, unknown>;
 
   const handleSave = () => {
     startTransition(async () => {
@@ -152,126 +179,334 @@ function SectionCard({ section }: { section: Section }) {
   };
 
   const renderFields = () => {
-    switch (section.section_key) {
-      case "hero":
-        return (
-          <>
-            <FieldEditor
-              label="Headline"
-              value={String(contentObj.headline || "")}
-              onChange={(v) => updateField("headline", v)}
-            />
-            <FieldEditor
-              label="Subheadline"
-              value={String(contentObj.subheadline || "")}
-              onChange={(v) => updateField("subheadline", v)}
-              multiline
-            />
-            <FieldEditor
-              label="Search Placeholder"
-              value={String(contentObj.search_placeholder || "")}
-              onChange={(v) => updateField("search_placeholder", v)}
-            />
-            <div className="grid grid-cols-2 gap-3">
-              <FieldEditor
-                label="CTA 1 Text"
-                value={String(contentObj.cta_1_text || "")}
-                onChange={(v) => updateField("cta_1_text", v)}
-              />
-              <FieldEditor
-                label="CTA 1 Link"
-                value={String(contentObj.cta_1_link || "")}
-                onChange={(v) => updateField("cta_1_link", v)}
-              />
-              <FieldEditor
-                label="CTA 2 Text"
-                value={String(contentObj.cta_2_text || "")}
-                onChange={(v) => updateField("cta_2_text", v)}
-              />
-              <FieldEditor
-                label="CTA 2 Link"
-                value={String(contentObj.cta_2_link || "")}
-                onChange={(v) => updateField("cta_2_link", v)}
-              />
-            </div>
-          </>
-        );
+    const key = section.section_key;
+    const page = section.page;
 
-      case "categories":
-        return (
-          <>
-            <FieldEditor
-              label="Section Title"
-              value={String(contentObj.title || "")}
-              onChange={(v) => updateField("title", v)}
-            />
-            <FieldEditor
-              label="Subtitle"
-              value={String(contentObj.subtitle || "")}
-              onChange={(v) => updateField("subtitle", v)}
-            />
-            <div>
-              <label className="mb-2 block text-xs font-medium uppercase tracking-wider text-text-muted">
-                Category Items
-              </label>
-              <CategoryItemsEditor
-                items={
-                  Array.isArray(contentObj.items)
-                    ? (contentObj.items as Array<{
-                        label: string;
-                        description: string;
-                        icon: string;
-                      }>)
-                    : []
-                }
-                onChange={(items) =>
-                  setContent((prev) => ({ ...prev, items }))
-                }
-              />
-            </div>
-          </>
-        );
-
-      case "featured":
-        return (
-          <>
-            <FieldEditor
-              label="Section Title"
-              value={String(contentObj.title || "")}
-              onChange={(v) => updateField("title", v)}
-            />
-            <FieldEditor
-              label="Subtitle"
-              value={String(contentObj.subtitle || "")}
-              onChange={(v) => updateField("subtitle", v)}
-            />
-          </>
-        );
-
-      case "footer":
-        return (
-          <>
-            <FieldEditor
-              label="Tagline"
-              value={String(contentObj.tagline || "")}
-              onChange={(v) => updateField("tagline", v)}
-              multiline
-            />
-            <FieldEditor
-              label="Copyright Name"
-              value={String(contentObj.copyright || "")}
-              onChange={(v) => updateField("copyright", v)}
-            />
-          </>
-        );
-
-      default:
-        return (
-          <div className="rounded-lg border border-dashed border-border bg-surface p-4 text-center text-sm text-text-muted">
-            Section type: <code className="font-mono">{section.section_key}</code>
+    // ============================================
+    // HOME PAGE
+    // ============================================
+    if (page === "home" && key === "hero") {
+      return (
+        <>
+          <FieldEditor label="Headline" value={String(c.headline || "")} onChange={(v) => updateField("headline", v)} />
+          <FieldEditor label="Subheadline" value={String(c.subheadline || "")} onChange={(v) => updateField("subheadline", v)} multiline />
+          <FieldEditor label="Search Placeholder" value={String(c.search_placeholder || "")} onChange={(v) => updateField("search_placeholder", v)} />
+          <div className="grid grid-cols-2 gap-3">
+            <FieldEditor label="CTA 1 Text" value={String(c.cta_1_text || "")} onChange={(v) => updateField("cta_1_text", v)} />
+            <FieldEditor label="CTA 1 Link" value={String(c.cta_1_link || "")} onChange={(v) => updateField("cta_1_link", v)} />
+            <FieldEditor label="CTA 2 Text" value={String(c.cta_2_text || "")} onChange={(v) => updateField("cta_2_text", v)} />
+            <FieldEditor label="CTA 2 Link" value={String(c.cta_2_link || "")} onChange={(v) => updateField("cta_2_link", v)} />
           </div>
-        );
+        </>
+      );
     }
+
+    if (page === "home" && key === "categories") {
+      return (
+        <>
+          <FieldEditor label="Section Title" value={String(c.title || "")} onChange={(v) => updateField("title", v)} />
+          <FieldEditor label="Subtitle" value={String(c.subtitle || "")} onChange={(v) => updateField("subtitle", v)} />
+          <ArrayItemsEditor
+            label="Category Items"
+            items={Array.isArray(c.items) ? (c.items as Record<string, string | number>[]) : []}
+            onChange={(items) => setContent((prev) => ({ ...prev, items }))}
+            fields={[
+              { key: "icon", label: "Icon (emoji)", type: "text" },
+              { key: "label", label: "Name", type: "text" },
+              { key: "description", label: "Description", type: "text" },
+            ]}
+          />
+        </>
+      );
+    }
+
+    if (page === "home" && key === "featured") {
+      return (
+        <>
+          <FieldEditor label="Section Title" value={String(c.title || "")} onChange={(v) => updateField("title", v)} />
+          <FieldEditor label="Subtitle" value={String(c.subtitle || "")} onChange={(v) => updateField("subtitle", v)} />
+        </>
+      );
+    }
+
+    if (page === "home" && key === "stats") {
+      return (
+        <>
+          <FieldEditor label="Section Title" value={String(c.title || "")} onChange={(v) => updateField("title", v)} />
+          <FieldEditor label="Subtitle" value={String(c.subtitle || "")} onChange={(v) => updateField("subtitle", v)} />
+          <ArrayItemsEditor
+            label="Stats Items"
+            items={Array.isArray(c.items) ? (c.items as Record<string, string | number>[]) : []}
+            onChange={(items) => setContent((prev) => ({ ...prev, items }))}
+            fields={[
+              { key: "icon", label: "Icon (emoji)", type: "text" },
+              { key: "value", label: "Value", type: "text" },
+              { key: "label", label: "Label", type: "text" },
+            ]}
+          />
+        </>
+      );
+    }
+
+    if (page === "home" && key === "cta") {
+      return (
+        <>
+          <FieldEditor label="Title" value={String(c.title || "")} onChange={(v) => updateField("title", v)} />
+          <FieldEditor label="Subtitle" value={String(c.subtitle || "")} onChange={(v) => updateField("subtitle", v)} multiline />
+          <div className="grid grid-cols-2 gap-3">
+            <FieldEditor label="Button Text" value={String(c.button_text || "")} onChange={(v) => updateField("button_text", v)} />
+            <FieldEditor label="Button Link" value={String(c.button_link || "")} onChange={(v) => updateField("button_link", v)} />
+          </div>
+        </>
+      );
+    }
+
+    // ============================================
+    // HEADER
+    // ============================================
+    if (page === "header" && key === "header") {
+      return (
+        <>
+          <div className="grid grid-cols-2 gap-3">
+            <FieldEditor label="Site Name" value={String(c.site_name || "")} onChange={(v) => updateField("site_name", v)} />
+            <FieldEditor label="Logo Text" value={String(c.logo_text || "")} onChange={(v) => updateField("logo_text", v)} />
+          </div>
+          <ArrayItemsEditor
+            label="Navigation Items"
+            items={Array.isArray(c.nav_items) ? (c.nav_items as Record<string, string | number>[]) : []}
+            onChange={(items) => setContent((prev) => ({ ...prev, nav_items: items }))}
+            fields={[
+              { key: "label", label: "Label", type: "text" },
+              { key: "href", label: "Link (URL)", type: "text" },
+            ]}
+          />
+        </>
+      );
+    }
+
+    // ============================================
+    // FOOTER
+    // ============================================
+    if (page === "footer" && key === "footer") {
+      return (
+        <>
+          <div className="grid grid-cols-2 gap-3">
+            <FieldEditor label="Site Name" value={String(c.site_name || "")} onChange={(v) => updateField("site_name", v)} />
+            <FieldEditor label="Logo Text" value={String(c.logo_text || "")} onChange={(v) => updateField("logo_text", v)} />
+          </div>
+          <FieldEditor label="Tagline" value={String(c.tagline || "")} onChange={(v) => updateField("tagline", v)} multiline />
+          <FieldEditor label="Copyright" value={String(c.copyright || "")} onChange={(v) => updateField("copyright", v)} />
+          <ArrayItemsEditor
+            label="Explore Links"
+            items={Array.isArray(c.explore_links) ? (c.explore_links as Record<string, string | number>[]) : []}
+            onChange={(items) => setContent((prev) => ({ ...prev, explore_links: items }))}
+            fields={[
+              { key: "label", label: "Label", type: "text" },
+              { key: "href", label: "Link", type: "text" },
+            ]}
+          />
+          <ArrayItemsEditor
+            label="Resource Links"
+            items={Array.isArray(c.resource_links) ? (c.resource_links as Record<string, string | number>[]) : []}
+            onChange={(items) => setContent((prev) => ({ ...prev, resource_links: items }))}
+            fields={[
+              { key: "label", label: "Label", type: "text" },
+              { key: "href", label: "Link", type: "text" },
+            ]}
+          />
+          <ArrayItemsEditor
+            label="Legal Links"
+            items={Array.isArray(c.legal_links) ? (c.legal_links as Record<string, string | number>[]) : []}
+            onChange={(items) => setContent((prev) => ({ ...prev, legal_links: items }))}
+            fields={[
+              { key: "label", label: "Label", type: "text" },
+              { key: "href", label: "Link", type: "text" },
+            ]}
+          />
+        </>
+      );
+    }
+
+    // ============================================
+    // HOW TO APPLY
+    // ============================================
+    if (page === "how-to-apply" && key === "hero") {
+      return (
+        <>
+          <FieldEditor label="Title" value={String(c.title || "")} onChange={(v) => updateField("title", v)} />
+          <FieldEditor label="Subtitle" value={String(c.subtitle || "")} onChange={(v) => updateField("subtitle", v)} multiline />
+        </>
+      );
+    }
+
+    if (page === "how-to-apply" && key === "steps") {
+      return (
+        <ArrayItemsEditor
+          label="Application Steps"
+          items={Array.isArray(c.items) ? (c.items as Record<string, string | number>[]) : []}
+          onChange={(items) => setContent((prev) => ({ ...prev, items }))}
+          fields={[
+            { key: "number", label: "Step #", type: "text" },
+            { key: "icon", label: "Icon (emoji)", type: "text" },
+            { key: "title", label: "Title", type: "text" },
+            { key: "description", label: "Description", type: "textarea" },
+            { key: "details", label: "Details (comma separated)", type: "text" },
+          ]}
+        />
+      );
+    }
+
+    if (page === "how-to-apply" && key === "tips") {
+      return (
+        <>
+          <FieldEditor label="Section Title" value={String(c.title || "")} onChange={(v) => updateField("title", v)} />
+          <ArrayItemsEditor
+            label="Tips"
+            items={Array.isArray(c.items) ? (c.items as Record<string, string | number>[]) : []}
+            onChange={(items) => setContent((prev) => ({ ...prev, items }))}
+            fields={[
+              { key: "title", label: "Title", type: "text" },
+              { key: "description", label: "Description", type: "textarea" },
+            ]}
+          />
+        </>
+      );
+    }
+
+    if (page === "how-to-apply" && key === "cta") {
+      return (
+        <>
+          <FieldEditor label="Title" value={String(c.title || "")} onChange={(v) => updateField("title", v)} />
+          <FieldEditor label="Subtitle" value={String(c.subtitle || "")} onChange={(v) => updateField("subtitle", v)} multiline />
+          <div className="grid grid-cols-2 gap-3">
+            <FieldEditor label="Button 1 Text" value={String(c.button_1_text || "")} onChange={(v) => updateField("button_1_text", v)} />
+            <FieldEditor label="Button 1 Link" value={String(c.button_1_link || "")} onChange={(v) => updateField("button_1_link", v)} />
+            <FieldEditor label="Button 2 Text" value={String(c.button_2_text || "")} onChange={(v) => updateField("button_2_text", v)} />
+            <FieldEditor label="Button 2 Link" value={String(c.button_2_link || "")} onChange={(v) => updateField("button_2_link", v)} />
+          </div>
+        </>
+      );
+    }
+
+    // ============================================
+    // BLOG
+    // ============================================
+    if (page === "blog" && key === "hero") {
+      return (
+        <>
+          <FieldEditor label="Title" value={String(c.title || "")} onChange={(v) => updateField("title", v)} />
+          <FieldEditor label="Subtitle" value={String(c.subtitle || "")} onChange={(v) => updateField("subtitle", v)} multiline />
+        </>
+      );
+    }
+
+    if (page === "blog" && key === "posts") {
+      return (
+        <ArrayItemsEditor
+          label="Blog Posts"
+          items={Array.isArray(c.items) ? (c.items as Record<string, string | number>[]) : []}
+          onChange={(items) => setContent((prev) => ({ ...prev, items }))}
+          fields={[
+            { key: "slug", label: "Slug (URL)", type: "text" },
+            { key: "title", label: "Title", type: "text" },
+            { key: "excerpt", label: "Excerpt", type: "textarea" },
+            { key: "category", label: "Category", type: "text" },
+            { key: "date", label: "Date (YYYY-MM-DD)", type: "text" },
+            { key: "readTime", label: "Read Time", type: "text" },
+          ]}
+        />
+      );
+    }
+
+    // ============================================
+    // STORIES
+    // ============================================
+    if (page === "stories" && key === "hero") {
+      return (
+        <>
+          <FieldEditor label="Title" value={String(c.title || "")} onChange={(v) => updateField("title", v)} />
+          <FieldEditor label="Subtitle" value={String(c.subtitle || "")} onChange={(v) => updateField("subtitle", v)} multiline />
+        </>
+      );
+    }
+
+    if (page === "stories" && key === "stories") {
+      return (
+        <ArrayItemsEditor
+          label="Student Stories"
+          items={Array.isArray(c.items) ? (c.items as Record<string, string | number>[]) : []}
+          onChange={(items) => setContent((prev) => ({ ...prev, items }))}
+          fields={[
+            { key: "avatar", label: "Avatar (emoji)", type: "text" },
+            { key: "name", label: "Name", type: "text" },
+            { key: "country", label: "From Country", type: "text" },
+            { key: "destination", label: "Destination", type: "text" },
+            { key: "program", label: "Program Name", type: "text" },
+            { key: "quote", label: "Quote", type: "textarea" },
+            { key: "year", label: "Year", type: "text" },
+          ]}
+        />
+      );
+    }
+
+    // ============================================
+    // DESTINATIONS
+    // ============================================
+    if (page === "destinations" && key === "hero") {
+      return (
+        <>
+          <FieldEditor label="Title" value={String(c.title || "")} onChange={(v) => updateField("title", v)} />
+          <FieldEditor label="Subtitle" value={String(c.subtitle || "")} onChange={(v) => updateField("subtitle", v)} multiline />
+        </>
+      );
+    }
+
+    if (page === "destinations" && key === "top") {
+      return (
+        <>
+          <FieldEditor label="Section Title" value={String(c.title || "")} onChange={(v) => updateField("title", v)} />
+          <ArrayItemsEditor
+            label="Top Destinations"
+            items={Array.isArray(c.items) ? (c.items as Record<string, string | number>[]) : []}
+            onChange={(items) => setContent((prev) => ({ ...prev, items }))}
+            fields={[
+              { key: "flag", label: "Flag (emoji)", type: "text" },
+              { key: "name", label: "Country", type: "text" },
+              { key: "programs", label: "# Programs", type: "number" },
+            ]}
+          />
+        </>
+      );
+    }
+
+    if (page === "destinations" && key === "regions") {
+      return (
+        <>
+          <FieldEditor label="Section Title" value={String(c.title || "")} onChange={(v) => updateField("title", v)} />
+          <ArrayItemsEditor
+            label="Regions"
+            items={Array.isArray(c.items) ? (c.items as Record<string, string | number>[]) : []}
+            onChange={(items) => setContent((prev) => ({ ...prev, items }))}
+            fields={[
+              { key: "name", label: "Name", type: "text" },
+              { key: "description", label: "Description", type: "textarea" },
+              { key: "countries", label: "Countries (comma separated)", type: "text" },
+              { key: "count", label: "# Opportunities", type: "number" },
+              { key: "color", label: "Color (tailwind)", type: "text" },
+            ]}
+          />
+        </>
+      );
+    }
+
+    // ============================================
+    // FALLBACK
+    // ============================================
+    return (
+      <div className="rounded-lg border border-dashed border-border bg-surface p-4 text-center text-sm text-text-muted">
+        Section: <code className="font-mono">{section.page}/{section.section_key}</code>
+      </div>
+    );
   };
 
   return (
@@ -289,6 +524,15 @@ function SectionCard({ section }: { section: Section }) {
             {section.section_key === "categories" && "📂"}
             {section.section_key === "featured" && "⭐"}
             {section.section_key === "footer" && "📎"}
+            {section.section_key === "header" && "📌"}
+            {section.section_key === "steps" && "📋"}
+            {section.section_key === "tips" && "💡"}
+            {section.section_key === "posts" && "📰"}
+            {section.section_key === "stories" && "💬"}
+            {section.section_key === "top" && "🌍"}
+            {section.section_key === "regions" && "🗺️"}
+            {section.section_key === "cta" && "📢"}
+            {section.section_key === "stats" && "📊"}
           </div>
           <input
             value={title}
@@ -322,21 +566,29 @@ function SectionCard({ section }: { section: Section }) {
   );
 }
 
-export function SectionEditor({ sections }: { sections: Section[] }) {
+export function SectionEditor({ sections, page }: { sections: Section[]; page: string }) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-lg font-bold text-text-main">Page Sections</h2>
+          <h2 className="text-lg font-bold text-text-main capitalize">
+            {page.replace(/-/g, " ")} Sections
+          </h2>
           <p className="text-sm text-text-muted">
             Edit each section below. Changes appear live on the site.
           </p>
         </div>
       </div>
 
-      {sections.map((section) => (
-        <SectionCard key={section.id} section={section} />
-      ))}
+      {sections.length === 0 ? (
+        <div className="rounded-2xl border border-dashed border-border bg-white p-12 text-center">
+          <p className="text-text-muted">No sections found for this page.</p>
+        </div>
+      ) : (
+        sections.map((section) => (
+          <SectionCard key={section.id} section={section} />
+        ))
+      )}
     </div>
   );
 }

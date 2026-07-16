@@ -15,19 +15,31 @@ import type { Opportunity } from "@/types";
 
 type Tab = "page" | "opportunities" | "settings";
 
+interface Section {
+  id: string;
+  page: string;
+  section_key: string;
+  title: string;
+  content: Record<string, unknown>;
+  sort_order: number;
+  visible: boolean;
+}
+
 interface AdminData {
   content: { key: string; value: string; section: string }[];
   opportunities: Opportunity[];
-  sections: Array<{
-    id: string;
-    page: string;
-    section_key: string;
-    title: string;
-    content: Record<string, unknown>;
-    sort_order: number;
-    visible: boolean;
-  }>;
+  sectionsByPage: Record<string, Section[]>;
 }
+
+const PAGES = [
+  { key: "home", label: "Homepage", icon: "🏠" },
+  { key: "header", label: "Header / Nav", icon: "📌" },
+  { key: "footer", label: "Footer", icon: "📎" },
+  { key: "how-to-apply", label: "How to Apply", icon: "📝" },
+  { key: "blog", label: "Blog", icon: "📰" },
+  { key: "stories", label: "Student Stories", icon: "💬" },
+  { key: "destinations", label: "Destinations", icon: "🌍" },
+];
 
 function getUnlockedSnapshot() {
   if (typeof window === "undefined") return "false";
@@ -43,6 +55,7 @@ export default function AdminPage() {
   const [tab, setTab] = useState<Tab>("page");
   const [data, setData] = useState<AdminData | null>(null);
   const [loading, setLoading] = useState(false);
+  const [selectedPage, setSelectedPage] = useState("home");
 
   const unlockedStr = useSyncExternalStore(
     subscribeToUnlock,
@@ -54,15 +67,23 @@ export default function AdminPage() {
   const fetchData = useCallback(async () => {
     if (data) return;
     setLoading(true);
-    const [contentRes, oppsRes, sectionsRes] = await Promise.all([
+    const [contentRes, oppsRes] = await Promise.all([
       getSiteContent(),
       getAllOpportunities(),
-      getPageSections("home"),
     ]);
+
+    const sectionsByPage: Record<string, Section[]> = {};
+    await Promise.all(
+      PAGES.map(async (p) => {
+        const res = await getPageSections(p.key);
+        sectionsByPage[p.key] = (res.data || []) as Section[];
+      })
+    );
+
     setData({
       content: contentRes.data || [],
       opportunities: (oppsRes.data || []) as Opportunity[],
-      sections: (sectionsRes.data || []) as AdminData["sections"],
+      sectionsByPage,
     });
     setLoading(false);
   }, [data]);
@@ -82,6 +103,8 @@ export default function AdminPage() {
       data={data}
       loading={loading}
       fetchData={fetchData}
+      selectedPage={selectedPage}
+      setSelectedPage={setSelectedPage}
     />
   );
 }
@@ -92,12 +115,16 @@ function AdminPanel({
   data,
   loading,
   fetchData,
+  selectedPage,
+  setSelectedPage,
 }: {
   tab: Tab;
   setTab: (t: Tab) => void;
   data: AdminData | null;
   loading: boolean;
   fetchData: () => Promise<void>;
+  selectedPage: string;
+  setSelectedPage: (p: string) => void;
 }) {
   if (!data && !loading) {
     void fetchData();
@@ -124,7 +151,7 @@ function AdminPanel({
         </div>
       </div>
 
-      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-8 flex gap-1 rounded-xl border border-border bg-white p-1">
           <button
             onClick={() => setTab("page")}
@@ -164,7 +191,34 @@ function AdminPanel({
           </div>
         ) : (
           <>
-            {tab === "page" && <SectionEditor sections={data.sections} />}
+            {tab === "page" && (
+              <div className="space-y-6">
+                <div className="flex flex-wrap gap-2 rounded-xl border border-border bg-white p-3">
+                  {PAGES.map((p) => (
+                    <button
+                      key={p.key}
+                      onClick={() => setSelectedPage(p.key)}
+                      className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                        selectedPage === p.key
+                          ? "bg-orange text-white"
+                          : "text-text-muted hover:bg-surface"
+                      }`}
+                    >
+                      <span>{p.icon}</span>
+                      <span>{p.label}</span>
+                      <span className="ml-1 rounded-full bg-white/20 px-1.5 py-0.5 text-xs">
+                        {(data.sectionsByPage[p.key] || []).length}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+
+                <SectionEditor
+                  sections={data.sectionsByPage[selectedPage] || []}
+                  page={selectedPage}
+                />
+              </div>
+            )}
             {tab === "opportunities" && (
               <OpportunityManager opportunities={data.opportunities} />
             )}
