@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useSyncExternalStore } from "react";
+import { useState, useCallback, useSyncExternalStore, useEffect } from "react";
 import Link from "next/link";
 import { AdminGate } from "@/components/admin/AdminGate";
 import { ContentEditor } from "@/components/admin/ContentEditor";
@@ -52,41 +52,12 @@ function subscribeToUnlock(callback: () => void) {
 }
 
 export default function AdminPage() {
-  const [tab, setTab] = useState<Tab>("page");
-  const [data, setData] = useState<AdminData | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [selectedPage, setSelectedPage] = useState("home");
-
   const unlockedStr = useSyncExternalStore(
     subscribeToUnlock,
     getUnlockedSnapshot,
     () => "false"
   );
   const unlocked = unlockedStr === "true";
-
-  const fetchData = useCallback(async () => {
-    if (data) return;
-    setLoading(true);
-    const [contentRes, oppsRes] = await Promise.all([
-      getSiteContent(),
-      getAllOpportunities(),
-    ]);
-
-    const sectionsByPage: Record<string, Section[]> = {};
-    await Promise.all(
-      PAGES.map(async (p) => {
-        const res = await getPageSections(p.key);
-        sectionsByPage[p.key] = (res.data || []) as Section[];
-      })
-    );
-
-    setData({
-      content: contentRes.data || [],
-      opportunities: (oppsRes.data || []) as Opportunity[],
-      sectionsByPage,
-    });
-    setLoading(false);
-  }, [data]);
 
   if (!unlocked) {
     const handleUnlock = () => {
@@ -96,39 +67,54 @@ export default function AdminPage() {
     return <AdminGate onUnlock={handleUnlock} />;
   }
 
-  return (
-    <AdminPanel
-      tab={tab}
-      setTab={setTab}
-      data={data}
-      loading={loading}
-      fetchData={fetchData}
-      selectedPage={selectedPage}
-      setSelectedPage={setSelectedPage}
-    />
-  );
+  return <AdminPanel />;
 }
 
-function AdminPanel({
-  tab,
-  setTab,
-  data,
-  loading,
-  fetchData,
-  selectedPage,
-  setSelectedPage,
-}: {
-  tab: Tab;
-  setTab: (t: Tab) => void;
-  data: AdminData | null;
-  loading: boolean;
-  fetchData: () => Promise<void>;
-  selectedPage: string;
-  setSelectedPage: (p: string) => void;
-}) {
-  if (!data && !loading) {
+function AdminPanel() {
+  const [tab, setTab] = useState<Tab>("page");
+  const [data, setData] = useState<AdminData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [selectedPage, setSelectedPage] = useState("home");
+
+  const fetchData = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const [contentRes, oppsRes] = await Promise.all([
+        getSiteContent(),
+        getAllOpportunities(),
+      ]);
+
+      const sectionsByPage: Record<string, Section[]> = {};
+      await Promise.all(
+        PAGES.map(async (p) => {
+          const res = await getPageSections(p.key);
+          sectionsByPage[p.key] = (res.data || []) as Section[];
+        })
+      );
+
+      setData({
+        content: contentRes.data || [],
+        opportunities: (oppsRes.data || []) as Opportunity[],
+        sectionsByPage,
+      });
+    } catch (e) {
+      setError((e as Error).message || "Failed to load data");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     void fetchData();
-  }
+  }, [fetchData]);
+
+  const handleRefresh = useCallback(() => {
+    setData(null);
+    void fetchData();
+  }, [fetchData]);
 
   return (
     <div className="min-h-screen bg-surface">
@@ -145,9 +131,17 @@ function AdminPanel({
               Admin
             </span>
           </div>
-          <Link href="/" className="text-sm text-text-muted hover:text-orange">
-            View Site →
-          </Link>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={handleRefresh}
+              className="text-sm text-text-muted hover:text-orange"
+            >
+              Refresh
+            </button>
+            <Link href="/" className="text-sm text-text-muted hover:text-orange">
+              View Site →
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -185,9 +179,29 @@ function AdminPanel({
           </button>
         </div>
 
-        {loading || !data ? (
+        {loading ? (
           <div className="flex items-center justify-center py-20">
             <div className="size-8 animate-spin rounded-full border-4 border-orange border-t-transparent" />
+          </div>
+        ) : error ? (
+          <div className="rounded-2xl border border-red-200 bg-red-50 p-8 text-center">
+            <p className="text-red-700">{error}</p>
+            <button
+              onClick={handleRefresh}
+              className="mt-4 rounded-lg bg-orange px-4 py-2 text-sm text-white hover:bg-orange-hover"
+            >
+              Try Again
+            </button>
+          </div>
+        ) : !data ? (
+          <div className="rounded-2xl border border-border bg-white p-8 text-center">
+            <p className="text-text-muted">No data loaded.</p>
+            <button
+              onClick={handleRefresh}
+              className="mt-4 rounded-lg bg-orange px-4 py-2 text-sm text-white hover:bg-orange-hover"
+            >
+              Load Data
+            </button>
           </div>
         ) : (
           <>

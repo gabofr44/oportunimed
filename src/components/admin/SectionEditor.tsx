@@ -155,22 +155,33 @@ function SectionCard({ section }: { section: Section }) {
   const [visible, setVisible] = useState(section.visible);
   const [isPending, startTransition] = useTransition();
   const [saved, setSaved] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const c = content as Record<string, unknown>;
 
   const handleSave = () => {
+    setError(null);
     startTransition(async () => {
-      await updatePageSection(section.id, content, title);
-      setSaved(true);
-      setTimeout(() => setSaved(false), 2000);
+      const result = await updatePageSection(section.id, content, title);
+      if (result.error) {
+        setError(result.error);
+      } else {
+        setSaved(true);
+        setTimeout(() => setSaved(false), 2000);
+      }
     });
   };
 
   const handleToggleVisible = () => {
     const newVisible = !visible;
     setVisible(newVisible);
+    setError(null);
     startTransition(async () => {
-      await updateSectionVisibility(section.id, newVisible);
+      const result = await updateSectionVisibility(section.id, newVisible);
+      if (result.error) {
+        setError(result.error);
+        setVisible(!newVisible);
+      }
     });
   };
 
@@ -541,6 +552,11 @@ function SectionCard({ section }: { section: Section }) {
           />
         </div>
         <div className="flex items-center gap-2">
+          {error && (
+            <span className="text-xs text-red-600 max-w-48 truncate" title={error}>
+              Error saving
+            </span>
+          )}
           <button
             onClick={handleToggleVisible}
             className={`rounded-full px-2 py-0.5 text-xs font-medium ${
@@ -553,11 +569,11 @@ function SectionCard({ section }: { section: Section }) {
           </button>
           <Button
             size="sm"
-            className="bg-orange text-white hover:bg-orange-hover"
+            className={`${saved ? "bg-emerald-600" : error ? "bg-red-600" : "bg-orange"} text-white hover:opacity-90`}
             onClick={handleSave}
             disabled={isPending}
           >
-            {saved ? "✓ Saved" : isPending ? "..." : "Save"}
+            {saved ? "✓ Saved" : isPending ? "..." : error ? "Retry" : "Save"}
           </Button>
         </div>
       </div>

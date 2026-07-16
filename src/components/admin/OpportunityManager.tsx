@@ -123,7 +123,7 @@ export function OpportunityManager({
         </p>
         <div className="flex gap-2">
           {message && (
-            <span className="text-sm font-medium text-orange">{message}</span>
+            <span className={`text-sm font-medium ${message.startsWith("Error") ? "text-red-600" : "text-orange"}`}>{message}</span>
           )}
           <Button
             className="bg-orange text-white hover:bg-orange-hover"

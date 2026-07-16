@@ -13,6 +13,7 @@ export function ContentEditor({ content }: ContentEditorProps) {
   const [items, setItems] = useState(content);
   const [isPending, startTransition] = useTransition();
   const [saved, setSaved] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleUpdate = (key: string, value: string) => {
     setItems((prev) =>
@@ -21,17 +22,35 @@ export function ContentEditor({ content }: ContentEditorProps) {
   };
 
   const handleSave = (key: string, value: string) => {
+    setError(null);
     startTransition(async () => {
-      await updateSiteContent(key, value);
-      setSaved(key);
-      setTimeout(() => setSaved(null), 2000);
+      const result = await updateSiteContent(key, value);
+      if (result.error) {
+        setError(result.error);
+      } else {
+        setSaved(key);
+        setTimeout(() => setSaved(null), 2000);
+      }
     });
   };
 
   const sections = [...new Set(items.map((i) => i.section))];
 
+  if (sections.length === 0) {
+    return (
+      <div className="rounded-2xl border border-dashed border-border bg-white p-12 text-center">
+        <p className="text-text-muted">No site content found. Run the database migration first.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-8">
+      {error && (
+        <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+          Error: {error}
+        </div>
+      )}
       {sections.map((section) => (
         <div key={section}>
           <h3 className="mb-4 text-lg font-semibold text-text-main capitalize">
@@ -53,7 +72,11 @@ export function ContentEditor({ content }: ContentEditorProps) {
                     />
                     <Button
                       size="sm"
-                      className="shrink-0 bg-orange text-white hover:bg-orange-hover"
+                      className={`shrink-0 ${
+                        saved === item.key
+                          ? "bg-emerald-600"
+                          : "bg-orange"
+                      } text-white hover:opacity-90`}
                       onClick={() => handleSave(item.key, item.value)}
                       disabled={isPending}
                     >
