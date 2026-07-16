@@ -3,15 +3,15 @@ import { Button } from "@/components/ui/button";
 
 export default function AuthErrorPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-surface px-4">
+    <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="text-center">
-        <h1 className="text-2xl font-bold text-text-main">Authentication Error</h1>
+        <h1 className="text-2xl font-bold text-text-main">Error de autenticación</h1>
         <p className="mt-2 text-text-muted">
-          Something went wrong during authentication. Please try again.
+          Algo salió mal durante la autenticación. Por favor, intenta de nuevo.
         </p>
         <Link href="/auth/login" className="mt-6 inline-block">
-          <Button className="bg-orange text-white hover:bg-orange-hover">
-            Back to Login
+          <Button className="rounded-xl bg-primary text-primary-foreground hover:bg-primary/90">
+            Volver al inicio de sesión
           </Button>
         </Link>
       </div>

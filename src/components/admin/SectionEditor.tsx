@@ -36,7 +36,7 @@ function FieldEditor({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           rows={3}
-          className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm text-text-main focus:border-orange focus:ring-1 focus:ring-orange"
+          className="w-full rounded-xl border border-border bg-card px-3 py-2 text-sm text-text-main focus:border-blue focus:ring-1 focus:ring-blue"
         />
       ) : (
         <Input
@@ -106,7 +106,7 @@ function ArrayItemsEditor({
                         value={String(item[field.key] || "")}
                         onChange={(e) => updateItem(i, field.key, e.target.value)}
                         rows={2}
-                        className="w-full rounded border border-border bg-white px-2 py-1.5 text-sm"
+                        className="w-full rounded border border-border bg-card px-2 py-1.5 text-sm"
                       />
                     ) : field.type === "number" ? (
                       <Input
@@ -524,13 +524,13 @@ function SectionCard({ section }: { section: Section }) {
     <div
       className={`rounded-2xl border transition-all ${
         visible
-          ? "border-border bg-white"
+          ? "border-border bg-card"
           : "border-dashed border-slate-300 bg-slate-50 opacity-60"
       }`}
     >
       <div className="flex items-center justify-between border-b border-border px-5 py-3">
         <div className="flex items-center gap-3">
-          <div className="flex size-8 items-center justify-center rounded-lg bg-orange/10 text-sm">
+          <div className="flex size-8 items-center justify-center rounded-lg bg-blue/8 text-sm">
             {section.section_key === "hero" && "🏠"}
             {section.section_key === "categories" && "📂"}
             {section.section_key === "featured" && "⭐"}
@@ -569,7 +569,7 @@ function SectionCard({ section }: { section: Section }) {
           </button>
           <Button
             size="sm"
-            className={`${saved ? "bg-emerald-600" : error ? "bg-red-600" : "bg-orange"} text-white hover:opacity-90`}
+            className={`${saved ? "bg-success" : error ? "bg-red-600" : "bg-primary"} text-white hover:opacity-90`}
             onClick={handleSave}
             disabled={isPending}
           >
@@ -597,7 +597,7 @@ export function SectionEditor({ sections, page }: { sections: Section[]; page: s
       </div>
 
       {sections.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-border bg-white p-12 text-center">
+        <div className="rounded-2xl border border-dashed border-border bg-card p-12 text-center">
           <p className="text-text-muted">No sections found for this page.</p>
         </div>
       ) : (

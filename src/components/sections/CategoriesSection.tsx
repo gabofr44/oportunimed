@@ -1,3 +1,8 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { GraduationCap, Beaker, Briefcase, BookOpen } from "lucide-react";
+
 interface CategoryItem {
   label: string;
   description: string;
@@ -10,43 +15,60 @@ interface CategoriesContent {
   items?: CategoryItem[];
 }
 
+const iconMap: Record<string, React.ReactNode> = {
+  "🎓": <GraduationCap className="size-6" />,
+  "🔬": <Beaker className="size-6" />,
+  "💼": <Briefcase className="size-6" />,
+  "📖": <BookOpen className="size-6" />,
+};
+
 const defaultItems: CategoryItem[] = [
-  { label: "Scholarships", description: "Full & Partial Funding", icon: "🎓" },
-  { label: "Research Programs", description: "STEM & Humanities Research", icon: "🔬" },
-  { label: "Internships", description: "Professional Placements Abroad", icon: "💼" },
-  { label: "Language & Summer", description: "Short-term Study Abroad", icon: "📖" },
+  { label: "Becas", description: "Financiamiento completo y parcial", icon: "🎓" },
+  { label: "Investigación", description: "STEM y Humanidades", icon: "🔬" },
+  { label: "Internados", description: "Experiencia profesional en el extranjero", icon: "💼" },
+  { label: "Cursos & Verano", description: "Programas de corta duración", icon: "📖" },
 ];
 
 export function CategoriesSection({ content }: { content?: CategoriesContent }) {
   const c = content || {};
-  const items = (c.items && c.items.length > 0) ? c.items : defaultItems;
+  const items = c.items && c.items.length > 0 ? c.items : defaultItems;
 
   return (
-    <section className="bg-surface py-20">
+    <section className="bg-background py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold text-text-main sm:text-4xl">
-            {c.title || "Categories"}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="text-center"
+        >
+          <h2 className="text-3xl font-bold tracking-tight text-text-main sm:text-4xl">
+            {c.title || "Categorías"}
           </h2>
-          <p className="mt-3 text-lg text-text-muted">
-            {c.subtitle || ""}
+          <p className="mt-3 text-base text-text-muted">
+            {c.subtitle || "Explora oportunidades por tipo de programa"}
           </p>
-        </div>
+        </motion.div>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {items.map((cat) => (
-            <div
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {items.map((cat, i) => (
+            <motion.div
               key={cat.label}
-              className="group cursor-pointer rounded-2xl border border-border bg-white p-6 text-center shadow-sm transition-all hover:border-orange hover:shadow-md"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.07 }}
+              className="bento-shadow card-hover group cursor-pointer rounded-2xl border border-border bg-card p-6 noise"
             >
-              <div className="mx-auto flex size-16 items-center justify-center rounded-2xl bg-surface text-3xl transition-colors group-hover:bg-orange/10">
-                {cat.icon}
+              <div className="relative z-10">
+                <div className="flex size-12 items-center justify-center rounded-xl bg-blue/8 text-blue transition-colors group-hover:bg-blue group-hover:text-white">
+                  {iconMap[cat.icon] || <span className="text-2xl">{cat.icon}</span>}
+                </div>
+                <h3 className="mt-4 text-base font-semibold text-text-main">{cat.label}</h3>
+                <p className="mt-1 text-sm text-text-muted">{cat.description}</p>
               </div>
-              <h3 className="mt-4 text-lg font-semibold text-text-main">
-                {cat.label}
-              </h3>
-              <p className="mt-1 text-sm text-text-muted">{cat.description}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

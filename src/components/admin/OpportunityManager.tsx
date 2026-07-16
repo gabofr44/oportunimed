@@ -10,6 +10,7 @@ import {
   adminDeleteOpportunity,
 } from "@/actions/admin";
 import type { Opportunity } from "@/types";
+import { Plus, Pencil, Trash2, Loader2 } from "lucide-react";
 
 const emptyForm = {
   title: "",
@@ -69,10 +70,7 @@ export function OpportunityManager({
       deadline: form.deadline,
       description: form.description || undefined,
       link: form.link || undefined,
-      tags: form.tags
-        .split(",")
-        .map((t) => t.trim())
-        .filter(Boolean),
+      tags: form.tags.split(",").map((t) => t.trim()).filter(Boolean),
       is_featured: form.is_featured,
     };
 
@@ -84,11 +82,9 @@ export function OpportunityManager({
           return;
         }
         setItems((prev) =>
-          prev.map((i) =>
-            i.id === editingId ? { ...i, ...data } : i
-          ) as Opportunity[]
+          prev.map((i) => (i.id === editingId ? { ...i, ...data } : i)) as Opportunity[]
         );
-        setMessage("Updated!");
+        setMessage("Actualizado!");
       } else {
         const { data: created, error } = await adminCreateOpportunity(data);
         if (error) {
@@ -96,7 +92,7 @@ export function OpportunityManager({
           return;
         }
         setItems((prev) => [created as Opportunity, ...prev]);
-        setMessage("Created!");
+        setMessage("Creado!");
       }
       resetForm();
       setTimeout(() => setMessage(""), 2000);
@@ -104,12 +100,12 @@ export function OpportunityManager({
   };
 
   const handleDelete = (id: string) => {
-    if (!confirm("Delete this opportunity?")) return;
+    if (!confirm("¿Eliminar esta convocatoria?")) return;
     startTransition(async () => {
       const { error } = await adminDeleteOpportunity(id);
       if (!error) {
         setItems((prev) => prev.filter((i) => i.id !== id));
-        setMessage("Deleted!");
+        setMessage("Eliminado!");
         setTimeout(() => setMessage(""), 2000);
       }
     });
@@ -119,200 +115,109 @@ export function OpportunityManager({
     <div>
       <div className="mb-6 flex items-center justify-between">
         <p className="text-sm text-text-muted">
-          {items.length} opportunities
+          {items.length} convocatorias
         </p>
         <div className="flex gap-2">
           {message && (
-            <span className={`text-sm font-medium ${message.startsWith("Error") ? "text-red-600" : "text-orange"}`}>{message}</span>
+            <span className={`text-sm font-medium ${message.startsWith("Error") ? "text-red-600" : "text-blue"}`}>{message}</span>
           )}
           <Button
-            className="bg-orange text-white hover:bg-orange-hover"
+            className="rounded-xl bg-primary text-primary-foreground hover:bg-primary/90"
             onClick={() => {
               resetForm();
               setShowForm(!showForm);
             }}
           >
-            {showForm ? "Cancel" : "+ New Opportunity"}
+            {showForm ? "Cancelar" : <><Plus className="mr-1 size-4" /> Nueva convocatoria</>}
           </Button>
         </div>
       </div>
 
       {showForm && (
-        <div className="mb-8 rounded-2xl border border-orange/30 bg-white p-6">
-          <h3 className="mb-4 text-lg font-semibold text-text-main">
-            {editingId ? "Edit Opportunity" : "New Opportunity"}
-          </h3>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <label className="mb-1 block text-xs font-medium text-text-muted">
-                Title *
-              </label>
-              <Input
-                value={form.title}
-                onChange={(e) => setForm({ ...form, title: e.target.value })}
-                placeholder="Fulbright Scholarship 2026"
-              />
+        <div className="mb-8 bento-shadow rounded-2xl border border-blue/20 bg-card p-6 noise">
+          <div className="relative z-10">
+            <h3 className="mb-4 text-lg font-semibold text-text-main">
+              {editingId ? "Editar convocatoria" : "Nueva convocatoria"}
+            </h3>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label className="mb-1 block text-xs font-medium text-text-muted">Título *</label>
+                <Input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="Beca Fulbright 2026" className="rounded-xl" />
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-medium text-text-muted">Institución *</label>
+                <Input value={form.institution} onChange={(e) => setForm({ ...form, institution: e.target.value })} placeholder="U.S. Department of State" className="rounded-xl" />
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-medium text-text-muted">Ubicación *</label>
+                <Input value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} placeholder="Estados Unidos" className="rounded-xl" />
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-medium text-text-muted">Tipo</label>
+                <select value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })} className="w-full rounded-xl border border-border bg-card px-3 py-2 text-sm">
+                  <option value="scholarship">Beca</option>
+                  <option value="research">Investigación</option>
+                  <option value="internship">Internado</option>
+                  <option value="course">Curso</option>
+                </select>
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-medium text-text-muted">Deadline *</label>
+                <Input type="date" value={form.deadline} onChange={(e) => setForm({ ...form, deadline: e.target.value })} className="rounded-xl" />
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-medium text-text-muted">Tags (separados por coma)</label>
+                <Input value={form.tags} onChange={(e) => setForm({ ...form, tags: e.target.value })} placeholder="Financiado, Graduado, USA" className="rounded-xl" />
+              </div>
+              <div className="sm:col-span-2">
+                <label className="mb-1 block text-xs font-medium text-text-muted">Descripción</label>
+                <textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} rows={3} className="w-full rounded-xl border border-border bg-card px-3 py-2 text-sm" placeholder="Describe la oportunidad..." />
+              </div>
+              <div className="sm:col-span-2">
+                <label className="mb-1 block text-xs font-medium text-text-muted">Enlace (opcional)</label>
+                <Input value={form.link} onChange={(e) => setForm({ ...form, link: e.target.value })} placeholder="https://..." className="rounded-xl" />
+              </div>
+              <div className="flex items-center gap-4 sm:col-span-2">
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" checked={form.funding} onChange={(e) => setForm({ ...form, funding: e.target.checked })} className="size-4 rounded" />
+                  <span className="text-sm">Financiado</span>
+                </label>
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" checked={form.is_featured} onChange={(e) => setForm({ ...form, is_featured: e.target.checked })} className="size-4 rounded" />
+                  <span className="text-sm">Destacado</span>
+                </label>
+              </div>
             </div>
-            <div>
-              <label className="mb-1 block text-xs font-medium text-text-muted">
-                Institution *
-              </label>
-              <Input
-                value={form.institution}
-                onChange={(e) =>
-                  setForm({ ...form, institution: e.target.value })
-                }
-                placeholder="U.S. Department of State"
-              />
+            <div className="mt-4 flex gap-2">
+              <Button className="rounded-xl bg-primary text-primary-foreground hover:bg-primary/90" onClick={handleSubmit} disabled={isPending || !form.title || !form.institution}>
+                {isPending ? <Loader2 className="mr-1 size-4 animate-spin" /> : null}
+                {isPending ? "Guardando..." : editingId ? "Actualizar" : "Crear"}
+              </Button>
+              <Button variant="outline" className="rounded-xl" onClick={resetForm}>
+                Cancelar
+              </Button>
             </div>
-            <div>
-              <label className="mb-1 block text-xs font-medium text-text-muted">
-                Location *
-              </label>
-              <Input
-                value={form.location}
-                onChange={(e) =>
-                  setForm({ ...form, location: e.target.value })
-                }
-                placeholder="United States"
-              />
-            </div>
-            <div>
-              <label className="mb-1 block text-xs font-medium text-text-muted">
-                Type
-              </label>
-              <select
-                value={form.type}
-                onChange={(e) => setForm({ ...form, type: e.target.value })}
-                className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm"
-              >
-                <option value="scholarship">Scholarship</option>
-                <option value="research">Research</option>
-                <option value="internship">Internship</option>
-                <option value="course">Course</option>
-              </select>
-            </div>
-            <div>
-              <label className="mb-1 block text-xs font-medium text-text-muted">
-                Deadline *
-              </label>
-              <Input
-                type="date"
-                value={form.deadline}
-                onChange={(e) => setForm({ ...form, deadline: e.target.value })}
-              />
-            </div>
-            <div>
-              <label className="mb-1 block text-xs font-medium text-text-muted">
-                Tags (comma separated)
-              </label>
-              <Input
-                value={form.tags}
-                onChange={(e) => setForm({ ...form, tags: e.target.value })}
-                placeholder="Fully Funded, Graduate, USA"
-              />
-            </div>
-            <div className="sm:col-span-2">
-              <label className="mb-1 block text-xs font-medium text-text-muted">
-                Description
-              </label>
-              <textarea
-                value={form.description}
-                onChange={(e) =>
-                  setForm({ ...form, description: e.target.value })
-                }
-                rows={3}
-                className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm"
-                placeholder="Describe the opportunity..."
-              />
-            </div>
-            <div className="sm:col-span-2">
-              <label className="mb-1 block text-xs font-medium text-text-muted">
-                Link (optional)
-              </label>
-              <Input
-                value={form.link}
-                onChange={(e) => setForm({ ...form, link: e.target.value })}
-                placeholder="https://..."
-              />
-            </div>
-            <div className="flex items-center gap-4 sm:col-span-2">
-              <label className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  checked={form.funding}
-                  onChange={(e) =>
-                    setForm({ ...form, funding: e.target.checked })
-                  }
-                  className="size-4 rounded"
-                />
-                <span className="text-sm">Funded</span>
-              </label>
-              <label className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  checked={form.is_featured}
-                  onChange={(e) =>
-                    setForm({ ...form, is_featured: e.target.checked })
-                  }
-                  className="size-4 rounded"
-                />
-                <span className="text-sm">Featured</span>
-              </label>
-            </div>
-          </div>
-          <div className="mt-4 flex gap-2">
-            <Button
-              className="bg-orange text-white hover:bg-orange-hover"
-              onClick={handleSubmit}
-              disabled={isPending || !form.title || !form.institution}
-            >
-              {isPending ? "Saving..." : editingId ? "Update" : "Create"}
-            </Button>
-            <Button variant="outline" onClick={resetForm}>
-              Cancel
-            </Button>
           </div>
         </div>
       )}
 
       <div className="space-y-3">
         {items.map((opp) => (
-          <div
-            key={opp.id}
-            className="flex items-center justify-between rounded-xl border border-border bg-white p-4 transition-all hover:shadow-sm"
-          >
-            <div className="flex-1 min-w-0">
+          <div key={opp.id} className="bento-shadow flex items-center justify-between rounded-xl border border-border bg-card p-4 transition-all hover:shadow-sm noise">
+            <div className="relative z-10 flex min-w-0 flex-1">
               <div className="flex items-center gap-2">
-                <h4 className="truncate text-sm font-semibold text-text-main">
-                  {opp.title}
-                </h4>
+                <h4 className="truncate text-sm font-semibold text-text-main">{opp.title}</h4>
                 {opp.is_featured && (
-                  <Badge className="bg-orange/10 text-orange text-xs">
-                    Featured
-                  </Badge>
+                  <Badge className="bg-blue/8 text-blue text-xs">Destacado</Badge>
                 )}
               </div>
-              <p className="mt-0.5 text-xs text-text-muted">
-                {opp.institution} &middot; {opp.location} &middot;{" "}
-                {opp.type}
-              </p>
             </div>
-            <div className="flex gap-1">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => handleEdit(opp)}
-              >
-                Edit
+            <div className="relative z-10 flex gap-1">
+              <Button variant="ghost" size="sm" onClick={() => handleEdit(opp)}>
+                <Pencil className="size-3.5" />
               </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                onClick={() => handleDelete(opp.id)}
-              >
-                Delete
+              <Button variant="ghost" size="sm" className="text-red-600 hover:text-red-700 hover:bg-red-50" onClick={() => handleDelete(opp.id)}>
+                <Trash2 className="size-3.5" />
               </Button>
             </div>
           </div>

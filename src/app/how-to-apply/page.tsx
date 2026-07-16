@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { getPageSections } from "@/actions/admin";
+import { CheckCircle, ArrowRight, BookOpen, Lightbulb } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "How to Apply | Oportunimed",
-  description:
-    "Step-by-step guide to applying for international scholarships, research programs, and internships.",
+  title: "Cómo Postular | Oportunimed",
+  description: "Guía paso a paso para aplicar a becas, programas de investigación e internados internacionales.",
 };
 
 export default async function HowToApplyPage() {
@@ -27,39 +25,37 @@ export default async function HowToApplyPage() {
   const ctaData = sections.cta as { title?: string; subtitle?: string; button_1_text?: string; button_1_link?: string; button_2_text?: string; button_2_link?: string } | undefined;
 
   return (
-    <main className="flex-1 bg-surface">
-      <section className="bg-gradient-to-br from-primary via-slate-800 to-primary py-16">
+    <main className="flex-1 bg-background">
+      <section className="bg-background py-16">
         <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold text-white sm:text-5xl">
-            How to <span className="text-orange">{hero?.title || "Apply"}</span>
+          <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-sm text-text-muted">
+            <BookOpen className="size-4 text-blue" />
+            Guía completa
+          </div>
+          <h1 className="mt-4 text-4xl font-black tracking-tight text-text-main sm:text-5xl">
+            {hero?.title || "Cómo Postular"}
           </h1>
-          <p className="mt-4 text-lg text-slate-300">
-            {hero?.subtitle || ""}
+          <p className="mt-4 text-lg text-text-muted">
+            {hero?.subtitle || "Sigue estos pasos para asegurar tu lugar en el programa ideal."}
           </p>
         </div>
       </section>
 
       <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="space-y-12">
+        <div className="space-y-6">
           {(stepsData?.items || []).map((step) => (
-            <div
-              key={step.number}
-              className="relative rounded-2xl border border-border bg-white p-8 shadow-sm"
-            >
-              <div className="flex items-start gap-6">
-                <div className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-orange text-2xl text-white">
-                  {step.icon}
+            <div key={step.number} className="bento-shadow rounded-2xl border border-border bg-card p-6 noise sm:p-8">
+              <div className="relative z-10 flex items-start gap-6">
+                <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-blue/8 text-blue text-lg font-bold">
+                  {step.number}
                 </div>
                 <div className="flex-1">
-                  <span className="text-sm font-bold text-orange">Step {step.number}</span>
-                  <h2 className="mt-1 text-xl font-bold text-text-main">{step.title}</h2>
+                  <h2 className="text-xl font-bold text-text-main">{step.title}</h2>
                   <p className="mt-2 text-text-muted">{step.description}</p>
                   <ul className="mt-4 space-y-2">
                     {(step.details || []).map((detail) => (
                       <li key={detail} className="flex items-start gap-2 text-sm text-text-muted">
-                        <svg className="mt-0.5 size-4 shrink-0 text-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
+                        <CheckCircle className="mt-0.5 size-4 shrink-0 text-success" />
                         {detail}
                       </li>
                     ))}
@@ -71,15 +67,20 @@ export default async function HowToApplyPage() {
         </div>
 
         {tipsData && (
-          <div className="mt-16 rounded-2xl border border-orange/20 bg-orange/5 p-8">
-            <h2 className="text-2xl font-bold text-text-main">{tipsData.title}</h2>
-            <div className="mt-6 grid gap-6 sm:grid-cols-2">
-              {(tipsData.items || []).map((tip) => (
-                <div key={tip.title} className="rounded-xl bg-white p-5 shadow-sm">
-                  <h3 className="font-semibold text-text-main">{tip.title}</h3>
-                  <p className="mt-1 text-sm text-text-muted">{tip.description}</p>
-                </div>
-              ))}
+          <div className="mt-16 rounded-2xl border border-blue/10 bg-blue/3 p-8 noise">
+            <div className="relative z-10">
+              <div className="flex items-center gap-2">
+                <Lightbulb className="size-5 text-blue" />
+                <h2 className="text-2xl font-bold text-text-main">{tipsData.title}</h2>
+              </div>
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                {(tipsData.items || []).map((tip) => (
+                  <div key={tip.title} className="rounded-xl border border-border bg-card p-5">
+                    <h3 className="font-semibold text-text-main">{tip.title}</h3>
+                    <p className="mt-1 text-sm text-text-muted">{tip.description}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}
@@ -89,14 +90,19 @@ export default async function HowToApplyPage() {
             <h2 className="text-2xl font-bold text-text-main">{ctaData.title}</h2>
             <p className="mt-2 text-text-muted">{ctaData.subtitle}</p>
             <div className="mt-6 flex justify-center gap-4">
-              <Link href={ctaData.button_1_link || "/opportunities"}>
-                <Button className="bg-orange text-white hover:bg-orange-hover">
-                  {ctaData.button_1_text || "Explore"}
-                </Button>
-              </Link>
-              <Link href={ctaData.button_2_link || "/blog"}>
-                <Button variant="outline">{ctaData.button_2_text || "Read More"}</Button>
-              </Link>
+              <a
+                href={ctaData.button_1_link || "/opportunities"}
+                className="inline-flex h-11 items-center gap-2 rounded-xl bg-primary px-6 text-sm font-medium text-primary-foreground transition-all hover:scale-[1.03] hover:shadow-lg"
+              >
+                {ctaData.button_1_text || "Explorar"}
+                <ArrowRight className="size-4" />
+              </a>
+              <a
+                href={ctaData.button_2_link || "/blog"}
+                className="inline-flex h-11 items-center gap-2 rounded-xl border border-border bg-card px-6 text-sm font-medium text-text-main transition-all hover:border-blue/30 hover:shadow-sm"
+              >
+                {ctaData.button_2_text || "Leer más"}
+              </a>
             </div>
           </div>
         )}

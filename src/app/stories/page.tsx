@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { getPageSections } from "@/actions/admin";
+import { Quote } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Student Stories | Oportunimed",
-  description:
-    "Read inspiring stories from students who found their path through international research and scholarship opportunities.",
+  title: "Historias | Oportunimed",
+  description: "Lee historias inspiradoras de estudiantes que encontraron su camino a través de oportunidades internacionales.",
 };
 
 export default async function StoriesPage() {
@@ -23,46 +23,51 @@ export default async function StoriesPage() {
   const storiesData = sections.stories as { items?: Array<{ name: string; country: string; destination: string; program: string; quote: string; year: string; avatar: string }> } | undefined;
 
   return (
-    <main className="flex-1 bg-surface">
-      <section className="bg-gradient-to-br from-primary via-slate-800 to-primary py-16">
+    <main className="flex-1 bg-background">
+      <section className="bg-background py-16">
         <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold text-white sm:text-5xl">
-            Student <span className="text-orange">{hero?.title?.replace("Student ", "") || "Stories"}</span>
+          <h1 className="text-4xl font-black tracking-tight text-text-main sm:text-5xl">
+            {hero?.title || "Historias de Estudiantes"}
           </h1>
-          <p className="mt-4 text-lg text-slate-300">
-            {hero?.subtitle || ""}
+          <p className="mt-4 text-lg text-text-muted">
+            {hero?.subtitle || "Experiencias reales de quienes dieron el paso"}
           </p>
         </div>
       </section>
 
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {(storiesData?.items || []).map((story) => (
             <div
               key={story.name}
-              className="flex flex-col rounded-2xl border border-border bg-white p-6 shadow-sm transition-all hover:shadow-md"
+              className="bento-shadow card-hover flex flex-col rounded-2xl border border-border bg-card p-6 noise"
             >
-              <div className="flex items-center gap-4">
-                <span className="text-4xl">{story.avatar}</span>
-                <div>
-                  <h3 className="font-semibold text-text-main">{story.name}</h3>
-                  <p className="text-sm text-text-muted">
-                    {story.country} → {story.destination}
-                  </p>
+              <div className="relative z-10 flex flex-1 flex-col">
+                <div className="flex items-center gap-4">
+                  <div className="flex size-11 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
+                    {story.name.charAt(0)}
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-text-main">{story.name}</h3>
+                    <p className="text-sm text-text-muted">
+                      {story.country} → {story.destination}
+                    </p>
+                  </div>
                 </div>
+
+                <div className="mt-4">
+                  <span className="inline-flex items-center rounded-full bg-blue/8 px-3 py-1 text-xs font-medium text-blue">
+                    {story.program}
+                  </span>
+                </div>
+
+                <blockquote className="mt-4 flex-1 border-l-2 border-blue/20 pl-4 text-sm italic text-text-muted">
+                  <Quote className="mb-1 size-4 text-blue/20" />
+                  &ldquo;{story.quote}&rdquo;
+                </blockquote>
+
+                <p className="mt-4 text-xs text-text-muted">Generación {story.year}</p>
               </div>
-
-              <div className="mt-4">
-                <span className="inline-flex items-center rounded-full bg-orange/10 px-3 py-1 text-xs font-medium text-orange">
-                  {story.program}
-                </span>
-              </div>
-
-              <blockquote className="mt-4 flex-1 border-l-4 border-orange pl-4 text-sm italic text-text-muted">
-                &ldquo;{story.quote}&rdquo;
-              </blockquote>
-
-              <p className="mt-4 text-xs text-text-muted">Class of {story.year}</p>
             </div>
           ))}
         </div>

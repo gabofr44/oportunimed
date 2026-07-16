@@ -1,93 +1,35 @@
 import Link from "next/link";
+import { Stethoscope } from "lucide-react";
 
-interface FooterProps {
-  siteName?: string;
-  logoText?: string;
-  tagline?: string;
-  copyright?: string;
-  exploreLinks?: Array<{ label: string; href: string }>;
-  resourceLinks?: Array<{ label: string; href: string }>;
-  legalLinks?: Array<{ label: string; href: string }>;
-}
-
-export function Footer({
-  siteName = "Oportunimed",
-  logoText = "GP",
-  tagline = "Empowering students to find research and scholarship opportunities worldwide.",
-  copyright = "Oportunimed",
-  exploreLinks = [
-    { label: "Opportunities", href: "/opportunities" },
-    { label: "Scholarships", href: "/opportunities?type=scholarship" },
-    { label: "Destinations", href: "/destinations" },
-  ],
-  resourceLinks = [
-    { label: "Blog", href: "/blog" },
-    { label: "Stories", href: "/stories" },
-    { label: "How to Apply", href: "/how-to-apply" },
-  ],
-  legalLinks = [
-    { label: "Privacy Policy", href: "/privacy" },
-    { label: "Terms of Service", href: "/terms" },
-  ],
-}: FooterProps) {
+export function Footer() {
   return (
-    <footer className="border-t border-border bg-primary text-white">
+    <footer className="border-t border-border bg-background">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-8 md:grid-cols-4">
-          <div>
-            <div className="flex items-center gap-2">
-              <div className="flex size-8 items-center justify-center rounded-lg bg-orange font-bold text-sm">
-                {logoText}
-              </div>
-              <span className="text-lg font-bold">{siteName}</span>
+        <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
+          <div className="flex items-center gap-3">
+            <div className="flex size-9 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+              <Stethoscope className="size-4" />
             </div>
-            <p className="mt-4 text-sm text-slate-400">{tagline}</p>
+            <div>
+              <span className="text-base font-bold tracking-tight text-text-main">
+                Oportuni<span className="text-blue">Med</span>
+              </span>
+              <p className="mt-0.5 text-xs text-text-muted">
+                Una plataforma para estudiantes de medicina.
+              </p>
+            </div>
           </div>
-          <div>
-            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-300">
-              Explore
-            </h3>
-            <ul className="space-y-2 text-sm text-slate-400">
-              {exploreLinks.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="hover:text-white transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-300">
-              Resources
-            </h3>
-            <ul className="space-y-2 text-sm text-slate-400">
-              {resourceLinks.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="hover:text-white transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-300">
-              Legal
-            </h3>
-            <ul className="space-y-2 text-sm text-slate-400">
-              {legalLinks.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="hover:text-white transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+
+          <div className="flex flex-wrap gap-6 text-sm text-text-muted">
+            <Link href="/how-to-apply" className="hover:text-text-main transition-colors">Contacto</Link>
+            <a href="https://github.com/gabofr44/oportunimed" target="_blank" rel="noopener noreferrer" className="hover:text-text-main transition-colors">Github</a>
+            <a href="#" className="hover:text-text-main transition-colors">X</a>
+            <Link href="/privacy" className="hover:text-text-main transition-colors">Privacidad</Link>
           </div>
         </div>
-        <div className="mt-8 border-t border-slate-700 pt-8 text-center text-sm text-slate-400">
-          &copy; {new Date().getFullYear()} {copyright}. All rights reserved.
+
+        <div className="mt-8 border-t border-border pt-6 text-center text-xs text-text-muted">
+          © {new Date().getFullYear()} OportuniMed. Todos los derechos reservados.
         </div>
       </div>
     </footer>

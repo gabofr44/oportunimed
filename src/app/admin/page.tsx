@@ -12,6 +12,7 @@ import {
   getPageSections,
 } from "@/actions/admin";
 import type { Opportunity } from "@/types";
+import { Stethoscope, RefreshCw, ExternalLink, FileText, Target, Settings } from "lucide-react";
 
 type Tab = "page" | "opportunities" | "settings";
 
@@ -32,13 +33,13 @@ interface AdminData {
 }
 
 const PAGES = [
-  { key: "home", label: "Homepage", icon: "🏠" },
+  { key: "home", label: "Inicio", icon: "🏠" },
   { key: "header", label: "Header / Nav", icon: "📌" },
   { key: "footer", label: "Footer", icon: "📎" },
-  { key: "how-to-apply", label: "How to Apply", icon: "📝" },
+  { key: "how-to-apply", label: "Cómo Postular", icon: "📝" },
   { key: "blog", label: "Blog", icon: "📰" },
-  { key: "stories", label: "Student Stories", icon: "💬" },
-  { key: "destinations", label: "Destinations", icon: "🌍" },
+  { key: "stories", label: "Historias", icon: "💬" },
+  { key: "destinations", label: "Destinos", icon: "🌍" },
 ];
 
 function getUnlockedSnapshot() {
@@ -117,105 +118,97 @@ function AdminPanel() {
   }, [fetchData]);
 
   return (
-    <div className="min-h-screen bg-surface">
-      <div className="border-b border-border bg-white">
+    <div className="min-h-screen bg-background">
+      <div className="glass border-b border-border">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
           <div className="flex items-center gap-4">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="flex size-8 items-center justify-center rounded-lg bg-orange text-white font-bold text-sm">
-                GP
+            <Link href="/" className="flex items-center gap-2.5">
+              <div className="flex size-8 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+                <Stethoscope className="size-4" />
               </div>
-              <span className="text-lg font-bold text-primary">Oportunimed</span>
+              <span className="text-base font-bold tracking-tight text-text-main">
+                Oportuni<span className="text-blue">Med</span>
+              </span>
             </Link>
-            <span className="rounded-full bg-orange/10 px-3 py-0.5 text-xs font-medium text-orange">
+            <span className="rounded-full bg-blue/8 px-3 py-0.5 text-xs font-medium text-blue">
               Admin
             </span>
           </div>
           <div className="flex items-center gap-3">
             <button
               onClick={handleRefresh}
-              className="text-sm text-text-muted hover:text-orange"
+              className="flex items-center gap-1.5 text-sm text-text-muted hover:text-blue transition-colors"
             >
-              Refresh
+              <RefreshCw className="size-3.5" />
+              Actualizar
             </button>
-            <Link href="/" className="text-sm text-text-muted hover:text-orange">
-              View Site →
+            <Link href="/" className="flex items-center gap-1.5 text-sm text-text-muted hover:text-blue transition-colors">
+              Ver sitio
+              <ExternalLink className="size-3.5" />
             </Link>
           </div>
         </div>
       </div>
 
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mb-8 flex gap-1 rounded-xl border border-border bg-white p-1">
-          <button
-            onClick={() => setTab("page")}
-            className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
-              tab === "page"
-                ? "bg-orange text-white"
-                : "text-text-muted hover:bg-surface"
-            }`}
-          >
-            📄 Page Editor
-          </button>
-          <button
-            onClick={() => setTab("opportunities")}
-            className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
-              tab === "opportunities"
-                ? "bg-orange text-white"
-                : "text-text-muted hover:bg-surface"
-            }`}
-          >
-            🎯 Opportunities
-          </button>
-          <button
-            onClick={() => setTab("settings")}
-            className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
-              tab === "settings"
-                ? "bg-orange text-white"
-                : "text-text-muted hover:bg-surface"
-            }`}
-          >
-            ⚙️ Settings
-          </button>
+        <div className="mb-8 flex gap-1 rounded-xl border border-border bg-card p-1">
+          {([
+            { key: "page" as Tab, label: "Editor de páginas", icon: <FileText className="size-4" /> },
+            { key: "opportunities" as Tab, label: "Convocatorias", icon: <Target className="size-4" /> },
+            { key: "settings" as Tab, label: "Configuración", icon: <Settings className="size-4" /> },
+          ]).map((t) => (
+            <button
+              key={t.key}
+              onClick={() => setTab(t.key)}
+              className={`flex flex-1 items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
+                tab === t.key
+                  ? "bg-primary text-primary-foreground"
+                  : "text-text-muted hover:bg-secondary"
+              }`}
+            >
+              {t.icon}
+              {t.label}
+            </button>
+          ))}
         </div>
 
         {loading ? (
           <div className="flex items-center justify-center py-20">
-            <div className="size-8 animate-spin rounded-full border-4 border-orange border-t-transparent" />
+            <div className="size-8 animate-spin rounded-full border-4 border-blue border-t-transparent" />
           </div>
         ) : error ? (
-          <div className="rounded-2xl border border-red-200 bg-red-50 p-8 text-center">
-            <p className="text-red-700">{error}</p>
+          <div className="rounded-2xl border border-red-200 bg-red-50 p-8 text-center dark:border-red-900 dark:bg-red-950">
+            <p className="text-red-700 dark:text-red-300">{error}</p>
             <button
               onClick={handleRefresh}
-              className="mt-4 rounded-lg bg-orange px-4 py-2 text-sm text-white hover:bg-orange-hover"
+              className="mt-4 rounded-xl bg-primary px-4 py-2 text-sm text-primary-foreground hover:bg-primary/90"
             >
-              Try Again
+              Reintentar
             </button>
           </div>
         ) : !data ? (
-          <div className="rounded-2xl border border-border bg-white p-8 text-center">
-            <p className="text-text-muted">No data loaded.</p>
+          <div className="rounded-2xl border border-border bg-card p-8 text-center">
+            <p className="text-text-muted">No se cargaron datos.</p>
             <button
               onClick={handleRefresh}
-              className="mt-4 rounded-lg bg-orange px-4 py-2 text-sm text-white hover:bg-orange-hover"
+              className="mt-4 rounded-xl bg-primary px-4 py-2 text-sm text-primary-foreground hover:bg-primary/90"
             >
-              Load Data
+              Cargar datos
             </button>
           </div>
         ) : (
           <>
             {tab === "page" && (
               <div className="space-y-6">
-                <div className="flex flex-wrap gap-2 rounded-xl border border-border bg-white p-3">
+                <div className="flex flex-wrap gap-2 rounded-xl border border-border bg-card p-3">
                   {PAGES.map((p) => (
                     <button
                       key={p.key}
                       onClick={() => setSelectedPage(p.key)}
                       className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                         selectedPage === p.key
-                          ? "bg-orange text-white"
-                          : "text-text-muted hover:bg-surface"
+                          ? "bg-primary text-primary-foreground"
+                          : "text-text-muted hover:bg-secondary"
                       }`}
                     >
                       <span>{p.icon}</span>

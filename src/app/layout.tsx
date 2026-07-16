@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { SiteLayout } from "@/components/layout/SiteLayout";
-import { getPageSections } from "@/actions/admin";
+import { Providers } from "@/components/providers";
 import "./globals.css";
 
 const inter = Inter({
@@ -10,9 +9,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Oportunimed | Research & Scholarships Worldwide",
+  title: "OportuniMed | Convocatorias Médicas para Estudiantes",
   description:
-    "Find prestigious research programs, scholarships, and academic experiences worldwide to enrich your CV.",
+    "Encuentra convocatorias, becas, internados y oportunidades de investigación médica en todo el mundo.",
 };
 
 export default async function RootLayout({
@@ -20,20 +19,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [headerRes, footerRes] = await Promise.all([
-    getPageSections("header"),
-    getPageSections("footer"),
-  ]);
-
-  const headerData = headerRes.data?.[0]?.content as Record<string, unknown> | undefined;
-  const footerData = footerRes.data?.[0]?.content as Record<string, unknown> | undefined;
-
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">
-        <SiteLayout headerData={headerData} footerData={footerData}>
-          {children}
-        </SiteLayout>
+    <html lang="es" className={`${inter.variable} h-full`} suppressHydrationWarning>
+      <body className="min-h-full">
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
