@@ -2,13 +2,12 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 
 const navItems = [
   { label: "Home", href: "/" },
   { label: "Opportunities", href: "/opportunities" },
   { label: "Destinations", href: "/destinations" },
-  { label: "Scholarships", href: "/scholarships" },
+  { label: "Scholarships", href: "/opportunities?type=scholarship" },
   { label: "Stories", href: "/stories" },
   { label: "Blog", href: "/blog" },
 ];
@@ -38,12 +37,6 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="hidden md:flex">
-          <Button className="bg-orange text-white hover:bg-orange-hover">
-            Sign Up / Login
-          </Button>
-        </div>
-
         <button
           className="inline-flex items-center justify-center rounded-md p-2 text-text-muted hover:bg-surface md:hidden"
           onClick={() => setMobileOpen(!mobileOpen)}
@@ -72,9 +65,6 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
-            <Button className="mt-2 bg-orange text-white hover:bg-orange-hover">
-              Sign Up / Login
-            </Button>
           </nav>
         </div>
       )}

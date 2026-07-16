@@ -1,18 +1,44 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-export function HeroSection() {
+interface HeroProps {
+  headline?: string;
+  subheadline?: string;
+  cta1?: string;
+  cta2?: string;
+  searchPlaceholder?: string;
+}
+
+export function HeroSection({
+  headline = "Your Global Research & Scholarship Journey Starts Here.",
+  subheadline = "Find prestigious programs, funding, and academic experiences worldwide to enrich your CV.",
+  cta1 = "Explore Opportunities",
+  cta2 = "How to Apply",
+  searchPlaceholder = "Search by destination, program...",
+}: HeroProps) {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-primary via-slate-800 to-primary">
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5" />
       <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Your Global Research & Scholarship Journey{" "}
-            <span className="text-orange">Starts Here.</span>
+            {headline.split("Starts Here").length > 1 ? (
+              <>
+                {headline.split("Starts Here")[0]}
+                <span className="text-orange">Starts Here</span>
+                {headline.split("Starts Here")[1] || "."}
+              </>
+            ) : (
+              <>
+                {headline.split(" ").slice(0, -3).join(" ")}{" "}
+                <span className="text-orange">
+                  {headline.split(" ").slice(-3).join(" ")}
+                </span>
+              </>
+            )}
           </h1>
           <p className="mt-6 text-lg leading-8 text-slate-300">
-            Find prestigious programs, funding, and academic experiences worldwide to enrich your CV.
+            {subheadline}
           </p>
 
           <div className="mx-auto mt-10 max-w-xl">
@@ -33,7 +59,7 @@ export function HeroSection() {
                 </svg>
                 <Input
                   type="text"
-                  placeholder="Search by destination, program..."
+                  placeholder={searchPlaceholder}
                   className="h-12 pl-10 text-base"
                 />
               </div>
@@ -48,14 +74,14 @@ export function HeroSection() {
               size="lg"
               className="bg-orange text-white hover:bg-orange-hover"
             >
-              Explore Opportunities
+              {cta1}
             </Button>
             <Button
               size="lg"
               variant="outline"
               className="border-slate-500 text-white hover:bg-white/10"
             >
-              How to Apply
+              {cta2}
             </Button>
           </div>
         </div>
