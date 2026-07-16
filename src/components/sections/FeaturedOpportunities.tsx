@@ -89,18 +89,20 @@ function EmptyState() {
 
 interface FeaturedOpportunitiesProps {
   opportunities: Opportunity[];
+  title?: string;
+  subtitle?: string;
 }
 
-export function FeaturedOpportunities({ opportunities }: FeaturedOpportunitiesProps) {
+export function FeaturedOpportunities({ opportunities, title, subtitle }: FeaturedOpportunitiesProps) {
   return (
     <section className="bg-white py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl font-bold text-text-main sm:text-4xl">
-            Featured Opportunities
+            {title || "Featured Opportunities"}
           </h2>
           <p className="mt-3 text-lg text-text-muted">
-            Hand-picked programs to jumpstart your academic career
+            {subtitle || "Hand-picked programs to jumpstart your academic career"}
           </p>
         </div>
 

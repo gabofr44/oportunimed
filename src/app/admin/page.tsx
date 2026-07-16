@@ -1,47 +1,106 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { AdminGate } from "@/components/admin/AdminGate";
 import { ContentEditor } from "@/components/admin/ContentEditor";
 import { OpportunityManager } from "@/components/admin/OpportunityManager";
-import { getSiteContent, getAllOpportunities } from "@/actions/admin";
+import { SectionEditor } from "@/components/admin/SectionEditor";
+import {
+  getSiteContent,
+  getAllOpportunities,
+  getPageSections,
+} from "@/actions/admin";
 import type { Opportunity } from "@/types";
 
-type Tab = "content" | "opportunities";
+type Tab = "page" | "opportunities" | "settings";
 
 interface AdminData {
   content: { key: string; value: string; section: string }[];
   opportunities: Opportunity[];
+  sections: Array<{
+    id: string;
+    page: string;
+    section_key: string;
+    title: string;
+    content: Record<string, unknown>;
+    sort_order: number;
+    visible: boolean;
+  }>;
+}
+
+function getUnlockedSnapshot() {
+  if (typeof window === "undefined") return "false";
+  return sessionStorage.getItem("admin_unlocked") || "false";
+}
+
+function subscribeToUnlock(callback: () => void) {
+  window.addEventListener("storage", callback);
+  return () => window.removeEventListener("storage", callback);
 }
 
 export default function AdminPage() {
-  const [unlocked, setUnlocked] = useState(() => {
-    if (typeof window !== "undefined") {
-      return sessionStorage.getItem("admin_unlocked") === "true";
-    }
-    return false;
-  });
-  const [tab, setTab] = useState<Tab>("opportunities");
+  const [tab, setTab] = useState<Tab>("page");
   const [data, setData] = useState<AdminData | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const handleUnlock = useCallback(() => {
-    setUnlocked(true);
+  const unlockedStr = useSyncExternalStore(
+    subscribeToUnlock,
+    getUnlockedSnapshot,
+    () => "false"
+  );
+  const unlocked = unlockedStr === "true";
+
+  const fetchData = useCallback(async () => {
+    if (data) return;
     setLoading(true);
-    Promise.all([getSiteContent(), getAllOpportunities()]).then(
-      ([contentRes, oppsRes]) => {
-        setData({
-          content: contentRes.data || [],
-          opportunities: (oppsRes.data || []) as Opportunity[],
-        });
-        setLoading(false);
-      }
-    );
-  }, []);
+    const [contentRes, oppsRes, sectionsRes] = await Promise.all([
+      getSiteContent(),
+      getAllOpportunities(),
+      getPageSections("home"),
+    ]);
+    setData({
+      content: contentRes.data || [],
+      opportunities: (oppsRes.data || []) as Opportunity[],
+      sections: (sectionsRes.data || []) as AdminData["sections"],
+    });
+    setLoading(false);
+  }, [data]);
 
   if (!unlocked) {
+    const handleUnlock = () => {
+      sessionStorage.setItem("admin_unlocked", "true");
+      window.dispatchEvent(new Event("storage"));
+    };
     return <AdminGate onUnlock={handleUnlock} />;
+  }
+
+  return (
+    <AdminPanel
+      tab={tab}
+      setTab={setTab}
+      data={data}
+      loading={loading}
+      fetchData={fetchData}
+    />
+  );
+}
+
+function AdminPanel({
+  tab,
+  setTab,
+  data,
+  loading,
+  fetchData,
+}: {
+  tab: Tab;
+  setTab: (t: Tab) => void;
+  data: AdminData | null;
+  loading: boolean;
+  fetchData: () => Promise<void>;
+}) {
+  if (!data && !loading) {
+    void fetchData();
   }
 
   return (
@@ -59,10 +118,7 @@ export default function AdminPage() {
               Admin
             </span>
           </div>
-          <Link
-            href="/"
-            className="text-sm text-text-muted hover:text-orange"
-          >
+          <Link href="/" className="text-sm text-text-muted hover:text-orange">
             View Site →
           </Link>
         </div>
@@ -71,6 +127,16 @@ export default function AdminPage() {
       <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-8 flex gap-1 rounded-xl border border-border bg-white p-1">
           <button
+            onClick={() => setTab("page")}
+            className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
+              tab === "page"
+                ? "bg-orange text-white"
+                : "text-text-muted hover:bg-surface"
+            }`}
+          >
+            📄 Page Editor
+          </button>
+          <button
             onClick={() => setTab("opportunities")}
             className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
               tab === "opportunities"
@@ -78,17 +144,17 @@ export default function AdminPage() {
                 : "text-text-muted hover:bg-surface"
             }`}
           >
-            Opportunities
+            🎯 Opportunities
           </button>
           <button
-            onClick={() => setTab("content")}
+            onClick={() => setTab("settings")}
             className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
-              tab === "content"
+              tab === "settings"
                 ? "bg-orange text-white"
                 : "text-text-muted hover:bg-surface"
             }`}
           >
-            Site Content
+            ⚙️ Settings
           </button>
         </div>
 
@@ -98,10 +164,11 @@ export default function AdminPage() {
           </div>
         ) : (
           <>
+            {tab === "page" && <SectionEditor sections={data.sections} />}
             {tab === "opportunities" && (
               <OpportunityManager opportunities={data.opportunities} />
             )}
-            {tab === "content" && <ContentEditor content={data.content} />}
+            {tab === "settings" && <ContentEditor content={data.content} />}
           </>
         )}
       </div>

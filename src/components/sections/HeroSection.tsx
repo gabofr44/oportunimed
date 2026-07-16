@@ -1,44 +1,38 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import Link from "next/link";
 
-interface HeroProps {
+interface HeroContent {
   headline?: string;
   subheadline?: string;
-  cta1?: string;
-  cta2?: string;
-  searchPlaceholder?: string;
+  search_placeholder?: string;
+  cta_1_text?: string;
+  cta_1_link?: string;
+  cta_2_text?: string;
+  cta_2_link?: string;
 }
 
-export function HeroSection({
-  headline = "Your Global Research & Scholarship Journey Starts Here.",
-  subheadline = "Find prestigious programs, funding, and academic experiences worldwide to enrich your CV.",
-  cta1 = "Explore Opportunities",
-  cta2 = "How to Apply",
-  searchPlaceholder = "Search by destination, program...",
-}: HeroProps) {
+export function HeroSection({ content }: { content?: HeroContent }) {
+  const c = content || {};
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-primary via-slate-800 to-primary">
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5" />
       <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
-            {headline.split("Starts Here").length > 1 ? (
+            {(c.headline || "").split("Starts Here").length > 1 ? (
               <>
-                {headline.split("Starts Here")[0]}
+                {(c.headline || "").split("Starts Here")[0]}
                 <span className="text-orange">Starts Here</span>
-                {headline.split("Starts Here")[1] || "."}
+                {(c.headline || "").split("Starts Here")[1] || "."}
               </>
             ) : (
-              <>
-                {headline.split(" ").slice(0, -3).join(" ")}{" "}
-                <span className="text-orange">
-                  {headline.split(" ").slice(-3).join(" ")}
-                </span>
-              </>
+              c.headline || "Your Global Research Journey Starts Here."
             )}
           </h1>
           <p className="mt-6 text-lg leading-8 text-slate-300">
-            {subheadline}
+            {c.subheadline || ""}
           </p>
 
           <div className="mx-auto mt-10 max-w-xl">
@@ -59,7 +53,7 @@ export function HeroSection({
                 </svg>
                 <Input
                   type="text"
-                  placeholder={searchPlaceholder}
+                  placeholder={c.search_placeholder || "Search..."}
                   className="h-12 pl-10 text-base"
                 />
               </div>
@@ -70,19 +64,23 @@ export function HeroSection({
           </div>
 
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Button
-              size="lg"
-              className="bg-orange text-white hover:bg-orange-hover"
-            >
-              {cta1}
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-slate-500 text-white hover:bg-white/10"
-            >
-              {cta2}
-            </Button>
+            <Link href={c.cta_1_link || "/opportunities"}>
+              <Button
+                size="lg"
+                className="bg-orange text-white hover:bg-orange-hover"
+              >
+                {c.cta_1_text || "Explore"}
+              </Button>
+            </Link>
+            <Link href={c.cta_2_link || "/how-to-apply"}>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-slate-500 text-white hover:bg-white/10"
+              >
+                {c.cta_2_text || "Learn More"}
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
