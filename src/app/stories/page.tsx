@@ -3,7 +3,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: "Student Stories | Global Pathways",
+  title: "Student Stories | Oportunimed",
   description:
     "Read inspiring stories from students who found their path through international research and scholarship opportunities.",
 };
@@ -15,7 +15,7 @@ const stories = [
     destination: "Germany",
     program: "DAAD Research Grant",
     quote:
-      "Global Pathways helped me discover the DAAD program. I never knew such opportunities existed for computational neuroscience research in Berlin.",
+      "Oportunimed helped me discover the DAAD program. I never knew such opportunities existed for computational neuroscience research in Berlin.",
     year: "2025",
     avatar: "👩‍🔬",
   },
@@ -45,7 +45,7 @@ const stories = [
     destination: "Canada",
     program: "MITACS Globalink",
     quote:
-      "I found my summer research internship through Global Pathways. The experience led to a full graduate position at the University of Toronto.",
+      "I found my summer research internship through Oportunimed. The experience led to a full graduate position at the University of Toronto.",
     year: "2025",
     avatar: "👨‍🔬",
   },
@@ -65,7 +65,7 @@ const stories = [
     destination: "United Kingdom",
     program: "Chevening Scholarship",
     quote:
-      "From Seoul to London, Global Pathways was my compass. The step-by-step application guide was a game changer.",
+      "From Seoul to London, Oportunimed was my compass. The step-by-step application guide was a game changer.",
     year: "2025",
     avatar: "👨‍🎓",
   },

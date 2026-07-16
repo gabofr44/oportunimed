@@ -8,7 +8,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Global Pathways | Research & Scholarships Worldwide",
+  title: "Oportunimed | Research & Scholarships Worldwide",
   description:
     "Find prestigious research programs, scholarships, and academic experiences worldwide to enrich your CV.",
 };

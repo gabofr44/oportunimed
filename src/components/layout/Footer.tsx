@@ -10,7 +10,7 @@ export function Footer() {
               <div className="flex size-8 items-center justify-center rounded-lg bg-orange font-bold text-sm">
                 GP
               </div>
-              <span className="text-lg font-bold">Global Pathways</span>
+              <span className="text-lg font-bold">Oportunimed</span>
             </div>
             <p className="mt-4 text-sm text-slate-400">
               Empowering students to find research and scholarship opportunities worldwide.
@@ -47,7 +47,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-8 border-t border-slate-700 pt-8 text-center text-sm text-slate-400">
-          &copy; {new Date().getFullYear()} Global Pathways. All rights reserved.
+          &copy; {new Date().getFullYear()} Oportunimed. All rights reserved.
         </div>
       </div>
     </footer>

@@ -4,7 +4,7 @@ import { Footer } from "@/components/layout/Footer";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Destinations | Global Pathways",
+  title: "Destinations | Oportunimed",
   description:
     "Explore study and research destinations worldwide. Find opportunities in Europe, North America, Asia, and more.",
 };

@@ -4,7 +4,7 @@ import { Footer } from "@/components/layout/Footer";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Blog | Global Pathways",
+  title: "Blog | Oportunimed",
   description:
     "Tips, guides, and insights for your international academic journey. Learn how to write winning applications and secure funding.",
 };
@@ -83,7 +83,7 @@ export default function BlogPage() {
         <section className="bg-gradient-to-br from-primary via-slate-800 to-primary py-16">
           <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
             <h1 className="text-4xl font-bold text-white sm:text-5xl">
-              The Global Pathways <span className="text-orange">Blog</span>
+              The Oportunimed <span className="text-orange">Blog</span>
             </h1>
             <p className="mt-4 text-lg text-slate-300">
               Tips, guides, and insights for your international academic journey

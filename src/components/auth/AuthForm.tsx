@@ -38,7 +38,7 @@ export function AuthForm({ type, onSubmit, onGoogle }: AuthFormProps) {
         <p className="mt-2 text-sm text-text-muted">
           {type === "login"
             ? "Sign in to continue your journey"
-            : "Join Global Pathways today"}
+            : "Join Oportunimed today"}
         </p>
       </div>
 

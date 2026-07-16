@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "How to Apply | Global Pathways",
+  title: "How to Apply | Oportunimed",
   description:
     "Step-by-step guide to applying for international scholarships, research programs, and internships.",
 };

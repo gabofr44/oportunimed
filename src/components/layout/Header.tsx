@@ -23,7 +23,7 @@ export function Header() {
           <div className="flex size-8 items-center justify-center rounded-lg bg-orange text-white font-bold text-sm">
             GP
           </div>
-          <span className="text-lg font-bold text-primary">Global Pathways</span>
+          <span className="text-lg font-bold text-primary">Oportunimed</span>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
