@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getOpportunities } from "@/actions/opportunities";
-import { Search, MapPin, Calendar, Sparkles, ArrowUpRight } from "lucide-react";
+import { Search, MapPin, Calendar, Sparkles, ArrowUpRight, GraduationCap, BookOpen } from "lucide-react";
 import Link from "next/link";
 
 const typeColors: Record<string, string> = {
@@ -17,23 +17,28 @@ const typeLabels: Record<string, string> = {
   research: "Investigación",
   internship: "Internado",
   course: "Curso",
-  fellowship: "Beca",
-  masters: "Maestría",
-  doctorate: "Doctorado",
-  summer: "Escuela de Verano",
-  short: "Programa Corto",
-  conference: "Conferencia",
-  workshop: "Taller",
-  competition: "Competencia",
-  exchange: "Intercambio",
-  professional: "Formación Profesional",
-  mentorship: "Mentoría",
-  bootcamp: "Bootcamp",
-  hackathon: "Hackathon",
-  highschool: "Secundaria",
-  travel: "Beca de Viaje",
-  event: "Evento",
-  postdoc: "Posdoctorado",
+};
+
+const levelLabels: Record<string, string> = {
+  secundaria: "Secundaria",
+  preparatoria: "Preparatoria",
+  universidad: "Universidad",
+  posgrado: "Posgrado",
+  profesional: "Profesional",
+};
+
+const fieldLabels: Record<string, string> = {
+  general: "General",
+  ciencias: "Ciencias",
+  ciencias_salud: "Ciencias de la Salud",
+  ciencias_sociales: "Ciencias Sociales",
+  administracion: "Administración / Negocios",
+  ingenieria: "Ingeniería",
+  tecnologia: "Tecnología / Computación",
+  humanidades: "Humanidades",
+  derecho: "Derecho",
+  educacion: "Educación",
+  artes: "Artes",
 };
 
 interface Props {
@@ -41,6 +46,8 @@ interface Props {
     q?: string;
     type?: string;
     funding?: string;
+    level?: string;
+    field?: string;
   }>;
 }
 
@@ -51,6 +58,8 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
     search: params.q,
     type: params.type,
     funding: params.funding === "true",
+    level: params.level,
+    field: params.field,
   });
 
   return (
@@ -64,7 +73,7 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
         </div>
 
         <div className="flex flex-col gap-6 lg:flex-row">
-          <aside className="w-full shrink-0 space-y-6 lg:w-64">
+          <aside className="w-full shrink-0 space-y-6 lg:w-72">
             <div className="bento-shadow rounded-2xl border border-border bg-card p-5 noise">
               <div className="relative z-10">
                 <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-text-muted">
@@ -83,8 +92,9 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
                   </div>
 
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-text-main">
-                      Tipo
+                    <label className="mb-1 flex items-center gap-1.5 text-sm font-medium text-text-main">
+                      <span className="size-1.5 rounded-full bg-blue" />
+                      Tipo de Convocatoria
                     </label>
                     <select
                       name="type"
@@ -96,23 +106,50 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
                       <option value="research">Investigación</option>
                       <option value="internship">Internados</option>
                       <option value="course">Cursos</option>
-                      <option value="fellowship">Becas</option>
-                      <option value="masters">Maestría</option>
-                      <option value="doctorate">Doctorado</option>
-                      <option value="summer">Escuela de Verano</option>
-                      <option value="short">Programa Corto</option>
-                      <option value="conference">Conferencia</option>
-                      <option value="workshop">Taller</option>
-                      <option value="competition">Competencia</option>
-                      <option value="exchange">Intercambio</option>
-                      <option value="professional">Formación Profesional</option>
-                      <option value="mentorship">Mentoría</option>
-                      <option value="bootcamp">Bootcamp</option>
-                      <option value="hackathon">Hackathon</option>
-                      <option value="highschool">Secundaria</option>
-                      <option value="travel">Beca de Viaje</option>
-                      <option value="event">Evento</option>
-                      <option value="postdoc">Posdoctorado</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="mb-1 flex items-center gap-1.5 text-sm font-medium text-text-main">
+                      <GraduationCap className="size-3.5 text-blue" />
+                      Nivel Educativo
+                    </label>
+                    <select
+                      name="level"
+                      defaultValue={params.level}
+                      className="w-full rounded-xl border border-border bg-card px-3 py-2 text-sm text-text-main"
+                    >
+                      <option value="all">Todos los niveles</option>
+                      <option value="secundaria">Secundaria</option>
+                      <option value="preparatoria">Preparatoria</option>
+                      <option value="universidad">Universidad</option>
+                      <option value="posgrado">Posgrado (Maestría/Doctorado)</option>
+                      <option value="profesional">Profesional / Carrera</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="mb-1 flex items-center gap-1.5 text-sm font-medium text-text-main">
+                      <BookOpen className="size-3.5 text-blue" />
+                      Rama Educativa
+                    </label>
+                    <select
+                      name="field"
+                      defaultValue={params.field}
+                      className="w-full rounded-xl border border-border bg-card px-3 py-2 text-sm text-text-main"
+                    >
+                      <option value="all">Todas las ramas</option>
+                      <option value="general">General / Multidisciplinario</option>
+                      <option value="ciencias">Ciencias</option>
+                      <option value="ciencias_salud">Ciencias de la Salud</option>
+                      <option value="ciencias_sociales">Ciencias Sociales</option>
+                      <option value="administracion">Administración / Negocios</option>
+                      <option value="ingenieria">Ingeniería</option>
+                      <option value="tecnologia">Tecnología / Computación</option>
+                      <option value="humanidades">Humanidades</option>
+                      <option value="derecho">Derecho</option>
+                      <option value="educacion">Educación</option>
+                      <option value="artes">Artes</option>
                     </select>
                   </div>
 
@@ -168,6 +205,16 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
                           <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-medium ${typeColors[opp.type]}`}>
                             {typeLabels[opp.type] || opp.type}
                           </span>
+                          {opp.educational_level && opp.educational_level !== 'universidad' && (
+                            <span className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-300">
+                              {levelLabels[opp.educational_level] || opp.educational_level}
+                            </span>
+                          )}
+                          {opp.educational_field && opp.educational_field !== 'general' && (
+                            <span className="inline-flex items-center rounded-full border border-border bg-surface px-2 py-0.5 text-xs font-medium text-text-muted">
+                              {fieldLabels[opp.educational_field] || opp.educational_field}
+                            </span>
+                          )}
                           {opp.tags.slice(0, 2).map((tag: string) => (
                             <span key={tag} className="inline-flex items-center rounded-full border border-border bg-surface px-2 py-0.5 text-xs font-medium text-text-muted">
                               {tag}

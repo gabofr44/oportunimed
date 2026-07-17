@@ -20,6 +20,8 @@ export async function getOpportunities(filters?: {
   type?: string;
   funding?: boolean;
   search?: string;
+  level?: string;
+  field?: string;
 }) {
   const supabase = await createClient();
 
@@ -34,6 +36,14 @@ export async function getOpportunities(filters?: {
 
   if (filters?.funding) {
     query = query.eq("funding", true);
+  }
+
+  if (filters?.level && filters.level !== "all") {
+    query = query.eq("educational_level", filters.level);
+  }
+
+  if (filters?.field && filters.field !== "all") {
+    query = query.eq("educational_field", filters.field);
   }
 
   const { data, error, count } = await query;
