@@ -1,0 +1,77 @@
+diff --git a/src/app/opportunities/[id]/page.tsx b/src/app/opportunities/[id]/page.tsx
+index 75d3b05..ba1f2de 100644
+--- a/src/app/opportunities/[id]/page.tsx
++++ b/src/app/opportunities/[id]/page.tsx
+@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
+ import { Button } from "@/components/ui/button";
+ import { getOpportunityById } from "@/actions/opportunities";
+ import { ApplyButton } from "@/components/opportunities/ApplyButton";
+-import { ArrowLeft, MapPin, Calendar, Building, ExternalLink, Sparkles } from "lucide-react";
++import { ArrowLeft, MapPin, Calendar, ExternalLink, Sparkles } from "lucide-react";
+ 
+ const typeColors: Record<string, string> = {
+   scholarship: "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950 dark:text-emerald-300 dark:border-emerald-800",
+@@ -47,7 +47,7 @@ export default async function OpportunityDetailPage({ params }: Props) {
+           <div className="relative z-10">
+             <div className="flex items-start justify-between">
+               <div className="flex size-14 items-center justify-center rounded-2xl bg-primary/5 text-2xl font-bold text-primary">
+-                {opportunity.institution.charAt(0)}
++                {opportunity.title.charAt(0)}
+               </div>
+               <div className="flex gap-2">
+                 {opportunity.funding && (
+@@ -67,10 +67,6 @@ export default async function OpportunityDetailPage({ params }: Props) {
+             </h1>
+ 
+             <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-text-muted">
+-              <span className="flex items-center gap-1.5">
+-                <Building className="size-4" />
+-                {opportunity.institution}
+-              </span>
+               <span className="flex items-center gap-1.5">
+                 <MapPin className="size-4" />
+                 {opportunity.location}
+diff --git a/src/app/opportunities/page.tsx b/src/app/opportunities/page.tsx
+index 2b8c2e3..b28b4f8 100644
+--- a/src/app/opportunities/page.tsx
++++ b/src/app/opportunities/page.tsx
+@@ -183,7 +183,7 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
+                       <div className="relative z-10 flex flex-1 flex-col">
+                         <div className="flex items-start justify-between">
+                           <div className="flex size-9 items-center justify-center rounded-xl bg-primary/5 text-sm font-bold text-primary">
+-                            {opp.institution.charAt(0)}
++                            {opp.title.charAt(0)}
+                           </div>
+                           {opp.funding && (
+                             <Badge variant="outline" className="border-emerald-200 bg-emerald-50 text-emerald-700 text-xs dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+@@ -198,7 +198,7 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
+                         </h3>
+                         <p className="mt-1 flex items-center gap-1 text-sm text-text-muted">
+                           <MapPin className="size-3 shrink-0" />
+-                          {opp.institution} &middot; {opp.location}
++                          {opp.location}
+                         </p>
+ 
+                         <div className="mt-3 flex flex-wrap gap-1.5">
+diff --git a/src/components/sections/FeaturedOpportunities.tsx b/src/components/sections/FeaturedOpportunities.tsx
+index 8e39e4a..9733c33 100644
+--- a/src/components/sections/FeaturedOpportunities.tsx
++++ b/src/components/sections/FeaturedOpportunities.tsx
+@@ -22,7 +22,7 @@ function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
+         <div className="relative z-10 flex flex-1 flex-col">
+           <div className="flex items-start justify-between">
+             <div className="flex size-10 items-center justify-center rounded-xl bg-primary/5 text-sm font-bold text-primary">
+-              {opportunity.institution.charAt(0)}
++              {opportunity.title.charAt(0)}
+             </div>
+             {opportunity.funding && (
+               <Badge variant="outline" className="border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+@@ -37,7 +37,7 @@ function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
+           </h3>
+           <p className="mt-1 flex items-center gap-1 text-sm text-text-muted">
+             <MapPin className="size-3 shrink-0" />
+-            {opportunity.institution} &middot; {opportunity.location}
++            {opportunity.location}
+           </p>
+ 
+           <div className="mt-3 flex flex-wrap gap-1.5">

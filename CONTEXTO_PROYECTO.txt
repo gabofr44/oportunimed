@@ -1,0 +1,230 @@
+========================================
+Oportunimed - Contexto Completo del Proyecto
+Fecha: 17 de julio de 2026
+========================================
+
+1. DESCRIPCIÓN GENERAL
+========================================
+Oportunimed (antes "Global Pathways") es una plataforma bilingüe para que estudiantes
+encuentren becas, pasantías, fellowships y oportunidades de investigación internacional.
+Todo es gratuito (GitHub Student, Vercel free, Supabase free, Upstash free).
+
+- Repo: https://github.com/gabofr44/oportunimed.git
+- Frontend: https://oportunimed.vercel.app
+- Supabase: https://tloxuzwnjjlwlkdkfsvr.supabase.co
+- Admin password: oportunimed2026
+
+2. STACK TECNOLÓGICO
+========================================
+- Next.js 16 (App Router)
+- Supabase (Auth + PostgreSQL)
+- Tailwind CSS v4
+- Framer Motion (animaciones)
+- Lucide React (iconos)
+- Upstash Redis (rate limiting)
+
+3. SISTEMA DE DISEÑO (Bento/Glassmorphism)
+========================================
+- Light background: #F7F8FA
+- Dark background: #09090B
+- Primary: #2563EB
+- Cards: border-radius 28px
+- Font: Inter
+- Efectos: noise texture + glassmorphism (backdrop-blur-xl)
+- Full dark mode support
+
+4. ESTRUCTURA DE ARCHIVOS PRINCIPAL
+========================================
+global-pathways/
+├── .env.local                    # Variables de entorno
+├── .env.local.example            # Ejemplo de variables
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx            # Root layout
+│   │   ├── page.tsx              # Home page (bento grid)
+│   │   ├── opportunities/
+│   │   │   ├── page.tsx          # Lista de oportunidades con filtros
+│   │   │   └── [id]/page.tsx     # Detalle de oportunidad
+│   │   ├── auth/
+│   │   │   ├── login/page.tsx    # Login
+│   │   │   └── signup/page.tsx   # Registro
+│   │   └── admin/
+│   │       └── page.tsx          # Panel admin visual
+│   ├── components/
+│   │   ├── ui/                   # Button, Badge, Card, etc.
+│   │   └── opportunities/        # ApplyButton, etc.
+│   ├── actions/
+│   │   ├── auth.ts               # Login/signup/logout
+│   │   └── opportunities.ts      # CRUD oportunidades, smart search
+│   └── lib/
+│       └── supabase.ts           # Supabase client
+├── supabase/
+│   ├── migrations/
+│   │   ├── 001_initial_schema.sql
+│   │   ├── 002_site_content.sql
+│   │   ├── 003_page_sections.sql
+│   │   └── 004_fix_rls_admin_access.sql
+│   ├── 005_add_educational_metadata.sql  # Agrega educational_level y educational_field
+│   ├── import_opportunities_verified.sql # ~85 oportunidades verificadas (EL A CORRER)
+│   ├── import_opportunities_final.sql    # Versión anterior (no usar)
+│   ├── import_opportunities.sql          # Versión anterior (no usar)
+│   └── full_setup.sql                    # Seed de page_sections y categories
+└── package.json
+
+5. ESQUEMA DE BASE DE DATOS
+========================================
+TABLA profiles:
+  - id (UUID, FK auth.users)
+  - full_name, avatar_url, bio, country, university
+  - role (student/admin)
+
+TABLA categories:
+  - id (UUID)
+  - name, slug, description, icon
+  - Categorías existentes en full_setup.sql:
+    * becas (scholarships)
+    * pasantias (internships)
+    * becas-internacionales (international scholarships)
+    * investigacion (research)
+    * programas-profesionales (professional programs)
+    * oportunidades-STEM (STEM opportunities)
+    * recursos-idiomas (language resources)
+
+TABLA opportunities:
+  - id (UUID)
+  - title, institution, location
+  - type (ENUM: scholarship, research, internship, course)  ← USA ESTE, NO category_id
+  - funding (BOOLEAN)                                      ← USA ESTE, NO is_funded
+  - description (TEXT)
+  - link (TEXT)
+  - deadline (TIMESTAMPTZ NOT NULL)                        ← REQUERIDO
+  - tags (TEXT[])
+  - is_featured (BOOLEAN)
+  - created_by (UUID, FK profiles)
+  - educational_level (TEXT)   ← Agregado por migration 005
+  - educational_field (TEXT)   ← Agregado por migration 005
+  - country_code (TEXT)
+
+TABLA applications:
+  - id (UUID)
+  - user_id, opportunity_id
+  - status (pending/accepted/rejected/withdrawn)
+  - notes, applied_at
+
+6. COLUMNAS EDUCATIVAS (Migration 005)
+========================================
+educational_level: secundaria, preparatoria, universidad, posgrado, profesional
+educational_field: general, ciencias, ciencias_salud, ciencias_sociales, administracion,
+                   ingenieria, tecnologia, humanidades, derecho, educacion, artes
+
+7. QUÉ HEMOS LOGRADO
+========================================
+
+A) FRONTEND COMPLETO:
+   - Home page con layout bento grid y glassmorphism
+   - Página de oportunidades con filtros: Tipo, Nivel Educativo, Rama Educativa, Solo Financiados
+   - Búsqueda inteligente con relevancia (busca en title, institution, location, description, tags, link)
+   - Sin paginación: muestra todas las oportunidades
+   - Página de detalle con badges de nivel/rama educativa
+   - Auth (login/signup) con Supabase
+   - Panel admin visual
+   - Dark mode completo
+   - Animaciones con Framer Motion
+   - Todo en español
+
+B) BASE DE DATOS:
+   - Migration 005 ejecutada: educational_level y educational_field agregados
+   - Categorías sembradas via full_setup.sql
+   - Archivo import_opportunities_verified.sql listo con ~85 oportunidades
+
+C) OPORTUNIDADES VERIFICADAS (import_opportunities_verified.sql):
+   - ~30 BECAS: Fulbright, Antorchas, OEA, CONACYT, UNAM, DAAD, Chevening,
+     Erasmus Mundus, Rhodes, Marshall, Australia Awards, Gates Millennium,
+     Coca-Cola, Jack Kent Cooke, Barry Goldwater, Soros, Hertz, GEM, SMART,
+     Open Society, Aga Khan, Joint Japan/World Bank, OPEC Fund, TU Delft,
+     Holland Scholarship, Trudeau, CSC, KGSP, MEXT, Swedish Institute,
+     Turkish, Stipendium Hungaricum, Eiffel, Swiss Government
+   - ~14 PASANTÍAS: Google, Microsoft, Apple, Amazon, Goldman Sachs, NASA,
+     World Bank, UN, EU Blue Book, CERN, ESA, Max Planck, ETH Zurich, TU Munich
+   - ~9 FELLOWSHIPS: Knight-Hennessy, Schwarzman, Yenching, Clarendon, Gates Cambridge,
+     Truman, Peace Corps, Teach For All, McNair
+   - ~10 INVESTIGACIÓN: NIH, HHMI, EMBO, NSF GRFP, ERC, MSCA, DAAD Research,
+     Cancer Research UK, Wellcome Trust
+   - ~11 SALUD: Fogarty, CDC EIS, MSF, Global Health Corps, Partners in Health,
+     CHAI, Harvard Chan, Johns Hopkins, LSHTM, Karolinska, Duke-NUS
+   - ~11 PROFESIONAL: UNDP, UNESCO, WHO, FAO, IMF, World Bank, IDB, ESA, NATO,
+     Peace Corps, Teach For All
+   - ~10 TECNOLOGÍA: Google Summer of Code, MLH, AWS Educate, Microsoft Ambassadors,
+     NVIDIA, IBM SkillsBuild, Cisco, Google IT, Oracle, SAP
+
+   TOTAL: ~85 oportunidades con URLs verificadas, descripciones detalladas en español,
+          y metadatos de nivel/rama educativa.
+
+D) URLs VERIFICADAS POR AGENTES PARALELOS:
+   - Se lanzaron 6 agentes para verificar ~100 URLs
+   - URLs corregidas: MEXT→studyinjapan.go.jp, CLS→clscholarship.org,
+     NSLI-Y→nsliforyouth.org, Amazon Tech Academy→amazon.jobs,
+     TASS→/programs/tass/, RSI→cee.org, ACM SRC→src.acm.org
+   - Se identificaron URLs rotas y se corrigieron
+
+8. QUEDA POR HACER
+========================================
+
+A) EJECUTAR EN SUPABASE SQL EDITOR (en orden):
+   1. Ya ejecutado: 005_add_educational_metadata.sql ✓
+   2. Ejecutar: import_opportunities_verified.sql
+      - IMPORTANTE: Seleccionar "Run and enable RLS"
+      - El archivo hace DELETE FROM opportunities primero, luego INSERT
+
+B) DEPLOY DEL FRONTEND:
+   - Hacer push a GitHub para que Vercel haga deploy automático
+   - git add . && git commit -m "feat: update detail page with educational metadata" && git push
+
+C) VERIFICAR QUE TODO FUNCIONA:
+   - Que las oportunidades aparezcan en /opportunities
+   - Que los filtros funcionen (tipo, nivel, rama, financiados)
+   - Que la búsqueda inteligente funcione
+   - Que los links externos funcionen
+   - Que la página de detalle muestre nivel/rama educativa
+
+D) OPCIONAL - MEJORAS FUTURAS:
+   - Agregar más oportunidades de ciencias de la salud (el usuario quería más)
+   - Agregar oportunidades específicas por país (México, Latinoamérica)
+   - Agregar sistema de notificaciones para nuevas becas
+   - Agregar filtros por país de origen
+   - Agregar favoritos/guardados para usuarios
+   - Agregar sistema de recordatorios de deadlines
+
+9. COMANDOS ÚTILES
+========================================
+
+# Verificar si el frontend compila
+cd global-pathways && npm run build
+
+# Deploy a Vercel
+git add . && git commit -m "mensaje" && git push
+
+# Ejecutar migraciones en Supabase SQL Editor (pegar contenido):
+# 1. 005_add_educational_metadata.sql (si no se ha ejecutado)
+# 2. import_opportunities_verified.sql
+
+# Variables de entorno necesarias (.env.local):
+NEXT_PUBLIC_SUPABASE_URL=https://tloxuzwnjjlwlkdkfsvr.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<clave_anon>
+SUPABASE_SERVICE_ROLE_KEY=<clave_service_role>
+
+10. NOTAS IMPORTANTES
+========================================
+- La tabla opportunities USA "type" (enum), NO "category_id"
+- La tabla opportunities USA "funding" (boolean), NO "is_funded"
+- El campo "deadline" es REQUERIDO (TIMESTAMPTZ NOT NULL)
+- El archivo import_opportunities_verified.sql es el correcto a ejecutar
+- Los otros archivos (import_opportunities.sql, import_opportunities_final.sql) son obsoletos
+- El usuario quería más oportunidades de ciencias de la salud
+- El usuario quería descripciones detalladas en español
+- El usuario quería URLs verificadas
+- Todo el frontend está en español
+
+========================================
+FIN DEL CONTEXTO
+========================================

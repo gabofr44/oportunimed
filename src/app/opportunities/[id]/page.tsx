@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getOpportunityById } from "@/actions/opportunities";
 import { ApplyButton } from "@/components/opportunities/ApplyButton";
-import { ArrowLeft, MapPin, Calendar, Building, ExternalLink, Sparkles } from "lucide-react";
+import { ArrowLeft, MapPin, Calendar, ExternalLink, Sparkles, GraduationCap, BookOpen } from "lucide-react";
 
 const typeColors: Record<string, string> = {
   scholarship: "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950 dark:text-emerald-300 dark:border-emerald-800",
@@ -18,6 +18,28 @@ const typeLabels: Record<string, string> = {
   research: "Investigación",
   internship: "Internado",
   course: "Curso",
+};
+
+const educationalLevelLabels: Record<string, string> = {
+  secundaria: "Secundaria",
+  preparatoria: "Preparatoria",
+  universidad: "Universidad",
+  posgrado: "Posgrado",
+  profesional: "Profesional",
+};
+
+const educationalFieldLabels: Record<string, string> = {
+  general: "General",
+  ciencias: "Ciencias",
+  ciencias_salud: "Ciencias de la Salud",
+  ciencias_sociales: "Ciencias Sociales",
+  administracion: "Administración",
+  ingenieria: "Ingeniería",
+  tecnologia: "Tecnología",
+  humanidades: "Humanidades",
+  derecho: "Derecho",
+  educacion: "Educación",
+  artes: "Artes",
 };
 
 interface Props {
@@ -47,7 +69,7 @@ export default async function OpportunityDetailPage({ params }: Props) {
           <div className="relative z-10">
             <div className="flex items-start justify-between">
               <div className="flex size-14 items-center justify-center rounded-2xl bg-primary/5 text-2xl font-bold text-primary">
-                {opportunity.institution.charAt(0)}
+                {opportunity.title.charAt(0)}
               </div>
               <div className="flex gap-2">
                 {opportunity.funding && (
@@ -68,22 +90,20 @@ export default async function OpportunityDetailPage({ params }: Props) {
 
             <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-text-muted">
               <span className="flex items-center gap-1.5">
-                <Building className="size-4" />
-                {opportunity.institution}
-              </span>
-              <span className="flex items-center gap-1.5">
                 <MapPin className="size-4" />
                 {opportunity.location}
               </span>
-              <span className="flex items-center gap-1.5">
-                <Calendar className="size-4" />
-                Deadline:{" "}
-                {new Date(opportunity.deadline).toLocaleDateString("es-ES", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </span>
+              {opportunity.deadline && (
+                <span className="flex items-center gap-1.5">
+                  <Calendar className="size-4" />
+                  Fecha límite:{" "}
+                  {new Date(opportunity.deadline).toLocaleDateString("es-ES", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </span>
+              )}
             </div>
 
             <div className="mt-5 flex flex-wrap gap-2">
@@ -92,6 +112,27 @@ export default async function OpportunityDetailPage({ params }: Props) {
                   {tag}
                 </span>
               ))}
+            </div>
+
+            <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {opportunity.educational_level && (
+                <div className="flex items-center gap-2 rounded-xl border border-border bg-surface px-4 py-3">
+                  <GraduationCap className="size-5 text-primary" />
+                  <div>
+                    <p className="text-xs text-text-muted">Nivel Educativo</p>
+                    <p className="font-medium text-text-main">{educationalLevelLabels[opportunity.educational_level] || opportunity.educational_level}</p>
+                  </div>
+                </div>
+              )}
+              {opportunity.educational_field && (
+                <div className="flex items-center gap-2 rounded-xl border border-border bg-surface px-4 py-3">
+                  <BookOpen className="size-5 text-primary" />
+                  <div>
+                    <p className="text-xs text-text-muted">Rama Educativa</p>
+                    <p className="font-medium text-text-main">{educationalFieldLabels[opportunity.educational_field] || opportunity.educational_field}</p>
+                  </div>
+                </div>
+              )}
             </div>
 
             {opportunity.description && (

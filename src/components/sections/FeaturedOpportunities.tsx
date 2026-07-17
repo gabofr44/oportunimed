@@ -22,7 +22,7 @@ function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
         <div className="relative z-10 flex flex-1 flex-col">
           <div className="flex items-start justify-between">
             <div className="flex size-10 items-center justify-center rounded-xl bg-primary/5 text-sm font-bold text-primary">
-              {opportunity.institution.charAt(0)}
+              {opportunity.title.charAt(0)}
             </div>
             {opportunity.funding && (
               <Badge variant="outline" className="border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
@@ -37,7 +37,7 @@ function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
           </h3>
           <p className="mt-1 flex items-center gap-1 text-sm text-text-muted">
             <MapPin className="size-3 shrink-0" />
-            {opportunity.institution} &middot; {opportunity.location}
+            {opportunity.location}
           </p>
 
           <div className="mt-3 flex flex-wrap gap-1.5">

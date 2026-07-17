@@ -183,7 +183,7 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
                       <div className="relative z-10 flex flex-1 flex-col">
                         <div className="flex items-start justify-between">
                           <div className="flex size-9 items-center justify-center rounded-xl bg-primary/5 text-sm font-bold text-primary">
-                            {opp.institution.charAt(0)}
+                            {opp.title.charAt(0)}
                           </div>
                           {opp.funding && (
                             <Badge variant="outline" className="border-emerald-200 bg-emerald-50 text-emerald-700 text-xs dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
@@ -198,7 +198,7 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
                         </h3>
                         <p className="mt-1 flex items-center gap-1 text-sm text-text-muted">
                           <MapPin className="size-3 shrink-0" />
-                          {opp.institution} &middot; {opp.location}
+                          {opp.location}
                         </p>
 
                         <div className="mt-3 flex flex-wrap gap-1.5">
