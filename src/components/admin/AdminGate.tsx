@@ -3,19 +3,31 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Stethoscope, Lock } from "lucide-react";
+import { Stethoscope, Lock, Loader2 } from "lucide-react";
+import { verifyAdminPassword } from "@/lib/admin-auth";
 
 export function AdminGate({ onUnlock }: { onUnlock: () => void }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === process.env.NEXT_PUBLIC_ADMIN_PASSWORD || password === "oportunimed2026") {
-      sessionStorage.setItem("admin_unlocked", "true");
-      onUnlock();
-    } else {
-      setError("Contraseña incorrecta");
+    setLoading(true);
+    setError("");
+
+    try {
+      const valid = await verifyAdminPassword(password);
+      if (valid) {
+        sessionStorage.setItem("admin_unlocked", "true");
+        onUnlock();
+      } else {
+        setError("Contraseña incorrecta");
+      }
+    } catch {
+      setError("Error al verificar");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -50,8 +62,16 @@ export function AdminGate({ onUnlock }: { onUnlock: () => void }) {
           <Button
             type="submit"
             className="w-full rounded-xl bg-primary text-primary-foreground hover:bg-primary/90"
+            disabled={loading}
           >
-            Entrar
+            {loading ? (
+              <>
+                <Loader2 className="mr-2 size-4 animate-spin" />
+                Verificando...
+              </>
+            ) : (
+              "Entrar"
+            )}
           </Button>
         </form>
       </div>

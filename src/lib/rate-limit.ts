@@ -19,3 +19,10 @@ export const authLimiter = new Ratelimit({
   analytics: true,
   prefix: "oportunimed:auth",
 });
+
+export const loginLimiter = new Ratelimit({
+  redis,
+  limiter: Ratelimit.slidingWindow(5, "60 s"),
+  analytics: true,
+  prefix: "oportunimed:login",
+});

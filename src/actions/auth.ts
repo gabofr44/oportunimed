@@ -3,6 +3,14 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { authSchema, type AuthInput } from "@/lib/validations/opportunity";
+import { loginLimiter } from "@/lib/rate-limit";
+
+async function checkLoginRateLimit(identifier: string) {
+  const { success } = await loginLimiter.limit(identifier);
+  if (!success) {
+    throw new Error("Demasiados intentos. Espera un minuto e intenta de nuevo.");
+  }
+}
 
 export async function signUp(
   input: AuthInput
@@ -11,6 +19,12 @@ export async function signUp(
 
   if (!parsed.success) {
     return { error: parsed.error.flatten().fieldErrors };
+  }
+
+  try {
+    await checkLoginRateLimit(parsed.data.email);
+  } catch (e) {
+    return { error: { auth: [(e as Error).message] } };
   }
 
   const supabase = await createClient();
@@ -37,6 +51,12 @@ export async function signIn(
 
   if (!parsed.success) {
     return { error: parsed.error.flatten().fieldErrors };
+  }
+
+  try {
+    await checkLoginRateLimit(parsed.data.email);
+  } catch (e) {
+    return { error: { auth: [(e as Error).message] } };
   }
 
   const supabase = await createClient();

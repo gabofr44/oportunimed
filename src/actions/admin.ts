@@ -3,6 +3,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 import { sanitize } from "@/lib/sanitization";
+import { requireAdmin } from "@/lib/admin-auth";
 
 // ============================================
 // Site Content (key-value settings)
@@ -20,7 +21,7 @@ export async function getSiteContent() {
 }
 
 export async function updateSiteContent(key: string, value: string) {
-  const supabase = await createClient();
+  const supabase = await requireAdmin();
   const sanitized = sanitize(value);
 
   const { error } = await supabase
@@ -34,7 +35,7 @@ export async function updateSiteContent(key: string, value: string) {
 }
 
 // ============================================
-// Opportunities (admin — bypasses auth check)
+// Opportunities (admin)
 // ============================================
 
 export async function getAllOpportunities() {
@@ -60,7 +61,10 @@ export async function adminCreateOpportunity(data: {
   tags: string[];
   is_featured: boolean;
 }) {
-  const supabase = await createClient();
+  const supabase = await requireAdmin();
+
+  const { data: { user } } = await supabase.auth.getUser();
+
   const { data: created, error } = await supabase
     .from("opportunities")
     .insert({
@@ -74,6 +78,7 @@ export async function adminCreateOpportunity(data: {
       link: data.link || null,
       tags: data.tags,
       is_featured: data.is_featured,
+      created_by: user?.id || null,
     })
     .select()
     .single();
@@ -99,7 +104,7 @@ export async function adminUpdateOpportunity(
     is_featured: boolean;
   }
 ) {
-  const supabase = await createClient();
+  const supabase = await requireAdmin();
   const { error } = await supabase
     .from("opportunities")
     .update({
@@ -123,7 +128,7 @@ export async function adminUpdateOpportunity(
 }
 
 export async function adminDeleteOpportunity(id: string) {
-  const supabase = await createClient();
+  const supabase = await requireAdmin();
   const { error } = await supabase
     .from("opportunities")
     .delete()
@@ -168,7 +173,7 @@ export async function updatePageSection(
   content: Record<string, unknown>,
   title?: string
 ) {
-  const supabase = await createClient();
+  const supabase = await requireAdmin();
   const update: Record<string, unknown> = { content };
   if (title) update.title = title;
 
@@ -184,7 +189,7 @@ export async function updatePageSection(
 }
 
 export async function updateSectionVisibility(id: string, visible: boolean) {
-  const supabase = await createClient();
+  const supabase = await requireAdmin();
   const { error } = await supabase
     .from("page_sections")
     .update({ visible })
@@ -196,7 +201,7 @@ export async function updateSectionVisibility(id: string, visible: boolean) {
 }
 
 export async function reorderSections(ids: string[]) {
-  const supabase = await createClient();
+  const supabase = await requireAdmin();
 
   const updates = ids.map((id, index) =>
     supabase

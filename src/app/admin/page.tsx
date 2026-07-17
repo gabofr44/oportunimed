@@ -11,8 +11,9 @@ import {
   getAllOpportunities,
   getPageSections,
 } from "@/actions/admin";
+import { clearAdminSession } from "@/lib/admin-auth";
 import type { Opportunity } from "@/types";
-import { Stethoscope, RefreshCw, ExternalLink, FileText, Target, Settings } from "lucide-react";
+import { Stethoscope, RefreshCw, ExternalLink, FileText, Target, Settings, LogOut } from "lucide-react";
 
 type Tab = "page" | "opportunities" | "settings";
 
@@ -117,6 +118,12 @@ function AdminPanel() {
     void fetchData();
   }, [fetchData]);
 
+  const handleLogout = useCallback(async () => {
+    sessionStorage.removeItem("admin_unlocked");
+    await clearAdminSession();
+    window.location.href = "/";
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <div className="glass border-b border-border">
@@ -146,6 +153,13 @@ function AdminPanel() {
               Ver sitio
               <ExternalLink className="size-3.5" />
             </Link>
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-1.5 text-sm text-text-muted hover:text-red-500 transition-colors"
+            >
+              <LogOut className="size-3.5" />
+              Salir
+            </button>
           </div>
         </div>
       </div>
