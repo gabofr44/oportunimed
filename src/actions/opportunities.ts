@@ -20,21 +20,13 @@ export async function getOpportunities(filters?: {
   type?: string;
   funding?: boolean;
   search?: string;
-  page?: number;
-  limit?: number;
 }) {
   const supabase = await createClient();
-
-  const page = filters?.page || 1;
-  const limit = filters?.limit || 12;
-  const offset = (page - 1) * limit;
 
   let query = supabase
     .from("opportunities")
     .select("*", { count: "exact" })
-    .gte("deadline", new Date().toISOString())
-    .order("deadline", { ascending: true })
-    .range(offset, offset + limit - 1);
+    .order("deadline", { ascending: true });
 
   if (filters?.type && filters.type !== "all") {
     query = query.eq("type", filters.type);
@@ -44,13 +36,6 @@ export async function getOpportunities(filters?: {
     query = query.eq("funding", true);
   }
 
-  if (filters?.search) {
-    const sanitizedSearch = sanitize(filters.search);
-    query = query.or(
-      `title.ilike.%${sanitizedSearch}%,institution.ilike.%${sanitizedSearch}%,location.ilike.%${sanitizedSearch}%`
-    );
-  }
-
   const { data, error, count } = await query;
 
   if (error) {
@@ -58,7 +43,49 @@ export async function getOpportunities(filters?: {
     return { data: [], count: 0, error: error.message };
   }
 
-  return { data, count: count || 0, error: null };
+  let results = data || [];
+
+  // Smart search: search across ALL fields and rank by relevance
+  if (filters?.search && filters.search.trim()) {
+    const searchLower = filters.search.toLowerCase().trim();
+    const searchTerms = searchLower.split(/\s+/).filter(t => t.length > 1);
+
+    results = results
+      .map(opp => {
+        let score = 0;
+        const titleLower = opp.title?.toLowerCase() || '';
+        const institutionLower = opp.institution?.toLowerCase() || '';
+        const locationLower = opp.location?.toLowerCase() || '';
+        const descriptionLower = opp.description?.toLowerCase() || '';
+        const linkLower = opp.link?.toLowerCase() || '';
+        const tagsLower = (opp.tags || []).map((t: string) => t.toLowerCase()).join(' ');
+
+        // Exact match in title = highest score
+        if (titleLower.includes(searchLower)) score += 100;
+
+        // Search each term separately
+        for (const term of searchTerms) {
+          // Title matches (highest priority)
+          if (titleLower.includes(term)) score += 50;
+          // Institution matches
+          if (institutionLower.includes(term)) score += 30;
+          // Location matches
+          if (locationLower.includes(term)) score += 25;
+          // Description matches
+          if (descriptionLower.includes(term)) score += 20;
+          // Tags match
+          if (tagsLower.includes(term)) score += 15;
+          // Link matches
+          if (linkLower.includes(term)) score += 10;
+        }
+
+        return { ...opp, _score: score };
+      })
+      .filter(opp => opp._score > 0)
+      .sort((a, b) => b._score - a._score);
+  }
+
+  return { data: results, count: results.length, error: null };
 }
 
 export async function getFeaturedOpportunities() {

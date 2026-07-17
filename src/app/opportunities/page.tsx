@@ -17,6 +17,23 @@ const typeLabels: Record<string, string> = {
   research: "Investigación",
   internship: "Internado",
   course: "Curso",
+  fellowship: "Beca",
+  masters: "Maestría",
+  doctorate: "Doctorado",
+  summer: "Escuela de Verano",
+  short: "Programa Corto",
+  conference: "Conferencia",
+  workshop: "Taller",
+  competition: "Competencia",
+  exchange: "Intercambio",
+  professional: "Formación Profesional",
+  mentorship: "Mentoría",
+  bootcamp: "Bootcamp",
+  hackathon: "Hackathon",
+  highschool: "Secundaria",
+  travel: "Beca de Viaje",
+  event: "Evento",
+  postdoc: "Posdoctorado",
 };
 
 interface Props {
@@ -24,7 +41,6 @@ interface Props {
     q?: string;
     type?: string;
     funding?: string;
-    page?: string;
   }>;
 }
 
@@ -35,8 +51,6 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
     search: params.q,
     type: params.type,
     funding: params.funding === "true",
-    page: params.page ? parseInt(params.page) : 1,
-    limit: 12,
   });
 
   return (
@@ -82,6 +96,23 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
                       <option value="research">Investigación</option>
                       <option value="internship">Internados</option>
                       <option value="course">Cursos</option>
+                      <option value="fellowship">Becas</option>
+                      <option value="masters">Maestría</option>
+                      <option value="doctorate">Doctorado</option>
+                      <option value="summer">Escuela de Verano</option>
+                      <option value="short">Programa Corto</option>
+                      <option value="conference">Conferencia</option>
+                      <option value="workshop">Taller</option>
+                      <option value="competition">Competencia</option>
+                      <option value="exchange">Intercambio</option>
+                      <option value="professional">Formación Profesional</option>
+                      <option value="mentorship">Mentoría</option>
+                      <option value="bootcamp">Bootcamp</option>
+                      <option value="hackathon">Hackathon</option>
+                      <option value="highschool">Secundaria</option>
+                      <option value="travel">Beca de Viaje</option>
+                      <option value="event">Evento</option>
+                      <option value="postdoc">Posdoctorado</option>
                     </select>
                   </div>
 
