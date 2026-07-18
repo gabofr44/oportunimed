@@ -11,7 +11,7 @@ const testimonials = [
   },
   {
     name: "Carlos Mendoza",
-    role: "Internado, Johns Hopkins",
+    role: "Internship, Johns Hopkins",
     text: "Encontré mi internship ideal en minutos. Las convocatorias están bien organizadas y siempre actualizadas.",
   },
   {

@@ -11,7 +11,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "OportuniMed | Convocatorias Médicas para Estudiantes",
   description:
-    "Encuentra convocatorias, becas, internados y oportunidades de investigación médica en todo el mundo.",
+    "Encuentra convocatorias, becas, internships y oportunidades de investigación médica en todo el mundo.",
 };
 
 export default async function RootLayout({

@@ -18,6 +18,7 @@ async function checkRateLimit(userId: string) {
 
 export async function getOpportunities(filters?: {
   type?: string;
+  subtype?: string;
   funding?: boolean;
   search?: string;
   level?: string;
@@ -34,6 +35,10 @@ export async function getOpportunities(filters?: {
     query = query.eq("type", filters.type);
   }
 
+  if (filters?.subtype && filters.subtype !== "all") {
+    query = query.eq("subtype", filters.subtype);
+  }
+
   if (filters?.funding) {
     query = query.eq("funding", true);
   }
@@ -46,7 +51,7 @@ export async function getOpportunities(filters?: {
     query = query.eq("educational_field", filters.field);
   }
 
-  const { data, error, count } = await query;
+  const { data, error } = await query;
 
   if (error) {
     console.error("Error fetching opportunities:", error);

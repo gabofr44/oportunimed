@@ -17,6 +17,7 @@ const emptyForm = {
   institution: "",
   location: "",
   type: "scholarship" as string,
+  subtype: "" as string,
   funding: false,
   deadline: "",
   description: "",
@@ -49,6 +50,7 @@ export function OpportunityManager({
       institution: opp.institution,
       location: opp.location,
       type: opp.type,
+      subtype: opp.subtype || "",
       funding: opp.funding,
       deadline: opp.deadline.split("T")[0],
       description: opp.description || "",
@@ -66,6 +68,7 @@ export function OpportunityManager({
       institution: form.institution,
       location: form.location,
       type: form.type,
+      subtype: form.subtype || undefined,
       funding: form.funding,
       deadline: form.deadline,
       description: form.description || undefined,
@@ -154,11 +157,25 @@ export function OpportunityManager({
               </div>
               <div>
                 <label className="mb-1 block text-xs font-medium text-text-muted">Tipo</label>
-                <select value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })} className="w-full rounded-xl border border-border bg-card px-3 py-2 text-sm">
+                <select value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value, subtype: "" })} className="w-full rounded-xl border border-border bg-card px-3 py-2 text-sm">
                   <option value="scholarship">Beca</option>
                   <option value="research">Investigación</option>
-                  <option value="internship">Internado</option>
+                  <option value="internship">Internship</option>
+                  <option value="internado_ss">Internado y SS</option>
                   <option value="course">Curso</option>
+                  <option value="event">Evento</option>
+                </select>
+              </div>
+              <div>
+                <label className="mb-1 block text-xs font-medium text-text-muted">Subcategoría</label>
+                <select value={form.subtype} onChange={(e) => setForm({ ...form, subtype: e.target.value })} className="w-full rounded-xl border border-border bg-card px-3 py-2 text-sm">
+                  <option value="">Sin subcategoría</option>
+                  {form.type === "scholarship" && <><option value="full_scholarship">Beca Completa</option><option value="fellowship">Fellowship</option><option value="government">Gubernamental</option><option value="need_based">Necesidad Económica</option><option value="merit_based">Mérito Académico</option><option value="travel_grant">Travel Grant</option></>}
+                  {form.type === "internship" && <><option value="corporate">Corporativo</option><option value="un_international">Organismo Internacional</option><option value="consulting">Consultoría</option><option value="tech">Tecnología</option><option value="research_internship">Investigación</option></>}
+                  {form.type === "internado_ss" && <><option value="internado_pregrado">Internado Médico Pregrado</option><option value="servicio_social">Servicio Social</option></>}
+                  {form.type === "research" && <><option value="phd">Doctorado</option><option value="postdoc">Postdoctorado</option><option value="research_fellowship">Fellowship Investigación</option><option value="clinical_fellowship">Fellowship Clínico</option><option value="summer_research">Verano de Investigación</option><option value="winter_research">Invierno de Investigación</option><option value="observership">Observership</option></>}
+                  {form.type === "course" && <><option value="online">En Línea</option><option value="certification">Certificación</option><option value="bootcamp">Bootcamp</option><option value="summer_school">Escuela de Verano</option><option value="short_program">Programa Corto</option><option value="mentorship">Mentoría</option></>}
+                  {form.type === "event" && <><option value="congress">Congreso</option><option value="hackathon">Hackathon</option><option value="competition">Competencia</option><option value="conference">Conferencia</option><option value="exchange">Intercambio</option><option value="mission_brain">Mission Brain</option><option value="student_chapter">Capítulo Estudiantil</option></>}
                 </select>
               </div>
               <div>

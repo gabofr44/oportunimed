@@ -4,7 +4,7 @@ import { CheckCircle, ArrowRight, BookOpen, Lightbulb } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Cómo Postular | Oportunimed",
-  description: "Guía paso a paso para aplicar a becas, programas de investigación e internados internacionales.",
+  description: "Guía paso a paso para aplicar a becas, programas de investigación e internships internacionales.",
 };
 
 export default async function HowToApplyPage() {

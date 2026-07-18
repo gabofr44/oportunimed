@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { GraduationCap, Beaker, Briefcase, BookOpen } from "lucide-react";
+import { GraduationCap, Beaker, Briefcase, BookOpen, Stethoscope, CalendarDays } from "lucide-react";
 
 interface CategoryItem {
   label: string;
@@ -20,13 +20,17 @@ const iconMap: Record<string, React.ReactNode> = {
   "🔬": <Beaker className="size-6" />,
   "💼": <Briefcase className="size-6" />,
   "📖": <BookOpen className="size-6" />,
+  "🩺": <Stethoscope className="size-6" />,
+  "📅": <CalendarDays className="size-6" />,
 };
 
 const defaultItems: CategoryItem[] = [
   { label: "Becas", description: "Financiamiento completo y parcial", icon: "🎓" },
   { label: "Investigación", description: "STEM y Humanidades", icon: "🔬" },
-  { label: "Internados", description: "Experiencia profesional en el extranjero", icon: "💼" },
+  { label: "Internships", description: "Experiencia profesional en el extranjero", icon: "💼" },
+  { label: "Internado y SS", description: "Servicio social e internado médico", icon: "🩺" },
   { label: "Cursos & Verano", description: "Programas de corta duración", icon: "📖" },
+  { label: "Eventos", description: "Congressos, hackathons y más", icon: "📅" },
 ];
 
 export function CategoriesSection({ content }: { content?: CategoriesContent }) {

@@ -10,7 +10,8 @@ export const opportunitySchema = z.object({
     .min(2, "Institution is required")
     .max(200, "Institution must be at most 200 characters"),
   location: z.string().min(2, "Location is required"),
-  type: z.enum(["scholarship", "research", "internship", "course"]),
+  type: z.enum(["scholarship", "research", "internship", "internado_ss", "course", "event"]),
+  subtype: z.string().optional(),
   funding: z.boolean().default(false),
   deadline: z.string().refine((val) => !isNaN(Date.parse(val)), {
     message: "Invalid date format",
@@ -28,8 +29,9 @@ export type OpportunityInput = z.infer<typeof opportunitySchema>;
 export const searchSchema = z.object({
   query: z.string().max(200).default(""),
   type: z
-    .enum(["scholarship", "research", "internship", "course", "all"])
+    .enum(["scholarship", "research", "internship", "internado_ss", "course", "event", "all"])
     .default("all"),
+  subtype: z.string().optional(),
   funding: z.boolean().default(false),
   page: z.number().int().positive().default(1),
 });

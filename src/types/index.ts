@@ -1,4 +1,18 @@
-export type OpportunityType = "scholarship" | "research" | "internship" | "course";
+export type OpportunityType = "scholarship" | "research" | "internship" | "internado_ss" | "course" | "event";
+
+export type OpportunitySubtype =
+  // Scholarship
+  | "full_scholarship" | "fellowship" | "government" | "need_based" | "merit_based" | "travel_grant"
+  // Internship
+  | "corporate" | "un_international" | "consulting" | "tech" | "research_internship"
+  // Internado y Servicio Social
+  | "internado_pregrado" | "servicio_social"
+  // Research
+  | "phd" | "postdoc" | "research_fellowship" | "clinical_fellowship" | "summer_research" | "winter_research" | "observership"
+  // Course
+  | "online" | "certification" | "bootcamp" | "summer_school" | "short_program" | "mentorship"
+  // Event
+  | "congress" | "hackathon" | "competition" | "conference" | "exchange" | "mission_brain" | "student_chapter";
 
 export type ApplicationStatus = "pending" | "accepted" | "rejected" | "withdrawn";
 
@@ -23,6 +37,7 @@ export interface Opportunity {
   location: string;
   country_code: string | null;
   type: OpportunityType;
+  subtype: OpportunitySubtype | null;
   funding: boolean;
   description: string | null;
   link: string | null;
@@ -32,6 +47,8 @@ export interface Opportunity {
   created_by: string | null;
   created_at: string;
   updated_at: string;
+  educational_level?: string;
+  educational_field?: string;
 }
 
 export interface Application {

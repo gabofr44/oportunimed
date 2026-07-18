@@ -71,7 +71,7 @@ export function HeroSection({ content }: { content?: HeroContent }) {
             )}
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-base text-text-muted sm:text-lg">
-            {c.subheadline || "Becas, internados, oportunidades de investigación y mucho más, todo en un solo lugar."}
+            {c.subheadline || "Becas, internships, oportunidades de investigación y mucho más, todo en un solo lugar."}
           </p>
         </motion.div>
 

@@ -54,6 +54,7 @@ export async function adminCreateOpportunity(data: {
   institution: string;
   location: string;
   type: string;
+  subtype?: string;
   funding: boolean;
   deadline: string;
   description?: string;
@@ -72,6 +73,7 @@ export async function adminCreateOpportunity(data: {
       institution: sanitize(data.institution),
       location: sanitize(data.location),
       type: data.type,
+      subtype: data.subtype || null,
       funding: data.funding,
       deadline: data.deadline,
       description: data.description ? sanitize(data.description) : null,
@@ -96,6 +98,7 @@ export async function adminUpdateOpportunity(
     institution: string;
     location: string;
     type: string;
+    subtype?: string;
     funding: boolean;
     deadline: string;
     description?: string;
@@ -112,6 +115,7 @@ export async function adminUpdateOpportunity(
       institution: sanitize(data.institution),
       location: sanitize(data.location),
       type: data.type,
+      subtype: data.subtype || null,
       funding: data.funding,
       deadline: data.deadline,
       description: data.description ? sanitize(data.description) : null,

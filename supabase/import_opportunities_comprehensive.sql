@@ -1,0 +1,582 @@
+-- ============================================
+-- COMPREHENSIVE: All opportunities (corrected + new)
+-- Run in Supabase SQL Editor after full_setup.sql
+-- Includes: international + Mexico-specific
+-- ============================================
+
+-- Step 1: Ensure columns exist
+DO $$ 
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='opportunities' AND column_name='educational_level') THEN
+    ALTER TABLE opportunities ADD COLUMN educational_level TEXT DEFAULT 'universidad';
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='opportunities' AND column_name='educational_field') THEN
+    ALTER TABLE opportunities ADD COLUMN educational_field TEXT DEFAULT 'general';
+  END IF;
+END $$;
+
+CREATE INDEX IF NOT EXISTS idx_opportunities_edu_level ON opportunities(educational_level);
+CREATE INDEX IF NOT EXISTS idx_opportunities_edu_field ON opportunities(educational_field);
+
+-- Step 2: Clear existing
+DELETE FROM opportunities;
+
+-- ============================================
+-- BECAS (Scholarships)
+-- ============================================
+INSERT INTO opportunities (title, institution, location, type, subtype, funding, description, link, deadline, tags, is_featured, educational_level, educational_field) VALUES
+
+-- Fulbright Foreign Student (deadline confirmed)
+('Fulbright Foreign Student Program', 'Institute of International Education (IIE)', 'United States', 'scholarship', 'full_scholarship', true, 'For non-U.S. students to study in the U.S. Administered by IIE for the U.S. Department of State. 150+ countries represented.', 'https://foreign.fulbrightonline.org/', '2026-10-13T23:59:00Z', ARRAY['Fellowship', 'Graduate', 'Government', 'Estados Unidos'], false, 'posgrado', 'general'),
+
+-- Hubert Humphrey
+('Hubert H. Humphrey Fellowship Program', 'IIE / U.S. Department of State', 'United States', 'scholarship', 'fellowship', true, 'For experienced professionals from priority countries. Graduate-level study and professional experiences at U.S. host universities.', 'https://www.humphreyfellowship.org/', '2026-10-01T23:59:00Z', ARRAY['Fellowship', 'Professional', 'Leadership', 'Estados Unidos'], false, 'profesional', 'general'),
+
+-- Chevening
+('Chevening Scholarships', 'UK Foreign, Commonwealth & Development Office', 'United Kingdom', 'scholarship', 'full_scholarship', true, 'Fully-funded UK government scholarship for outstanding emerging leaders. One-year master''s in the UK.', 'https://www.chevening.org/scholarships/', '2026-11-05T23:59:00Z', ARRAY['Fellowship', 'Masters', 'Leadership', 'Reino Unido'], true, 'posgrado', 'general'),
+
+-- Marshall
+('Marshall Scholarships', 'Marshall Aid Commissions', 'United Kingdom', 'scholarship', 'fellowship', true, 'For intellectually distinguished young Americans to pursue graduate study in the UK.', 'https://www.marshallscholarship.org/', '2026-09-23T23:59:00Z', ARRAY['Fellowship', 'Graduate', 'Reino Unido'], false, 'posgrado', 'general'),
+
+-- Rhodes
+('Rhodes Scholarships', 'Rhodes Trust / University of Oxford', 'United Kingdom', 'scholarship', 'full_scholarship', true, 'Fully-funded postgraduate award at the University of Oxford for outstanding young people from around the world.', 'https://www.rhodeshouse.ox.ac.uk/scholarships/', '2026-10-01T23:59:00Z', ARRAY['Fellowship', 'Graduate', 'Oxford', 'Reino Unido'], true, 'posgrado', 'general'),
+
+-- Gates Cambridge
+('Gates Cambridge Scholarships', 'Gates Cambridge Trust', 'United Kingdom', 'scholarship', 'full_scholarship', true, 'Outstanding postgraduate study at the University of Cambridge for citizens of any country outside the UK.', 'https://www.gatescambridge.org/', '2026-10-14T23:59:00Z', ARRAY['Fellowship', 'Graduate', 'Cambridge', 'Reino Unido'], false, 'posgrado', 'general'),
+
+-- DAAD
+('DAAD Scholarships', 'German Academic Exchange Service (DAAD)', 'Germany', 'scholarship', 'government', true, 'Scholarships for international students at all academic levels to study in Germany.', 'https://www.daad.de/en/', '2026-10-15T23:59:00Z', ARRAY['Scholarship', 'Germany', 'Alemania'], false, 'posgrado', 'general'),
+
+-- Swiss Government
+('Swiss Government Excellence Scholarships', 'Swiss Confederation (SBFI)', 'Switzerland', 'scholarship', 'government', true, 'For foreign researchers and artists holding a master degree to conduct research or further studies in Switzerland.', 'https://www.sbfi.admin.ch/', '2026-12-01T23:59:00Z', ARRAY['Research', 'Switzerland', 'Suiza'], false, 'posgrado', 'general'),
+
+-- Türkiye Bursları
+('Turkish Government Scholarship (Türkiye Bursları)', 'Republic of Türkiye', 'Turkey', 'scholarship', 'government', true, 'Comprehensive scholarship for international students at all academic levels to study in Turkey.', 'https://www.turkiyeburslari.gov.tr/', '2026-02-20T23:59:00Z', ARRAY['Scholarship', 'Turkey', 'Turquía'], false, 'universidad', 'general'),
+
+-- Eiffel
+('Eiffel Excellence Scholarship Program', 'Campus France / French Ministry', 'France', 'scholarship', 'government', true, 'For international students enrolled in French higher education institutions at master''s and doctoral levels.', 'https://www.campusfrance.org/en/eiffel-scholarship-program-of-excellence', '2026-01-10T23:59:00Z', ARRAY['Scholarship', 'France', 'Francia'], false, 'posgrado', 'general'),
+
+-- Schwarzman
+('Schwarzman Scholars Program', 'Tsinghua University', 'China', 'scholarship', 'full_scholarship', true, 'Fully-funded one-year master''s in Global Affairs at Tsinghua University, focused on leadership and China''s role in the world.', 'https://www.schwarzmanscholars.org/', '2026-09-19T23:59:00Z', ARRAY['Masters', 'Leadership', 'China'], false, 'posgrado', 'ciencias_sociales'),
+
+-- Knight-Hennessy
+('Knight-Hennessy Scholars', 'Stanford University', 'United States', 'scholarship', 'full_scholarship', true, 'Full funding for graduate study at Stanford University. Up to 3 years of tuition plus stipend.', 'https://knight-hennessy.stanford.edu/', '2026-10-08T23:59:00Z', ARRAY['Graduate', 'Leadership', 'Stanford', 'Estados Unidos'], true, 'posgrado', 'general'),
+
+-- Clarendon
+('Clarendon Fund Scholarships', 'University of Oxford', 'United Kingdom', 'scholarship', 'merit_based', true, 'Major scholarship at Oxford covering tuition fees and living costs for outstanding postgraduate students.', 'https://www.clarendon.ox.ac.uk/', '2026-01-07T23:59:00Z', ARRAY['Graduate', 'Oxford', 'Reino Unido'], false, 'posgrado', 'general'),
+
+-- Commonwealth
+('Commonwealth Scholarships', 'Commonwealth Scholarship Commission (FCDO)', 'United Kingdom', 'scholarship', 'full_scholarship', true, 'For students from Commonwealth countries to pursue master''s or PhD study in the UK.', 'https://cscuk.fcdo.gov.uk/', '2026-12-01T23:59:00Z', ARRAY['Fellowship', 'Commonwealth', 'UK', 'Reino Unido'], false, 'posgrado', 'general'),
+
+-- Australia Awards
+('Australia Awards Scholarships', 'Australian Government (DFAT)', 'Australia', 'scholarship', 'full_scholarship', true, 'Full scholarships for students from developing countries to study at Australian institutions.', 'https://www.dfat.gov.au/people-to-people/australia-awards', '2026-04-30T23:59:00Z', ARRAY['Scholarship', 'Australia'], false, 'universidad', 'general'),
+
+-- New Zealand Scholarships
+('New Zealand Scholarships (NZSS)', 'New Zealand Ministry of Foreign Affairs', 'New Zealand', 'scholarship', 'full_scholarship', true, 'Full scholarships for students from eligible developing countries to study in New Zealand.', 'https://www.nzaid.govt.nz/scholarships/', '2026-03-01T23:59:00Z', ARRAY['Scholarship', 'New Zealand', 'Nueva Zelanda'], false, 'universidad', 'general'),
+
+-- Gates Millennium
+('Gates Millennium Scholars Program', 'UNCF / Gates Foundation', 'United States', 'scholarship', 'need_based', true, 'Full scholarship for outstanding minority students with demonstrated leadership ability.', 'https://www.gmsp.org/', '2026-09-15T23:59:00Z', ARRAY['Scholarship', 'Minority', 'Leadership', 'Estados Unidos'], false, 'universidad', 'general'),
+
+-- Coca-Cola Scholars
+('Coca-Cola Scholars Program', 'Coca-Cola Scholars Foundation', 'United States', 'scholarship', 'full_scholarship', true, 'Scholarship for outstanding high school seniors demonstrating leadership and commitment to service.', 'https://www.coca-colascholarsfoundation.org/', '2026-10-31T23:59:00Z', ARRAY['Scholarship', 'Undergraduate', 'Leadership', 'Estados Unidos'], false, 'preparatoria', 'general'),
+
+-- Jack Kent Cooke
+('Jack Kent Cooke Foundation College Scholarship', 'JKCF', 'United States', 'scholarship', 'need_based', true, 'Scholarship for high-achieving students with financial need, from high school through graduate school.', 'https://www.jkcf.org/our-scholarships/', '2026-11-18T23:59:00Z', ARRAY['Scholarship', 'Undergraduate', 'Estados Unidos'], false, 'universidad', 'general'),
+
+-- Barry Goldwater
+('Barry Goldwater Scholarship', 'Goldwater Foundation', 'United States', 'scholarship', 'merit_based', true, 'For college sophomores and juniors pursuing research careers in STEM fields.', 'https://goldwater.scholarsapply.org/', '2026-01-31T23:59:00Z', ARRAY['Scholarship', 'STEM', 'Undergraduate', 'Estados Unidos'], false, 'universidad', 'ciencias'),
+
+-- Paul & Daisy Soros
+('Paul & Daisy Soros Fellowships for New Americans', 'PDSF', 'United States', 'scholarship', 'fellowship', true, 'For immigrants and children of immigrants pursuing graduate education in the U.S.', 'https://www.pdsoros.org/', '2026-10-26T23:59:00Z', ARRAY['Fellowship', 'Immigrants', 'Graduate', 'Estados Unidos'], false, 'posgrado', 'general'),
+
+-- Hertz Foundation
+('Hertz Foundation Fellowship', 'Hertz Foundation', 'United States', 'scholarship', 'fellowship', true, 'For doctoral students in applied physical, biological, and engineering sciences. Up to 5 years of support.', 'https://www.hertzfoundation.org/the-fellowship/', '2026-10-21T23:59:00Z', ARRAY['Fellowship', 'STEM', 'PhD', 'Estados Unidos'], false, 'posgrado', 'ingenieria'),
+
+-- Ford Foundation
+('Ford Foundation Fellowship Programs', 'National Academies of Sciences', 'United States', 'scholarship', 'fellowship', true, 'For PhD students and postdocs committed to increasing diversity in academia.', 'https://sites.nationalacademies.org/pga/fordfellowships/', '2026-12-18T23:59:00Z', ARRAY['Fellowship', 'Diversity', 'PhD', 'Estados Unidos'], false, 'posgrado', 'general'),
+
+-- GEM Fellowship
+('GEM Fellowship', 'GEM (National Consortium)', 'United States', 'scholarship', 'fellowship', true, 'For underrepresented minority students pursuing graduate degrees in STEM and business.', 'https://www.gemfellowship.org/', '2026-10-01T23:59:00Z', ARRAY['Fellowship', 'STEM', 'Diversity', 'Estados Unidos'], false, 'posgrado', 'ciencias'),
+
+-- SMART Scholarship
+('SMART Scholarship (DoD)', 'U.S. Department of Defense', 'United States', 'scholarship', 'fellowship', true, 'Full scholarship for STEM students who commit to employment with the Department of Defense after graduation.', 'https://smartscholarship.org/', '2026-12-01T23:59:00Z', ARRAY['Scholarship', 'STEM', 'Government', 'Estados Unidos'], false, 'universidad', 'ingenieria'),
+
+-- Open Society Foundations
+('Open Society Foundations Scholarships', 'Open Society Foundations', 'Various', 'scholarship', 'need_based', true, 'Scholarships for students from disadvantaged backgrounds committed to social justice.', 'https://www.opensocietyfoundations.org/', '2026-06-01T23:59:00Z', ARRAY['Scholarship', 'Social Justice', 'Internacional'], false, 'posgrado', 'general'),
+
+-- Aga Khan Foundation
+('Aga Khan Foundation International Scholarship', 'Aga Khan Development Network', 'Various', 'scholarship', 'need_based', true, 'Scholarships for students from developing countries with demonstrated financial need.', 'https://www.akdn.org/our-agencies/aga-khan-foundation', '2026-03-15T23:59:00Z', ARRAY['Scholarship', 'Development', 'Internacional'], false, 'posgrado', 'general'),
+
+-- World Bank Scholarship
+('World Bank Scholarships (JJWBGSP)', 'World Bank Group', 'Various', 'scholarship', 'need_based', true, 'Joint Japan/World Bank Graduate Scholarship Program for students from developing countries.', 'https://www.worldbank.org/en/about/careers/programs-and-internships/joint-japan-world-bank-graduate-scholarship-program', '2026-04-15T23:59:00Z', ARRAY['Scholarship', 'Development', 'Graduate', 'Internacional'], false, 'posgrado', 'administracion'),
+
+-- OPEC Fund
+('OPEC Fund Scholarship Program', 'OPEC Fund for International Development', 'Various', 'scholarship', 'government', true, 'For students from developing OPEC member countries to pursue undergraduate and graduate studies.', 'https://www.opecfund.org/', '2026-06-30T23:59:00Z', ARRAY['Scholarship', 'Development', 'Internacional'], false, 'universidad', 'general'),
+
+-- TU Delft Excellence
+('TU Delft Excellence Scholarships', 'Delft University of Technology', 'Netherlands', 'scholarship', 'government', true, 'Scholarships for talented international students at TU Delft for MSc programs.', 'https://www.tudelft.nl/en/education/financial-matters/scholarships', '2026-04-01T23:59:00Z', ARRAY['Scholarship', 'Netherlands', 'Engineering', 'Países Bajos'], false, 'posgrado', 'ingenieria'),
+
+-- Holland Scholarship
+('Holland Scholarship', 'Dutch Ministry of Education', 'Netherlands', 'scholarship', 'government', true, 'For non-EEA international students to study at Dutch universities.', 'https://www.studyinholland.nl/finances/scholarships', '2026-02-01T23:59:00Z', ARRAY['Scholarship', 'Netherlands', 'Países Bajos'], false, 'universidad', 'general'),
+
+-- Orange Knowledge
+('Orange Knowledge Programme (OKP)', 'Nuffic', 'Netherlands', 'scholarship', 'government', true, 'For mid-career professionals from developing countries to study in the Netherlands.', 'https://www.nuffic.nl/en/study-funding/orange-knowledge-programme', '2026-03-01T23:59:00Z', ARRAY['Scholarship', 'Professional', 'Netherlands', 'Países Bajos'], false, 'profesional', 'general'),
+
+-- Chinese Government (CSC)
+('Chinese Government Scholarship (CSC)', 'China Scholarship Council', 'China', 'scholarship', 'government', true, 'Full scholarship for international students to study at Chinese universities.', 'https://www.campuschina.org/', '2026-04-15T23:59:00Z', ARRAY['Scholarship', 'China'], false, 'universidad', 'general'),
+
+-- KGSP
+('Korean Government Scholarship Program (KGSP)', 'NIIED / Republic of Korea', 'South Korea', 'scholarship', 'government', true, 'Full scholarship for international students at undergraduate and graduate levels in South Korea.', 'https://www.studyinkorea.go.kr/', '2026-03-01T23:59:00Z', ARRAY['Scholarship', 'South Korea', 'Corea del Sur'], false, 'universidad', 'general'),
+
+-- MEXT (CORRECTED: was research, now scholarship)
+('MEXT Scholarship (Japanese Government)', 'MEXT / Government of Japan', 'Japan', 'scholarship', 'government', true, 'Full scholarship for international students to study at Japanese universities. Research, undergraduate, and training categories.', 'https://www.studyinjapan.go.jp/en/', '2026-04-26T23:59:00Z', ARRAY['Scholarship', 'Japan', 'Japón'], true, 'universidad', 'general'),
+
+-- Stipendium Hungaricum (NEW)
+('Stipendium Hungaricum', 'Government of Hungary', 'Hungary', 'scholarship', 'full_scholarship', true, 'Full scholarship for international students to study in Hungary at bachelor, master and PhD levels.', 'https://stipendiumhungaricum.hu/', '2026-01-15T23:59:00Z', ARRAY['Scholarship', 'Hungary', 'Hungría', 'Europe'], false, 'universidad', 'general'),
+
+-- Swedish Institute Scholarships (NEW)
+('Swedish Institute Scholarships for Global Professionals', 'Swedish Institute', 'Sweden', 'scholarship', 'government', true, 'Scholarships for master''s studies in Sweden for global professionals from developing countries.', 'https://si.se/en/', '2026-02-15T23:59:00Z', ARRAY['Scholarship', 'Sweden', 'Suecia', 'Masters'], false, 'posgrado', 'general'),
+
+-- Pierre Elliott Trudeau
+('Pierre Elliott Trudeau Foundation Doctoral Scholarships', 'Pierre Elliott Trudeau Foundation', 'Canada', 'scholarship', 'fellowship', true, 'For outstanding doctoral candidates studying social and human sciences in Canada.', 'https://www.trudeaufoundation.ca/scholarships/doctors', '2026-12-01T23:59:00Z', ARRAY['PhD', 'Canada', 'Social Sciences', 'Canadá'], false, 'posgrado', 'humanidades'),
+
+-- Qatar Government Scholarship (NEW)
+('Qatar Government Scholarship', 'Government of Qatar', 'Qatar', 'scholarship', 'full_scholarship', true, 'Fully funded scholarship for international students to study at Qatari universities.', 'https://www.scholarshiptab.com', '2026-08-15T23:59:00Z', ARRAY['Scholarship', 'Qatar', 'Middle East'], false, 'universidad', 'general'),
+
+-- NSEP Boren Awards
+('NSEP Boren Awards', 'U.S. Department of Defense', 'Various', 'scholarship', 'full_scholarship', true, 'For undergraduate and graduate students to study critical languages abroad.', 'https://www.borenawards.org/', '2027-01-27T23:59:00Z', ARRAY['Exchange', 'Language', 'Government', 'Estados Unidos'], false, 'universidad', 'general'),
+
+-- Fulbright U.S. Student Program (CORRECTED: was internship, now scholarship)
+('Fulbright U.S. Student Program', 'Fulbright / IIE', 'Various', 'scholarship', 'full_scholarship', true, 'For U.S. citizens to study, research, or teach English abroad in 140+ countries.', 'https://us.fulbrightonline.org/', '2026-10-06T23:59:00Z', ARRAY['Exchange', 'Research', 'Teaching', 'Internacional'], false, 'universidad', 'general'),
+
+-- Gilman Scholarship (CORRECTED: was internship, now scholarship)
+('Benjamin A. Gilman International Scholarship', 'U.S. Department of State', 'Various', 'scholarship', 'full_scholarship', true, 'For Federal Pell Grant recipients to study or intern abroad.', 'https://gilmanscholarship.org/', '2026-10-01T23:59:00Z', ARRAY['Exchange', 'Study Abroad', 'Estados Unidos'], false, 'universidad', 'general'),
+
+-- FEA (CORRECTED: was internship, now scholarship)
+('Fund for Education Abroad (FEA)', 'Fund for Education Abroad', 'Various', 'scholarship', 'full_scholarship', true, 'Scholarships for underrepresented students to study abroad.', 'https://www.fundforeducationabroad.org/', '2026-07-29T23:59:00Z', ARRAY['Exchange', 'Study Abroad', 'Estados Unidos', 'Diversity'], false, 'universidad', 'general'),
+
+-- Amgen Scholars Program (NEW)
+('Amgen Scholars Program', 'Amgen Foundation', 'Various', 'scholarship', 'full_scholarship', true, 'Undergraduate summer research program at 26 host institutions across US, Europe, Asia and Australia.', 'https://amgenscholars.com/', '2027-02-01T23:59:00Z', ARRAY['Research', 'Summer', 'Undergraduate', 'STEM', 'Internacional'], false, 'universidad', 'ciencias'),
+
+-- Mitacs Globalink (NEW)
+('Mitacs Globalink Research Internship', 'Mitacs', 'Canada', 'scholarship', 'merit_based', true, 'Fully-funded research internship for international undergraduate students at 70+ Canadian universities.', 'https://www.mitacs.ca/en/programs/globalink/globalink-research-internship', '2026-09-01T23:59:00Z', ARRAY['Research', 'Summer', 'Internship', 'Canadá', 'Canada'], false, 'universidad', 'ciencias'),
+
+-- Mastercard Foundation Scholars (NEW)
+('Mastercard Foundation Scholars Program', 'Mastercard Foundation', 'Various', 'scholarship', 'full_scholarship', true, 'Full scholarships for students from Sub-Saharan Africa to study at partner universities worldwide.', 'https://mastercardfdn.org/all/scholars/', '2026-09-01T23:59:00Z', ARRAY['Scholarship', 'Africa', 'Development', 'Internacional'], false, 'universidad', 'general'),
+
+-- Beca Carlos Slim (NEW - MÉXICO)
+('Beca Carlos Slim para Residentes', 'Fundación Carlos Slim', 'México', 'scholarship', 'merit_based', true, 'Apoyo económico de $60,000 MXN para médicos residentes de los Institutos Nacionales de Salud de México.', 'https://www.fundacioncarlosslim.org/', '2026-09-30T23:59:00Z', ARRAY['México', 'Residentes', 'INS', 'Salud'], false, 'posgrado', 'ciencias_salud'),
+
+-- FUNED (NEW - MÉXICO)
+('Becas FUNED', 'Fundación Mexicana para la Educación (FUNED)', 'México', 'scholarship', 'government', true, 'Becas para mexicanos que deseen realizar estudios de posgrado en el extranjero. Montos de $1,000 a $60,000 USD.', 'https://www.funedmx.org/', '2026-11-01T23:59:00Z', ARRAY['México', 'Posgrado', 'Internacional', 'Excelencia'], false, 'posgrado', 'general'),
+
+-- Santander México (NEW)
+('Becas Santander', 'Banco Santander', 'México', 'scholarship', 'government', true, 'Becas para estudiantes mexicanos para movilidad internacional, capacitación y desarrollo profesional. Montos de $9,000 a $100,000 MXN.', 'https://www.becas-santander.com/', '2026-10-15T23:59:00Z', ARRAY['México', 'Movilidad', 'Idiomas', 'Capacitación'], false, 'universidad', 'general'),
+
+-- SECIHTI (ex-CONAHCYT) (NEW - MÉXICO)
+('Becas SECIHTI (antes CONAHCYT)', 'Secretaría de Ciencia, Humanidades, Tecnología e Innovación', 'México', 'scholarship', 'government', true, 'Becas del gobierno mexicano para estudios de maestría, doctorado y posdoctorado en México y el extranjero. Apoyo mensual de $14,000 a $21,000 MXN más ISSSTE.', 'https://secihti.gob.mx/', '2026-11-15T23:59:00Z', ARRAY['México', 'Posgrado', 'Investigación', 'Doctorado'], false, 'posgrado', 'general'),
+
+-- UNAM al Extranjero (NEW - MÉXICO)
+('Becas UNAM al Extranjero', 'Universidad Nacional Autónoma de México', 'Internacional', 'scholarship', 'government', true, 'Programa de becas de la UNAM para estudios de posgrado, estancias de investigación y movilidad académica en el extranjero.', 'https://www.dgire.unam.mx/', '2026-09-15T23:59:00Z', ARRAY['México', 'Movilidad', 'Posgrado', 'Investigación'], false, 'posgrado', 'general'),
+
+-- OEA Scholarships (NEW - MÉXICO/AMÉRICA)
+('Becas OEA', 'Organización de Estados Americanos', 'América', 'scholarship', 'government', true, 'Programa de becas para estudiantes de países miembros para estudios de posgrado en universidades de las Américas.', 'https://www.oas.org/es/becas/', '2026-08-01T23:59:00Z', ARRAY['OEA', 'América', 'Posgrado', 'Cooperación'], false, 'posgrado', 'general'),
+
+-- BBVA Antorchas (NEW - MÉXICO)
+('Becas Antorchas BBVA', 'Fundación BBVA México', 'México', 'scholarship', 'government', true, 'Becas para jóvenes mexicanos con alto potencial de liderazgo para cursar estudios de posgrado en el extranjero.', 'https://www.fundacionbbva.mx/', '2026-09-01T23:59:00Z', ARRAY['México', 'Posgrado', 'Liderazgo', 'Internacional'], false, 'posgrado', 'general'),
+
+-- Erasmus Mundus (NEW - already in verified)
+('Erasmus Mundus Joint Masters', 'European Union', 'Europe', 'scholarship', 'full_scholarship', true, 'Fully-funded joint master''s programmes by the European Union. Study at multiple European universities.', 'https://erasmus-plus.ec.europa.eu/opportunities', '2027-01-15T23:59:00Z', ARRAY['Europe', 'Europa', 'Masters', 'UE'], false, 'posgrado', 'general'),
+
+-- Queen Elizabeth Commonwealth (NEW)
+('Queen Elizabeth Commonwealth Scholarships', 'Association of Commonwealth Universities', 'Various', 'scholarship', 'full_scholarship', true, 'For students from Commonwealth countries to pursue master''s study in another Commonwealth country.', 'https://www.acu.ac.uk/funding-opportunities/queen-elizabeth-commonwealth-scholarships/', '2026-07-15T23:59:00Z', ARRAY['Commonwealth', 'Scholarship', 'Masters', 'Internacional'], false, 'posgrado', 'general'),
+
+-- Europubhealth+ (NEW - Health)
+('Europubhealth+ Erasmus Mundus', 'European Consortium (8 universities)', 'Europe', 'scholarship', 'full_scholarship', true, 'Joint master''s in public health at 8 European universities. Double degree. Fully funded via Erasmus+ scholarships.', 'https://www.europubhealth.org/', '2027-01-08T23:59:00Z', ARRAY['Public Health', 'Europe', 'Europa', 'Masters', 'Salud Pública'], false, 'posgrado', 'ciencias_salud'),
+
+-- Kaohsiung Medical University (NEW)
+('Kaohsiung Medical University Scholarship', 'Kaohsiung Medical University', 'Taiwan', 'scholarship', 'full_scholarship', true, 'Full scholarship for international students to study medicine and other fields at KMU in Taiwan.', 'https://www.scholarshiptab.com', '2026-10-12T23:59:00Z', ARRAY['Taiwan', 'Medicine', 'Scholarship', 'Asia'], false, 'universidad', 'ciencias_salud'),
+
+-- Amirana Scholarship (NEW)
+('Amirana Scholarship for Medical Students', 'Heidelberg University', 'Germany', 'scholarship', 'merit_based', true, 'Scholarship for international medical and dental students from the Global South to study at Heidelberg University.', 'https://www.scholarshiptab.com', '2026-11-15T23:59:00Z', ARRAY['Germany', 'Alemania', 'Medicine', 'Medicina', 'Global South'], false, 'universidad', 'ciencias_salud'),
+
+-- DAAD EPOS (NEW)
+('DAAD EPOS Scholarship', 'DAAD', 'Germany', 'scholarship', 'government', true, 'Development-related postgraduate courses scholarship. For students from developing countries to study in Germany.', 'https://www.daad.de/en/study-and-research-in-germany/scholarships/epos/', '2026-10-15T23:59:00Z', ARRAY['Germany', 'Alemania', 'Development', 'Masters', 'EPOS'], false, 'posgrado', 'general'),
+
+-- Karolinska Global Master's (NEW)
+('Karolinska Institutet Global Master''s Scholarship', 'Karolinska Institutet', 'Sweden', 'scholarship', 'merit_based', true, 'Full or partial tuition scholarship for international students pursuing master''s in public health or medicine.', 'https://ki.se/en/study-at-ki/scholarships-and-funding', '2026-01-15T23:59:00Z', ARRAY['Sweden', 'Suecia', 'Medicine', 'Medicina', 'Public Health'], false, 'posgrado', 'ciencias_salud'),
+
+-- UCL IMPACT (NEW - Health)
+('UCL IMPACT Scholarship', 'University College London', 'United Kingdom', 'scholarship', 'merit_based', true, '£20,500 scholarship for international students pursuing online MSc in Public Health at UCL.', 'https://www.ucl.ac.uk/prospective-students/scholarships', '2026-09-01T23:59:00Z', ARRAY['Public Health', 'Salud Pública', 'UCL', 'UK', 'Reino Unido'], false, 'posgrado', 'ciencias_salud'),
+
+-- Harvard Chan School Scholarships (NEW)
+('Harvard Chan School Scholarships', 'Harvard T.H. Chan School of Public Health', 'United States', 'scholarship', 'merit_based', false, 'Various scholarships for international students pursuing MPH and doctoral degrees at Harvard''s public health school.', 'https://www.hsph.harvard.edu/admissions/', '2026-12-01T23:59:00Z', ARRAY['Public Health', 'Harvard', 'Estados Unidos', 'Masters', 'PhD'], false, 'posgrado', 'ciencias_salud'),
+
+-- Johns Hopkins Bloomberg Fellows (NEW)
+('Bloomberg Fellows Program at Johns Hopkins', 'Johns Hopkins Bloomberg School of Public Health', 'United States', 'scholarship', 'fellowship', true, 'Full-tuition scholarship for MPH or DrPH at the world''s top public health school.', 'https://publichealth.jhu.edu/fellows', '2026-12-01T23:59:00Z', ARRAY['Public Health', 'Johns Hopkins', 'Fellowship', 'Estados Unidos'], false, 'posgrado', 'ciencias_salud'),
+
+-- Duke-NUS Medical Scholarship (NEW)
+('Duke-NUS Medical School Scholarship', 'Duke-NUS Medical School', 'Singapore', 'scholarship', 'full_scholarship', true, 'Full-tuition scholarship for PhD and MD-PhD programmes at Duke-NUS in Singapore.', 'https://www.duke-nus.edu.sg/admissions', '2027-01-31T23:59:00Z', ARRAY['Singapore', 'Singapur', 'Medicine', 'Medicina', 'PhD'], false, 'posgrado', 'ciencias_salud'),
+
+-- University of Queensland Medical (NEW)
+('University of Queensland Medical Scholarship', 'University of Queensland', 'Australia', 'scholarship', 'merit_based', false, 'Dr David Perel Medical Scholarship for international students at UQ School of Medicine.', 'https://scholarships.uq.edu.au/', '2026-07-31T23:59:00Z', ARRAY['Australia', 'Medicine', 'Scholarship', 'Queensland'], false, 'posgrado', 'ciencias_salud'),
+
+-- University of Nottingham Developing Solutions (NEW)
+('Nottingham Developing Solutions Scholarships', 'University of Nottingham', 'United Kingdom', 'scholarship', 'merit_based', false, '50% tuition fee scholarship for students from developing countries pursuing master''s study.', 'https://www.nottingham.ac.uk/study/fees-and-funding/scholarships/', '2026-04-15T23:59:00Z', ARRAY['UK', 'Reino Unido', 'Masters', 'Developing Countries'], false, 'posgrado', 'general'),
+
+-- SBW Berlin Scholarship (NEW)
+('SBW Berlin Scholarship', 'SBW Berlin', 'Germany', 'scholarship', 'full_scholarship', true, 'Full funding plus living allowance for international students from developing countries at Berlin universities.', 'https://sbw.berlin/en', '2026-10-01T23:59:00Z', ARRAY['Germany', 'Alemania', 'Berlin', 'Development'], false, 'universidad', 'general'),
+
+-- Rosa Luxemburg Foundation (NEW)
+('Rosa Luxemburg Foundation Scholarship', 'Rosa Luxemburg Foundation', 'Germany', 'scholarship', 'merit_based', true, 'Scholarship for international students at all academic levels committed to social justice.', 'https://www.rosalux.de/en/study-abroad', '2026-10-01T23:59:00Z', ARRAY['Germany', 'Alemania', 'Social Justice', 'Scholarship'], false, 'universidad', 'general');
+
+-- ============================================
+-- INTERNSHIPS (Prácticas Profesionales)
+-- ============================================
+INSERT INTO opportunities (title, institution, location, type, subtype, funding, description, link, deadline, tags, is_featured, educational_level, educational_field) VALUES
+
+-- Google STEP (CORRECTED deadline - rolling, next cycle)
+('Google STEP Internship', 'Google', 'United States', 'internship', 'corporate', true, '12-week paid internship for first and second-year undergraduate students in software engineering.', 'https://www.google.com/about/careers/applications/internships', '2026-09-30T23:59:00Z', ARRAY['Technology', 'Software', 'Estados Unidos'], false, 'universidad', 'tecnologia'),
+
+-- Microsoft Explore (NEW)
+('Microsoft Explore Internship', 'Microsoft', 'United States', 'internship', 'corporate', true, '12-week program for freshmen and sophomores to explore engineering roles at Microsoft.', 'https://careers.microsoft.com/us/en/usinternshipprogram', '2026-09-15T23:59:00Z', ARRAY['Technology', 'Software', 'Microsoft', 'Estados Unidos'], false, 'universidad', 'tecnologia'),
+
+-- Microsoft University Internships (NEW)
+('Microsoft University Internships', 'Microsoft', 'Global', 'internship', 'corporate', true, 'Paid internships for university students in software engineering, data science, product design and more.', 'https://careers.microsoft.com/v2/global/en/universityinternship', '2026-10-15T23:59:00Z', ARRAY['Technology', 'Software', 'Microsoft', 'Global'], false, 'universidad', 'tecnologia'),
+
+-- Meta Internships (NEW)
+('Meta Internships', 'Meta (Facebook)', 'United States', 'internship', 'corporate', true, 'Paid internships in software engineering, research, data engineering and product design. $7,000-$12,000/mo.', 'https://www.metacareers.com/careerprograms/students/', '2026-10-01T23:59:00Z', ARRAY['Technology', 'Software', 'Meta', 'Estados Unidos'], false, 'universidad', 'tecnologia'),
+
+-- Apple Internships (NEW)
+('Apple Internships', 'Apple', 'United States', 'internship', 'corporate', true, 'Paid internships in software engineering, hardware, ML/AI, design and business. $38-$60/hr.', 'https://jobs.apple.com/en-us/search?team=internships-STDNT-INTRN', '2026-10-01T23:59:00Z', ARRAY['Technology', 'Apple', 'Software', 'Hardware', 'Estados Unidos'], false, 'universidad', 'tecnologia'),
+
+-- NVIDIA Internships (NEW)
+('NVIDIA Internships', 'NVIDIA', 'United States', 'internship', 'corporate', true, 'Paid internships in software, hardware, research and AI. $20-$94/hr. Ignite program for freshmen/sophomores.', 'https://www.nvidia.com/en-us/about-nvidia/careers/university-recruiting/', '2026-10-01T23:59:00Z', ARRAY['Technology', 'AI', 'NVIDIA', 'Hardware', 'Estados Unidos'], false, 'universidad', 'tecnologia'),
+
+-- Amazon Future Engineer
+('Amazon Future Engineer Internship', 'Amazon', 'United States', 'internship', 'corporate', true, 'Paid computer science internship with mentorship and leadership development for underrepresented students.', 'https://www.amazonfutureengineer.com/', '2026-09-30T23:59:00Z', ARRAY['Technology', 'Computer Science', 'Amazon', 'Estados Unidos'], false, 'universidad', 'tecnologia'),
+
+-- SpaceX Internships (NEW)
+('SpaceX Internships', 'SpaceX', 'United States', 'internship', 'corporate', true, 'Paid internships in engineering, software and business operations. US citizens/green card only.', 'https://www.spacex.com/internships', '2026-09-30T23:59:00Z', ARRAY['Space', 'Engineering', 'SpaceX', 'Aerospace', 'Estados Unidos'], false, 'universidad', 'ingenieria'),
+
+-- Goldman Sachs
+('Goldman Sachs Summer Analyst Program', 'Goldman Sachs', 'Global', 'internship', 'corporate', false, '10-week paid internship in investment banking, securities, and asset management.', 'https://www.goldmansachs.com/careers/students/programs/', '2026-08-31T23:59:00Z', ARRAY['Finance', 'Banking', 'Wall Street', 'Global'], false, 'universidad', 'administracion'),
+
+-- JPMorgan Chase
+('JPMorgan Chase Internship Program', 'JPMorgan Chase & Co.', 'Global', 'internship', 'corporate', false, 'Paid internship in finance, technology, and business across various divisions worldwide.', 'https://careers.jpmorgan.com/us/en/students/internships', '2026-09-15T23:59:00Z', ARRAY['Finance', 'Technology', 'Global'], false, 'universidad', 'administracion'),
+
+-- McKinsey (NEW)
+('McKinsey Business Analyst Intern', 'McKinsey & Company', 'Global', 'internship', 'consulting', false, '10-week paid summer internship in management consulting. For undergraduate and MBA students.', 'https://www.mckinsey.com/careers/students', '2026-08-31T23:59:00Z', ARRAY['Consulting', 'Business', 'Management', 'Global'], false, 'universidad', 'administracion'),
+
+-- BCG (NEW)
+('BCG Summer Associate Internship', 'Boston Consulting Group', 'Global', 'internship', 'consulting', false, 'Paid summer internship in strategy consulting for MBA and advanced degree students.', 'https://careers.bcg.com/global/en/internship-opportunities', '2026-08-31T23:59:00Z', ARRAY['Consulting', 'Strategy', 'Global'], false, 'posgrado', 'administracion'),
+
+-- Bain (NEW)
+('Bain Associate Consultant Intern', 'Bain & Company', 'Global', 'internship', 'consulting', false, '10-week paid summer internship in management consulting for undergraduate students.', 'https://www.bain.com/careers/find-a-role/internships/', '2026-08-31T23:59:00Z', ARRAY['Consulting', 'Management', 'Global'], false, 'universidad', 'administracion'),
+
+-- Deloitte (NEW)
+('Deloitte Internship Program', 'Deloitte', 'Global', 'internship', 'consulting', false, 'Internship in audit, consulting, financial advisory, risk, and tax at one of the Big Four.', 'https://www.deloitte.com/us/en/careers/internships.html', '2026-09-30T23:59:00Z', ARRAY['Consulting', 'Audit', 'Finance', 'Global'], false, 'universidad', 'administracion'),
+
+-- EY
+('EY Internship Program', 'Ernst & Young (EY)', 'Global', 'internship', 'consulting', false, 'Internship in assurance, consulting, strategy and transactions, and tax services.', 'https://careers.ey.com/ey/internships', '2026-09-30T23:59:00Z', ARRAY['Consulting', 'Accounting', 'Finance', 'Global'], false, 'universidad', 'administracion'),
+
+-- World Bank (CORRECTED - renamed, new deadline)
+('World Bank Internship (WBG Pioneers)', 'World Bank Group', 'United States', 'internship', 'un_international', true, 'Paid internship for graduate students in economics, finance, engineering, and social sciences. Formerly BTP.', 'https://www.worldbank.org/en/about/careers/programs-and-internships/internship', '2026-08-12T23:59:00Z', ARRAY['Development', 'Economics', 'Finance', 'World Bank'], false, 'posgrado', 'ciencias_sociales'),
+
+-- IMF (NEW)
+('IMF Internship Program', 'International Monetary Fund', 'United States', 'internship', 'un_international', true, 'Paid internship for graduate students in economics and related fields at IMF headquarters.', 'https://www.imf.org/en/About/Recruitment/IMF-Internship-Program', '2026-09-30T23:59:00Z', ARRAY['Economics', 'Finance', 'IMF', 'Washington DC'], false, 'posgrado', 'administracion'),
+
+-- UNICEF
+('UNICEF Internship Programme', 'UNICEF', 'Various', 'internship', 'un_international', true, 'For graduate students in international development, children''s rights, education, and related fields.', 'https://www.unicef.org/careers/internships', '2026-12-31T23:59:00Z', ARRAY['Development', 'Children', 'UNICEF', 'Internacional'], false, 'posgrado', 'ciencias_sociales'),
+
+-- UNDP
+('UNDP Internship Programme', 'United Nations Development Programme', 'Various', 'internship', 'un_international', true, 'For students interested in sustainable development, governance, and international cooperation.', 'https://www.undp.org/internships', '2026-12-31T23:59:00Z', ARRAY['Development', 'Sustainability', 'UNDP', 'Internacional'], false, 'posgrado', 'ciencias_sociales'),
+
+-- WHO Internship (NEW)
+('WHO Internship Programme', 'World Health Organization', 'Switzerland', 'internship', 'un_international', true, 'Paid internship in global health at WHO headquarters in Geneva or regional offices. CHF 1,680/mo living allowance.', 'https://www.who.int/careers/internship-programme', '2026-07-31T23:59:00Z', ARRAY['Health', 'Global Health', 'WHO', 'OMS', 'Suiza'], false, 'posgrado', 'ciencias_salud'),
+
+-- PAHO Internship (NEW - AMERICAS)
+('PAHO Internship Program', 'Pan American Health Organization (PAHO/WHO)', 'United States', 'internship', 'un_international', true, 'Paid internship in public health at PAHO headquarters in Washington DC or country offices in the Americas.', 'https://www.paho.org/es/carreras-ops/programa-pasantias-ops', '2026-09-30T23:59:00Z', ARRAY['Public Health', 'PAHO', 'OPS', 'Américas', 'Washington DC'], false, 'posgrado', 'ciencias_salud'),
+
+-- ILO Internship (NEW)
+('ILO Internship Programme', 'International Labour Organization', 'Switzerland', 'internship', 'un_international', true, 'Paid internship at ILO Geneva. CHF 2,450/mo for graduate students interested in labour rights and social justice.', 'https://jobs.ilo.org/content/Internships/', '2026-10-31T23:59:00Z', ARRAY['Labour', 'Social Justice', 'ILO', 'Ginebra', 'Suiza'], false, 'posgrado', 'ciencias_sociales'),
+
+-- FAO Internship (NEW)
+('FAO Internship Programme', 'Food and Agriculture Organization', 'Italy', 'internship', 'un_international', true, 'Paid internship at FAO Rome for students in agriculture, food security, nutrition and related fields.', 'https://www.fao.org/employment/young-talent-programme/internship-programme/en', '2026-08-25T23:59:00Z', ARRAY['Agriculture', 'Food Security', 'FAO', 'Italia', 'Rome'], false, 'posgrado', 'ciencias_sociales'),
+
+-- UNESCO Internship (NEW)
+('UNESCO Internship Programme', 'UNESCO', 'France', 'internship', 'corporate', false, 'Internship at UNESCO Paris in education, science, culture and communication. Unpaid but prestigious.', 'https://careers.unesco.org/content/Internship-Programme/', '2026-09-30T23:59:00Z', ARRAY['Education', 'Culture', 'UNESCO', 'Paris', 'Francia'], false, 'posgrado', 'general'),
+
+-- IDB Internship (NEW)
+('IDB Internship Program', 'Inter-American Development Bank', 'United States', 'internship', 'un_international', true, 'Paid internship at IDB Washington DC for graduate students in economics, development and social sciences.', 'https://www.iadb.org/en/careers/internships', '2026-09-30T23:59:00Z', ARRAY['Development', 'IDB', 'BID', 'América Latina', 'Washington DC'], false, 'posgrado', 'ciencias_sociales'),
+
+-- ADB Internship (NEW)
+('ADB Internship Program', 'Asian Development Bank', 'Philippines', 'internship', 'un_international', true, 'Paid internship at ADB Manila for graduate students in development, economics and finance. Round-trip airfare provided.', 'https://www.adb.org/work-with-us/careers/internship-program', '2026-10-01T23:59:00Z', ARRAY['Development', 'ADB', 'Asia', 'Manila', 'Economics'], false, 'posgrado', 'administracion'),
+
+-- NASA (CORRECTED - multiple sessions)
+('NASA Internship Program', 'NASA', 'United States', 'internship', 'research_internship', true, 'Paid internships across NASA centers for students in STEM fields. Three sessions per year.', 'https://intern.nasa.gov/', '2026-09-14T23:59:00Z', ARRAY['Space', 'Science', 'Engineering', 'NASA', 'Estados Unidos'], true, 'universidad', 'ingenieria'),
+
+-- CERN (NEW)
+('CERN Summer Student Programme', 'CERN', 'Switzerland', 'internship', 'research_internship', true, '8-week paid summer programme in particle physics and engineering at CERN Geneva.', 'https://careers.cern/programs/summer-student-programme', '2027-01-31T23:59:00Z', ARRAY['Physics', 'Engineering', 'CERN', 'Geneva', 'Suiza'], false, 'universidad', 'ciencias'),
+
+-- ESA (NEW)
+('ESA Young Graduate Trainee', 'European Space Agency', 'Various', 'internship', 'research_internship', true, '1-year paid traineeship for recent graduates in space science and engineering at ESA establishments.', 'https://www.esa.int/About_Us/Careers_at_ESA/Young_Graduate_Trainee', '2026-11-30T23:59:00Z', ARRAY['Space', 'Engineering', 'ESA', 'Europe', 'Aerospace'], false, 'posgrado', 'ingenieria'),
+
+-- Max Planck (NEW)
+('Max Planck Research Internships', 'Max Planck Society', 'Germany', 'internship', 'research_internship', true, 'Summer research internships at Max Planck Institutes across Germany in life sciences and natural sciences.', 'https://internship.mpg.de/', '2026-11-01T23:59:00Z', ARRAY['Research', 'Germany', 'Alemania', 'Max Planck', 'Science'], false, 'universidad', 'ciencias'),
+
+-- NIH Summer Internship (NEW)
+('NIH Summer Internship Program (SIP)', 'National Institutes of Health', 'United States', 'internship', 'corporate', true, 'Paid summer research internship at NIH campuses in biomedical and health sciences.', 'https://www.training.nih.gov/programs/sip', '2027-02-15T23:59:00Z', ARRAY['NIH', 'Research', 'Biomedical', 'Health', 'Estados Unidos'], false, 'universidad', 'ciencias_salud'),
+
+-- CDC Pathways (NEW)
+('CDC Pathways Internship Program', 'Centers for Disease Control and Prevention', 'United States', 'internship', 'corporate', true, 'Paid internship for students in public health, epidemiology and related fields at CDC Atlanta.', 'https://www.cdc.gov/careers/students', '2027-02-01T23:59:00Z', ARRAY['CDC', 'Public Health', 'Epidemiology', 'Atlanta', 'Estados Unidos'], false, 'universidad', 'ciencias_salud'),
+
+-- OECD (NEW)
+('OECD Internship Programme', 'OECD', 'France', 'internship', 'un_international', true, '1-6 month paid policy research internship at OECD Paris in economics, education, health and more.', 'https://jobs.smartrecruiters.com/OECD/', '2026-12-31T23:59:00Z', ARRAY['OECD', 'Policy', 'Research', 'Paris', 'Francia'], false, 'posgrado', 'ciencias_sociales'),
+
+-- IOM (NEW)
+('IOM Internship Programme', 'International Organization for Migration', 'Switzerland', 'internship', 'corporate', true, 'Paid internship in migration and humanitarian affairs at IOM Geneva.', 'https://www.iom.int/internships', '2026-12-31T23:59:00Z', ARRAY['Migration', 'Humanitarian', 'IOM', 'Ginebra', 'Suiza'], false, 'posgrado', 'ciencias_sociales'),
+
+-- Harvard Global Health SURGH (NEW)
+('Harvard Global Health Summer Internship (SURGH)', 'Harvard University', 'Various', 'internship', 'research_internship', true, '10-week paid summer research placement in global health at Harvard''s partner sites worldwide.', 'https://globalhealth.harvard.edu', '2027-02-01T23:59:00Z', ARRAY['Harvard', 'Global Health', 'Research', 'Summer', 'Internacional'], false, 'universidad', 'ciencias_salud');
+
+-- ============================================
+-- RESEARCH (Investigación / Doctorado)
+-- ============================================
+INSERT INTO opportunities (title, institution, location, type, subtype, funding, description, link, deadline, tags, is_featured, educational_level, educational_field) VALUES
+
+-- PhD at Stanford
+('PhD at Stanford University', 'Stanford University', 'United States', 'research', 'phd', true, 'PhD programs across humanities, sciences, engineering, and social sciences with full funding.', 'https://gradadmissions.stanford.edu/', '2026-12-01T23:59:00Z', ARRAY['PhD', 'Stanford', 'Estados Unidos'], true, 'posgrado', 'general'),
+
+-- PhD at Cambridge
+('PhD at University of Cambridge', 'University of Cambridge', 'United Kingdom', 'research', 'phd', true, 'Research degrees across all faculties with generous funding at the University of Cambridge.', 'https://www.postgraduate.study.cam.ac.uk/', '2026-12-01T23:59:00Z', ARRAY['PhD', 'UK', 'Cambridge', 'Reino Unido'], false, 'posgrado', 'general'),
+
+-- PhD at Oxford
+('PhD at University of Oxford', 'University of Oxford', 'United Kingdom', 'research', 'phd', true, 'Research degrees at the world''s oldest English-speaking university. Full funding available.', 'https://www.ox.ac.uk/admissions/graduate/', '2027-01-07T23:59:00Z', ARRAY['PhD', 'Oxford', 'UK', 'Reino Unido'], false, 'posgrado', 'general'),
+
+-- PhD at MIT
+('PhD at MIT', 'Massachusetts Institute of Technology', 'United States', 'research', 'phd', true, 'PhD programs across all engineering and science disciplines at MIT.', 'https://www.mit.edu/academics/graduate/', '2026-12-01T23:59:00Z', ARRAY['PhD', 'MIT', 'Engineering', 'Estados Unidos'], false, 'posgrado', 'ingenieria'),
+
+-- PhD at Toronto
+('PhD at University of Toronto', 'University of Toronto', 'Canada', 'research', 'phd', true, 'PhD programs across diverse fields with competitive funding at U of T.', 'https://www.sgs.utoronto.ca/programs/', '2027-01-15T23:59:00Z', ARRAY['PhD', 'Canada', 'Canadá', 'Toronto'], false, 'posgrado', 'general'),
+
+-- EMBO (CORRECTED deadline)
+('EMBO Postdoctoral Fellowships', 'European Molecular Biology Organization', 'Europe', 'research', 'postdoc', true, 'Postdoctoral fellowships for life scientists to work in Europe. Next cutoff available.', 'https://www.embo.org/programs/fellowships/', '2026-07-10T23:59:00Z', ARRAY['Postdoc', 'Life Sciences', 'Europe', 'Europa'], false, 'posgrado', 'ciencias'),
+
+-- MSCA (CORRECTED deadline)
+('Marie Skłodowska-Curie Actions (MSCA)', 'European Commission', 'Europe', 'research', 'postdoc', true, 'Postdoctoral fellowships for researchers of any nationality to work in Europe.', 'https://ec.europa.eu/info/research-and-innovation/funding/funding-opportunities/funding-programmes-and-open-calls/horizon-europe/', '2026-09-09T23:59:00Z', ARRAY['Postdoc', 'EU', 'Research', 'Europa'], false, 'posgrado', 'general'),
+
+-- Perimeter (CORRECTED)
+('Postdoc at Perimeter Institute', 'Perimeter Institute for Theoretical Physics', 'Canada', 'research', 'postdoc', true, 'Postdoctoral positions in theoretical physics at a leading research institute.', 'https://perimeterinstitute.ca/careers', '2026-11-01T23:59:00Z', ARRAY['Postdoc', 'Physics', 'Canada', 'Canadá'], false, 'posgrado', 'ciencias'),
+
+-- MPI Informatics
+('Postdoc at MPI for Informatics', 'Max Planck Institute for Informatics', 'Germany', 'research', 'postdoc', true, 'Postdoctoral positions in computer science at one of Europe''s top CS institutes.', 'https://www.mpi-inf.mpg.de/home/', '2026-12-31T23:59:00Z', ARRAY['Postdoc', 'Computer Science', 'Germany', 'Alemania'], false, 'posgrado', 'tecnologia'),
+
+-- Google PhD Fellowship (CORRECTED - closed, next cycle)
+('Google PhD Fellowship Program', 'Google', 'Various', 'research', 'phd', true, 'Fellowships for outstanding PhD students in computer science and related fields.', 'https://research.google/outreach/phd-fellowship/', '2027-03-01T23:59:00Z', ARRAY['PhD', 'Computer Science', 'Technology', 'Google'], false, 'posgrado', 'tecnologia'),
+
+-- NSF GRFP (NEW)
+('NSF Graduate Research Fellowship Program', 'National Science Foundation', 'United States', 'research', 'research_fellowship', true, 'Fellowship for outstanding PhD students in STEM fields. $37,000 annual stipend for 3 years.', 'https://www.nsfgrfp.org/', '2026-10-20T23:59:00Z', ARRAY['PhD', 'STEM', 'NSF', 'Estados Unidos', 'Fellowship'], false, 'posgrado', 'ciencias'),
+
+-- Fogarty International (NEW - HEALTH)
+('Fogarty International Fellowship', 'NIH Fogarty International Center', 'United States', 'research', 'research_fellowship', true, 'Becas para investigadores en salud global para desarrollar capacidades de investigación en países en desarrollo.', 'https://www.fic.nih.gov/', '2027-01-15T23:59:00Z', ARRAY['Global Health', 'NIH', 'Fogarty', 'Research', 'Salud Global'], false, 'posgrado', 'ciencias_salud'),
+
+-- CDC EIS (NEW)
+('CDC Epidemic Intelligence Service (EIS)', 'Centers for Disease Control and Prevention', 'United States', 'research', 'clinical_fellowship', true, '2-year applied epidemiology fellowship at CDC. Train in outbreak investigation and public health surveillance.', 'https://www.cdc.gov/eis/', '2027-06-19T23:59:00Z', ARRAY['Epidemiology', 'CDC', 'Public Health', 'Fellowship', 'Estados Unidos'], false, 'posgrado', 'ciencias_salud'),
+
+-- NIH Oxford-Cambridge (NEW)
+('NIH Oxford-Cambridge Scholars Program (OxCam)', 'NIH / Oxford / Cambridge', 'United States', 'research', 'clinical_fellowship', true, '4-year PhD program split between NIH and Oxford or Cambridge. Full tuition plus stipend.', 'https://oxcam.gpp.nih.gov/', '2026-12-01T23:59:00Z', ARRAY['PhD', 'NIH', 'Oxford', 'Cambridge', 'Biomedical'], false, 'posgrado', 'ciencias_salud'),
+
+-- Wellcome Trust
+('Wellcome Trust Fellowships', 'Wellcome Trust', 'United Kingdom', 'research', 'postdoc', true, 'Funding for researchers in biomedical science and medical humanities at all career stages.', 'https://wellcome.org/grant-funding/', '2026-12-01T23:59:00Z', ARRAY['Postdoc', 'UK', 'Reino Unido', 'Biomedical', 'Fellowship'], false, 'posgrado', 'ciencias_salud'),
+
+-- Cancer Research UK (NEW)
+('Cancer Research UK Fellowships', 'Cancer Research UK', 'United Kingdom', 'research', 'research_fellowship', true, 'Funding for cancer research scientists at all career stages from PhD to established investigators.', 'https://www.cancerresearchuk.org/funding', '2026-12-01T23:59:00Z', ARRAY['Cancer', 'Oncology', 'Research', 'UK', 'Reino Unido'], false, 'posgrado', 'ciencias_salud'),
+
+-- Human Frontier Science (NEW)
+('Human Frontier Science Program (HFSP) Fellowships', 'HFSP Organization', 'Various', 'research', 'postdoc', true, 'Postdoctoral fellowships for early-career scientists in life sciences. International mobility required.', 'https://www.hfsp.org/funding', '2026-09-15T23:59:00Z', ARRAY['Postdoc', 'Life Sciences', 'Research', 'International', 'Internacional'], false, 'posgrado', 'ciencias'),
+
+-- JSPS (NEW)
+('JSPS Postdoctoral Fellowship', 'Japan Society for the Promotion of Science', 'Japan', 'research', 'postdoc', true, 'Postdoctoral fellowships for researchers from around the world to work in Japan.', 'https://www.jsps.go.jp/english/e-postdoc/', '2026-09-01T23:59:00Z', ARRAY['Postdoc', 'Japan', 'Japón', 'Research'], false, 'posgrado', 'ciencias'),
+
+-- INSP (NEW - MÉXICO)
+('Maestría en Salud Pública INSP', 'Instituto Nacional de Salud Pública', 'México', 'research', 'phd', true, 'Programas de posgrado en salud pública en el INSP Cuernavaca. Maestrías y doctorados con beca CONAHCYT.', 'https://www.insp.mx/', '2026-09-30T23:59:00Z', ARRAY['México', 'Salud Pública', 'Maestría', 'Doctorado', 'INSP'], false, 'posgrado', 'ciencias_salud'),
+
+-- UNAM Maestría Ciencias Médicas (NEW - MÉXICO)
+('Maestría en Ciencias Médicas UNAM', 'UNAM / Institutos Nacionales de Salud', 'México', 'research', 'phd', true, 'Programa de maestría en ciencias médicas en 13 Institutos Nacionales de Salud de México.', 'https://www.pcmp.unam.mx/', '2026-09-30T23:59:00Z', ARRAY['México', 'Ciencias Médicas', 'UNAM', 'INS', 'Investigación'], false, 'posgrado', 'ciencias_salud'),
+
+-- PNSSIS (NEW - MÉXICO)
+('PNSSIS - Servicio Social en Investigación', 'Institutos Nacionales de Salud', 'México', 'research', 'research_fellowship', true, 'Programa Nacional de Servicio Social en Investigación en Salud en los Institutos Nacionales de Salud de México.', 'https://www.gob.mx/salud', '2026-08-01T23:59:00Z', ARRAY['México', 'Servicio Social', 'Investigación', 'INS', 'Salud'], false, 'universidad', 'ciencias_salud');
+
+-- ============================================
+-- COURSES / PROGRAMAS (Incluye cursos, summer, congresos, etc.)
+-- ============================================
+INSERT INTO opportunities (title, institution, location, type, subtype, funding, description, link, deadline, tags, is_featured, educational_level, educational_field) VALUES
+
+-- Online platforms (verified)
+('Coursera Online Courses', 'Coursera', 'Online', 'course', 'online', false, 'Thousands of courses from top universities and companies. Certificates and degrees available.', 'https://www.coursera.org/', '2026-12-31T23:59:00Z', ARRAY['Online', 'Courses', 'Cursos'], false, 'universidad', 'general'),
+('edX Online Courses', 'edX (2U)', 'Online', 'course', 'online', false, 'Online courses from Harvard, MIT, and 160+ institutions. MicroMasters, certificates, and degrees.', 'https://www.edx.org/', '2026-12-31T23:59:00Z', ARRAY['Online', 'Courses', 'Cursos'], false, 'universidad', 'general'),
+('FutureLearn Courses', 'FutureLearn', 'Online', 'course', 'online', false, 'Online courses from leading universities and organizations worldwide.', 'https://www.futurelearn.com/', '2026-12-31T23:59:00Z', ARRAY['Online', 'Courses', 'Cursos'], false, 'universidad', 'general'),
+('Udacity Nanodegree Programs', 'Udacity', 'Online', 'course', 'online', false, 'Online programs in AI, data science, programming, cloud computing, and autonomous systems.', 'https://www.udacity.com/', '2026-12-31T23:59:00Z', ARRAY['Online', 'Technology', 'AI'], false, 'universidad', 'tecnologia'),
+
+-- Free platforms
+('Google Digital Garage (Grow with Google)', 'Google', 'Online', 'course', 'online', true, 'Free online courses on digital skills, career development, and data/tech fundamentals.', 'https://learndigital.withgoogle.com/', '2026-12-31T23:59:00Z', ARRAY['Online', 'Digital Skills', 'Free', 'Gratis'], false, 'universidad', 'tecnologia'),
+('MIT OpenCourseWare', 'Massachusetts Institute of Technology', 'Online', 'course', 'online', true, 'Free MIT course materials covering virtually all MIT courses.', 'https://ocw.mit.edu/', '2026-12-31T23:59:00Z', ARRAY['Online', 'MIT', 'Free', 'Gratis'], false, 'universidad', 'general'),
+('Harvard Online Learning', 'Harvard University', 'Online', 'course', 'online', false, 'Online courses and programs from Harvard faculty.', 'https://online-learning.harvard.edu/', '2026-12-31T23:59:00Z', ARRAY['Online', 'Harvard', 'Courses'], false, 'universidad', 'general'),
+('Khan Academy', 'Khan Academy', 'Online', 'course', 'online', true, 'Free courses on math, science, computing, economics, history, and more.', 'https://www.khanacademy.org/', '2026-12-31T23:59:00Z', ARRAY['Online', 'Free', 'K-12', 'Gratis'], false, 'secundaria', 'general'),
+('LinkedIn Learning', 'LinkedIn (Microsoft)', 'Online', 'course', 'online', false, 'Professional courses on business, technology, and creative skills with certificates.', 'https://www.linkedin.com/learning/', '2026-12-31T23:59:00Z', ARRAY['Online', 'Professional', 'Courses'], false, 'universidad', 'general'),
+('freeCodeCamp', 'freeCodeCamp', 'Online', 'course', 'online', true, 'Free full-stack web development curriculum with certifications.', 'https://www.freecodecamp.org/', '2026-12-31T23:59:00Z', ARRAY['Programming', 'Free', 'Web Development', 'Gratis'], false, 'universidad', 'tecnologia'),
+('Codecademy', 'Codecademy (Skillsoft)', 'Online', 'course', 'online', false, 'Interactive coding courses in Python, JavaScript, data science, and more.', 'https://www.codecademy.com/', '2026-12-31T23:59:00Z', ARRAY['Programming', 'Online', 'Coding'], false, 'universidad', 'tecnologia'),
+('The Odin Project', 'The Odin Project', 'Online', 'course', 'online', true, 'Free full-stack web development curriculum covering HTML, CSS, JavaScript, Ruby on Rails.', 'https://www.theodinproject.com/', '2026-12-31T23:59:00Z', ARRAY['Web Development', 'Free', 'Gratis'], false, 'universidad', 'tecnologia'),
+
+-- Tech programs
+('Google Summer of Code', 'Google', 'Online', 'course', 'online', true, 'Program for students (18+) to contribute to open source software projects with stipends.', 'https://summerofcode.withgoogle.com/', '2027-03-31T23:59:00Z', ARRAY['Open Source', 'Programming', 'Stipend'], false, 'universidad', 'tecnologia'),
+('Microsoft Learn Student Ambassadors', 'Microsoft', 'Online', 'course', 'online', true, 'Community program for students passionate about technology. Build skills and lead campus communities.', 'https://studentambassadors.microsoft.com/', '2026-12-31T23:59:00Z', ARRAY['Technology', 'Community', 'Microsoft'], false, 'universidad', 'tecnologia'),
+('AWS Educate', 'Amazon Web Services', 'Online', 'course', 'online', true, 'Free cloud computing resources, training, and AWS credits for students and educators.', 'https://aws.amazon.com/education/awseducate/', '2026-12-31T23:59:00Z', ARRAY['Cloud', 'Technology', 'AWS'], false, 'universidad', 'tecnologia'),
+('DataCamp for Classrooms', 'DataCamp', 'Online', 'course', 'online', true, 'Free access to data science courses for educators and students.', 'https://www.datacamp.com/for-classrooms', '2026-12-31T23:59:00Z', ARRAY['Data Science', 'Online', 'Free', 'Gratis'], false, 'universidad', 'tecnologia'),
+('IBM SkillsBuild', 'IBM', 'Online', 'course', 'online', true, 'Free technology education and credentials in AI, cloud, cybersecurity in 20+ languages.', 'https://skillsbuild.org/', '2026-12-31T23:59:00Z', ARRAY['Technology', 'AI', 'Free', 'Gratis', 'Cybersecurity'], false, 'universidad', 'tecnologia'),
+('Cisco Networking Academy', 'Cisco', 'Online', 'course', 'online', true, 'IT and cybersecurity courses with industry certifications (CCNA, Python, etc.).', 'https://www.netacad.com/', '2026-12-31T23:59:00Z', ARRAY['Networking', 'Cybersecurity', 'Cisco', 'IT'], false, 'universidad', 'tecnologia'),
+
+-- NEW free AI platforms 2026
+('MIT Universal AI Learning', 'Massachusetts Institute of Technology', 'Online', 'course', 'online', true, 'Free AI education program launched May 2026. Self-paced, modular, with AI-powered personalization.', 'https://learn.mit.edu/', '2026-12-31T23:59:00Z', ARRAY['AI', 'Free', 'MIT', 'Machine Learning', 'Gratis'], false, 'universidad', 'tecnologia'),
+('Current University', 'Current University', 'Online', 'course', 'online', true, 'Free AI-powered university. 106 courses across 7 schools. No tuition, no applications, no deadlines.', 'https://currentuniversity.com/', '2026-12-31T23:59:00Z', ARRAY['Free', 'AI', 'University', 'Online', 'Gratis'], false, 'universidad', 'general'),
+
+-- Summer Schools
+('LSE Summer School', 'London School of Economics', 'United Kingdom', 'course', 'summer_school', false, 'Intensive summer courses in economics, finance, law, international relations, and more.', 'https://www.lse.ac.uk/study-at-lse/summer-schools', '2027-02-28T23:59:00Z', ARRAY['Summer', 'Social Sciences', 'UK', 'Reino Unido'], false, 'universidad', 'ciencias_sociales'),
+('Harvard Summer School', 'Harvard University', 'United States', 'course', 'summer_school', false, 'Summer courses for high school, college, and post-baccalaureate students. Online and on-campus.', 'https://summer.harvard.edu/', '2027-03-01T23:59:00Z', ARRAY['Summer', 'Harvard', 'Estados Unidos'], false, 'universidad', 'general'),
+('Yale Young Global Scholars', 'Yale University', 'United States', 'course', 'summer_school', false, 'Summer academic and leadership program for high school students at Yale.', 'https://yygs.yale.edu/', '2027-01-10T23:59:00Z', ARRAY['Summer', 'Leadership', 'Yale', 'Estados Unidos'], false, 'preparatoria', 'general'),
+('MIT Summer Research Program (MSRP)', 'MIT', 'United States', 'course', 'online', true, 'Summer research program for underrepresented students. Fully funded with stipend.', 'https://oge.mit.edu/msrp', '2027-01-20T23:59:00Z', ARRAY['Research', 'Summer', 'MIT', 'Diversity', 'Estados Unidos'], false, 'universidad', 'ciencias'),
+
+-- Short Programs
+('Clark Scholars Program', 'Texas Tech University', 'United States', 'course', 'short_program', true, 'Intensive seven-week research program for high school seniors. Full tuition, housing, and stipend.', 'https://www.depts.ttu.edu/clarkscholars/', '2027-02-01T23:59:00Z', ARRAY['Short Program', 'Research', 'Free', 'Estados Unidos'], false, 'preparatoria', 'general'),
+('Telluride Association Summer Seminar (TASS)', 'Telluride Association', 'United States', 'course', 'short_program', true, 'Free six-week seminar for high school students in humanities and social sciences.', 'https://www.tellurideassociation.org/programs/tass/', '2026-10-15T23:59:00Z', ARRAY['Short Program', 'Humanities', 'Free', 'Estados Unidos'], false, 'preparatoria', 'humanidades'),
+('COSMOS at UC', 'University of California', 'United States', 'course', 'short_program', false, 'Four-week intensive STEM program for California high school students at UC campuses.', 'https://cosmos.ucsc.edu/', '2027-03-15T23:59:00Z', ARRAY['Short Program', 'STEM', 'California', 'Estados Unidos'], false, 'preparatoria', 'ciencias'),
+
+-- Competitions
+('International Mathematical Olympiad (IMO)', 'IMO Foundation', 'Various', 'course', 'online', false, 'World championship mathematics competition for high school students.', 'https://www.imo-official.org/', '2027-07-01T23:59:00Z', ARRAY['Competition', 'Mathematics', 'International'], false, 'secundaria', 'ciencias'),
+('ACM ICPC', 'ACM International Collegiate Programming Contest', 'Various', 'course', 'online', false, 'Global programming contest for university students. Teams of 3 solve algorithmic problems.', 'https://icpc.global/', '2026-12-01T23:59:00Z', ARRAY['Competition', 'Programming', 'ICPC'], false, 'universidad', 'tecnologia'),
+('Microsoft Imagine Cup', 'Microsoft', 'Online', 'course', 'online', true, 'Global student technology competition. Build solutions using Microsoft tech for social impact.', 'https://imaginecup.microsoft.com/', '2027-03-01T23:59:00Z', ARRAY['Competition', 'Technology', 'Innovation'], false, 'universidad', 'tecnologia'),
+('Hult Prize', 'Hult Prize Foundation', 'Online', 'course', 'online', false, '$1M social entrepreneurship competition for university students.', 'https://www.hultprize.org/', '2027-03-01T23:59:00Z', ARRAY['Competition', 'Entrepreneurship', 'Social Impact'], false, 'universidad', 'administracion'),
+
+-- Conferences
+('Grace Hopper Celebration', 'AnitaB.org', 'United States', 'course', 'online', false, 'World''s largest gathering of women and non-binary technologists.', 'https://ghc.anitab.org/', '2027-04-01T23:59:00Z', ARRAY['Conference', 'Technology', 'Women', 'Estados Unidos'], false, 'universidad', 'tecnologia'),
+('One Young World Summit', 'One Young World', 'Various', 'course', 'online', false, 'Global forum for young leaders from 190+ countries.', 'https://www.oneyoungworld.com/', '2027-09-01T23:59:00Z', ARRAY['Event', 'Leadership', 'Youth', 'Global'], false, 'universidad', 'general'),
+('TED Conferences', 'TED', 'Various', 'course', 'online', false, 'Conferences on Technology, Entertainment, and Design worldwide.', 'https://www.ted.com/events', '2026-12-31T23:59:00Z', ARRAY['Conference', 'Innovation', 'Ideas'], false, 'universidad', 'general'),
+
+-- Hackathons
+('HackMIT', 'MIT', 'United States', 'course', 'online', false, 'MIT''s premier hackathon. Build innovative projects in 48 hours.', 'https://hackmit.org/', '2027-09-01T23:59:00Z', ARRAY['Hackathon', 'Technology', 'MIT'], false, 'universidad', 'tecnologia'),
+('TreeHacks', 'Stanford University', 'United States', 'course', 'online', false, 'Stanford''s premier hackathon.', 'https://treehacks.com/', '2027-02-01T23:59:00Z', ARRAY['Hackathon', 'Stanford', 'Innovation'], false, 'universidad', 'tecnologia'),
+('MLH Season', 'Major League Hacking', 'Online', 'course', 'online', false, 'Season of student hackathons worldwide. 200+ events per season.', 'https://mlh.io/', '2026-12-31T23:59:00Z', ARRAY['Hackathon', 'Global', 'Community'], false, 'universidad', 'tecnologia'),
+('PennApps', 'University of Pennsylvania', 'United States', 'course', 'online', false, 'Largest student-run hackathon on the East Coast.', 'https://pennapps.com/', '2027-09-01T23:59:00Z', ARRAY['Hackathon', 'Innovation', 'Penn'], false, 'universidad', 'tecnologia'),
+
+-- Mentorship
+('ADPList', 'ADPList', 'Online', 'course', 'mentorship', true, 'Free mentorship from 200K+ professionals in 150 countries. 20M+ connections.', 'https://adplist.org/', '2026-12-31T23:59:00Z', ARRAY['Mentorship', 'Free', 'Global', 'Gratis'], false, 'universidad', 'general'),
+('SCORE Mentorship', 'SCORE (SBA)', 'United States', 'course', 'mentorship', true, 'Free business mentoring from experienced volunteers. 10,000+ mentors nationwide.', 'https://www.score.org/', '2026-12-31T23:59:00Z', ARRAY['Mentorship', 'Business', 'Free', 'Estados Unidos'], false, 'profesional', 'administracion'),
+
+-- Bootcamps
+('App Academy', 'App Academy', 'United States', 'course', 'bootcamp', false, 'Coding bootcamp with Income Share Agreement. Software Engineering, Cybersecurity, Data Analytics.', 'https://www.appacademy.io/', '2026-12-31T23:59:00Z', ARRAY['Bootcamp', 'Coding', 'Programming'], false, 'universidad', 'tecnologia'),
+('General Assembly', 'General Assembly', 'Various', 'course', 'bootcamp', false, 'AI-focused training, workshops, and courses in tech, data, and design.', 'https://generalassemb.ly/', '2026-12-31T23:59:00Z', ARRAY['Bootcamp', 'Various', 'Technology'], false, 'universidad', 'tecnologia'),
+
+-- Professional Training
+('Google Career Certificates', 'Google', 'Online', 'course', 'certification', false, 'Professional certificates in Data Analytics, UX Design, IT Support, Project Management, Cybersecurity.', 'https://grow.google/certificates/', '2026-12-31T23:59:00Z', ARRAY['Training', 'Professional', 'Certificates'], false, 'profesional', 'tecnologia'),
+('Year Up United', 'Year Up', 'United States', 'course', 'certification', true, 'Tuition-free job training for young adults ages 18-29 in tech and finance.', 'https://www.yearup.org/', '2027-03-01T23:59:00Z', ARRAY['Training', 'Professional', 'Free', 'Estados Unidos'], false, 'profesional', 'tecnologia'),
+
+-- Rotary Youth Exchange (CORRECTED: was internship, now course)
+('Rotary Youth Exchange', 'Rotary International', 'Various', 'course', 'online', false, 'Youth exchange program for students ages 15-19 for academic year or short-term cultural exchange.', 'https://www.rotary.org/en/our-programs/youth-exchanges', '2026-09-01T23:59:00Z', ARRAY['Exchange', 'Youth', 'Cultural', 'Rotary', 'Internacional'], false, 'secundaria', 'general'),
+
+-- National Geographic
+('National Geographic Young Explorers Grant', 'National Geographic Society', 'Various', 'course', 'online', true, 'Grants for young explorers ages 18-25 for exploration, conservation, and research projects.', 'https://www.nationalgeographic.com/explorers/', '2026-12-01T23:59:00Z', ARRAY['Travel Grant', 'Exploration', 'Conservation', 'Grant'], false, 'universidad', 'general');
+
+-- ============================================
+-- MÉXICO: CURSOS, CONGRESOS Y PROGRAMAS
+-- ============================================
+INSERT INTO opportunities (title, institution, location, type, subtype, funding, description, link, deadline, tags, is_featured, educational_level, educational_field) VALUES
+
+-- 84° Congreso Neumología (FREE for students)
+('84° Congreso Nacional de Neumología y Cirugía de Tórax', 'Sociedad Mexicana de Neumología', 'Cancún, México', 'course', 'online', true, 'Congreso nacional GRATUITO para estudiantes y pasantes de medicina. Incluye conferencias y talleres.', 'https://congresoneumologia2026.mx/', '2026-03-10T23:59:00Z', ARRAY['México', 'Congreso', 'Neumología', 'Gratis', 'Cancún'], false, 'universidad', 'ciencias_salud'),
+
+-- ANMM Simposio (FREE)
+('Simposio ANMM: Medicina e Inmunología', 'Academia Nacional de Medicina de México', 'CDMX, México', 'course', 'online', true, 'Simposio académico gratuito con concurso de presentación estudiantil. Premio sorpresa.', 'https://anmm.org.mx/', '2026-04-27T23:59:00Z', ARRAY['México', 'Congreso', 'Inmunología', 'Gratis', 'CDMX'], false, 'universidad', 'ciencias_salud'),
+
+-- Congreso Medicina Interna
+('XLIX Congreso Nacional de Medicina Interna', 'Colegio de Medicina Interna de México', 'Mérida, México', 'course', 'online', false, 'Congreso nacional de medicina interna. Estudiantes: $1,200 MXN. Incluye talleres y conferencias.', 'https://cmim.org/congreso-nacional-cmim', '2026-11-25T23:59:00Z', ARRAY['México', 'Congreso', 'Medicina Interna', 'Mérida'], false, 'universidad', 'ciencias_salud'),
+
+-- Congreso Mundial Estudiantes Medicina
+('Congreso Mundial de Estudiantes de Medicina', 'Various', 'Cancún, México', 'course', 'online', false, 'Congreso internacional para estudiantes de medicina en Cancún. Becas disponibles para organizadores foráneos.', 'https://congreso-medicina.org/', '2026-10-23T23:59:00Z', ARRAY['México', 'Congreso', 'Estudiantes', 'Cancún', 'Internacional'], false, 'universidad', 'ciencias_salud'),
+
+-- Congreso Anestesiología
+('LVIII Congreso Mexicano de Anestesiología', 'Colegio Mexicano de Anestesiología', 'Mérida, México', 'course', 'online', false, 'Congreso nacional de anestesiología. Residentes pueden presentar carteles. Deadline abstracts: Sep 15.', 'https://www.fmca2026.mx/', '2026-11-04T23:59:00Z', ARRAY['México', 'Congreso', 'Anestesiología', 'Mérida'], false, 'universidad', 'ciencias_salud'),
+
+-- Congreso Neurología
+('XXVIII Congreso SMCN (Cirugía Neurológica)', 'Sociedad Mexicana de Cirugía Neurológica', 'Guadalajara, México', 'course', 'online', false, 'Congreso de neurocirugía con concurso estudiantil "Calavera del Fraile".', 'https://www.smcn.org.mx/', '2026-11-01T23:59:00Z', ARRAY['México', 'Congreso', 'Neurocirugía', 'Guadalajara'], false, 'posgrado', 'ciencias_salud'),
+
+-- Congreso Dermatología
+('XXXII Congreso Mexicano de Dermatología', 'Sociedad Mexicana de Dermatología', 'Monterrey, México', 'course', 'online', false, 'Congreso nacional de dermatología en Monterrey.', 'https://smdac.com.mx/', '2026-10-01T23:59:00Z', ARRAY['México', 'Congreso', 'Dermatología', 'Monterrey'], false, 'posgrado', 'ciencias_salud'),
+
+-- Congreso Cardiología SMC
+('Sesiones Estatutarias SMC (Cardiología)', 'Sociedad Mexicana de Cardiología', 'CDMX, México', 'course', 'online', true, 'Sesiones mensuales de cardiología. Becas del 100% para miembros residentes.', 'https://www.smcardiologia.org.mx/membresias/', '2026-12-31T23:59:00Z', ARRAY['México', 'Cardiología', 'Gratis', 'CDMX', 'SMC'], false, 'posgrado', 'ciencias_salud'),
+
+-- INSP Cursos Virtuales
+('Campus Virtual de Salud Pública (OPS/INSP)', 'PAHO/WHO / INSP', 'Online', 'course', 'online', true, 'Cursos gratuitos en salud pública con certificado. Más de 100 cursos disponibles en español y portugués.', 'https://campus.paho.org/', '2026-12-31T23:59:00Z', ARRAY['México', 'Salud Pública', 'Gratis', 'Online', 'OPS'], false, 'universidad', 'ciencias_salud'),
+
+-- UNAM Coursera
+('UNAM en Coursera', 'Universidad Nacional Autónoma de México', 'Online', 'course', 'online', true, 'Cursos gratuitos de la UNAM en Coursera. Salud, nutrición, microbiología y más. Certificado opcional.', 'https://www.coursera.org/universidad-unam', '2026-12-31T23:59:00Z', ARRAY['México', 'UNAM', 'Online', 'Gratis', 'Cursos'], false, 'universidad', 'general'),
+
+-- AMMEF / IFMSA México
+('AMMEF - Intercambios Nacionales SCONE', 'AMMEF / IFMSA México', 'México', 'course', 'online', false, 'Intercambios clínicos nacionales para estudiantes de medicina entre hospitales de toda la república mexicana.', 'https://scomp.ammef.mx/', '2026-09-01T23:59:00Z', ARRAY['México', 'AMMEF', 'Intercambio', 'Estudiantes', 'Clínico'], false, 'universidad', 'ciencias_salud'),
+
+-- IFMSA SCOPE
+('AMMEF - Intercambios Internacionales SCOPE/SCORE', 'AMMEF / IFMSA', 'Global', 'course', 'mentorship', false, 'Intercambios clínicos (SCOPE) y de investigación (SCORE) en 130+ países para estudiantes de medicina mexicanos.', 'https://ifmsa.org/', '2026-09-01T23:59:00Z', ARRAY['México', 'AMMEF', 'Internacional', 'Intercambio', 'IFMSA'], false, 'universidad', 'ciencias_salud'),
+
+-- XL Reunión INNN
+('XL Reunión Anual de Investigación INNN', 'Instituto Nacional de Neurología y Neurocirugía', 'CDMX, México', 'course', 'online', false, 'Reunión anual de investigación del INNN. Presentación de carteles y conferencias.', 'https://www.innn.salud.gob.mx/', '2026-09-15T23:59:00Z', ARRAY['México', 'INNN', 'Neurología', 'Investigación', 'CDMX'], false, 'posgrado', 'ciencias_salud'),
+
+-- Semana del Cerebro
+('Semana del Cerebro INNN', 'Instituto Nacional de Neurología y Neurocirugía', 'CDMX, México', 'course', 'online', true, 'Evento gratuito de divulgación neurocientífica. Conferencias y talleres abiertos al público.', 'https://www.innn.salud.gob.mx/', '2026-07-15T23:59:00Z', ARRAY['México', 'INNN', 'Neurología', 'Gratis', 'Divulgación'], false, 'universidad', 'ciencias_salud'),
+
+-- INPer Reunión Anual
+('39° Reunión Anual INPer', 'Instituto Nacional de Perinatología', 'CDMX, México', 'course', 'online', false, 'Reunión anual de investigación en perinatología y medicina materno-fetal.', 'https://www.inper.mx/', '2026-10-01T23:59:00Z', ARRAY['México', 'INPer', 'Perinatología', 'Investigación', 'CDMX'], false, 'posgrado', 'ciencias_salud'),
+
+-- INP Foro Investigación
+('Foro de Investigación INP', 'Instituto Nacional de Pediatría', 'CDMX, México', 'course', 'online', false, 'Foro anual de investigación pediátrica con presentación de trabajos y carteles.', 'https://www.pediatria.gob.mx/', '2026-09-01T23:59:00Z', ARRAY['México', 'INP', 'Pediatría', 'Investigación', 'CDMX'], false, 'posgrado', 'ciencias_salud'),
+
+-- Mission Brain México
+('Mission Brain Student Chapters', 'Mission Brain Foundation', 'México', 'course', 'online', false, 'Capítulos estudiantiles de neurociencias en UNAM, BUAP, UAG, UdeG, UAEMéx, UAM y Anáhuac.', 'https://www.missionbrain.org/es/chapters', '2026-08-01T23:59:00Z', ARRAY['México', 'Neurociencias', 'Estudiantes', 'Mission Brain'], false, 'universidad', 'ciencias_salud'),
+
+-- SIGN Chapter México
+('SIGN Chapter México (Neurología)', 'American Academy of Neurology', 'México', 'course', 'online', true, 'Student Interest Group in Neurology. Membresía gratuita. Becas AAN: $3,000 USD investigación, $2,000 USD electiva.', 'https://www.aan.com/', '2026-09-01T23:59:00Z', ARRAY['México', 'Neurología', 'AAN', 'Estudiantes', 'Becas'], false, 'universidad', 'ciencias_salud'),
+
+-- SMEC (Cardiología estudiantes)
+('SMEC - Sociedad Mexicana de Estudiantes en Cardiología', 'SMEC', 'CDMX, México', 'course', 'online', false, 'Sociedad estudiantil de cardiología en ENMH-IPN. Congresos, talleres y conferencias.', 'https://smecmx.org/', '2026-08-01T23:59:00Z', ARRAY['México', 'Cardiología', 'Estudiantes', 'SMEC', 'IPN'], false, 'universidad', 'ciencias_salud'),
+
+-- Juan Beckmann Scholarship (Mission Brain)
+('Juan Beckmann Scholarship for Neurosurgeons', 'Mission Brain Foundation / José Cuervo', 'México', 'scholarship', 'fellowship', true, 'Beca de $30,000-$36,000 USD para neurocirujanos mexicanos para realizar observerships internacionales.', 'https://www.missionbrain.org/', '2026-10-01T23:59:00Z', ARRAY['México', 'Neurocirugía', 'Beca', 'Mission Brain', 'Observership'], false, 'posgrado', 'ciencias_salud'),
+
+-- INPer Servicio Social
+('Servicio Social en INPer', 'Instituto Nacional de Perinatología', 'CDMX, México', 'course', 'online', false, 'Programa de servicio social en el Instituto Nacional de Perinatología para pasantes de medicina.', 'https://www.inper.mx/', '2026-08-01T23:59:00Z', ARRAY['México', 'INPer', 'Servicio Social', 'Perinatología', 'CDMX'], false, 'universidad', 'ciencias_salud'),
+
+-- INP Servicio Social
+('Servicio Social en INP', 'Instituto Nacional de Pediatría', 'CDMX, México', 'course', 'online', false, 'Servicio social en investigación y atención pediátrica en el Instituto Nacional de Pediatría.', 'https://www.pediatria.gob.mx/', '2026-08-01T23:59:00Z', ARRAY['México', 'INP', 'Servicio Social', 'Pediatría', 'CDMX'], false, 'universidad', 'ciencias_salud'),
+
+-- Hospital General de México
+('Servicio Social Hospital General de México', 'Hospital General de México', 'CDMX, México', 'course', 'online', false, 'Servicio social en el Hospital General de México en diversas especialidades médicas.', 'https://www.hgm.salud.gob.mx/', '2026-08-01T23:59:00Z', ARRAY['México', 'HGM', 'Servicio Social', 'CDMX', 'Hospital'], false, 'universidad', 'ciencias_salud'),
+
+-- IMSS Cursos
+('Cursos y Diplomados IMSS', 'Instituto Mexicano del Seguro Social', 'México', 'course', 'online', true, 'Cursos gratuitos y diplomados en línea del IMSS para profesionales de la salud.', 'https://www.imss.gob.mx/', '2026-12-31T23:59:00Z', ARRAY['México', 'IMSS', 'Cursos', 'Gratis', 'Diplomados'], false, 'profesional', 'ciencias_salud'),
+
+-- COSMOS para mexicanos
+('COSMOS UC (para estudiantes mexicanos)', 'University of California', 'United States', 'course', 'short_program', false, 'Programa intensivo de STEM de 4 semanas en campus UC. Abierto a estudiantes internacionales.', 'https://cosmos.ucsc.edu/', '2027-03-15T23:59:00Z', ARRAY['STEM', 'California', 'Verano', 'Preparatoria', 'Estados Unidos'], false, 'preparatoria', 'ciencias'),
+
+-- AI4ALL
+('AI4ALL Summer Programs', 'AI4ALL', 'United States', 'course', 'summer_school', true, 'Summer programs for underrepresented high school students in artificial intelligence. Abierto a latinos.', 'https://ai-4-all.org/', '2027-02-15T23:59:00Z', ARRAY['High School', 'AI', 'Summer', 'Diversity', 'Estados Unidos'], false, 'preparatoria', 'tecnologia'),
+
+-- Stanford Pre-Collegiate
+('Stanford Pre-Collegiate Studies', 'Stanford University', 'United States', 'course', 'short_program', false, 'Academic enrichment programs for high school students at Stanford campus. International students welcome.', 'https://precollegiate.stanford.edu/', '2027-04-01T23:59:00Z', ARRAY['High School', 'Stanford', 'Academic', 'Summer', 'Estados Unidos'], false, 'preparatoria', 'general');
+
+-- ============================================
+-- Verify Import
+-- ============================================
+SELECT COUNT(*) as total_opportunities FROM opportunities;
+SELECT type, COUNT(*) as count FROM opportunities GROUP BY type ORDER BY count DESC;
+SELECT educational_level, COUNT(*) as count FROM opportunities GROUP BY educational_level ORDER BY count DESC;
+SELECT educational_field, COUNT(*) as count FROM opportunities GROUP BY educational_field ORDER BY count DESC;

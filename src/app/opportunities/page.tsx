@@ -9,14 +9,108 @@ const typeColors: Record<string, string> = {
   scholarship: "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950 dark:text-emerald-300 dark:border-emerald-800",
   research: "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950 dark:text-blue-300 dark:border-blue-800",
   internship: "bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-950 dark:text-purple-300 dark:border-purple-800",
+  internado_ss: "bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950 dark:text-rose-300 dark:border-rose-800",
   course: "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950 dark:text-amber-300 dark:border-amber-800",
+  event: "bg-cyan-50 text-cyan-700 border-cyan-200 dark:bg-cyan-950 dark:text-cyan-300 dark:border-cyan-800",
 };
 
 const typeLabels: Record<string, string> = {
   scholarship: "Beca",
   research: "Investigación",
-  internship: "Internado",
+  internship: "Internship",
+  internado_ss: "Internado y SS",
   course: "Curso",
+  event: "Evento",
+};
+
+const subtypeLabels: Record<string, string> = {
+  full_scholarship: "Beca Completa",
+  fellowship: "Fellowship",
+  government: "Gubernamental",
+  need_based: "Necesidad Económica",
+  merit_based: "Mérito Académico",
+  travel_grant: "Travel Grant",
+  corporate: "Corporativo",
+  un_international: "Organismo Internacional",
+  consulting: "Consultoría",
+  tech: "Tecnología",
+  research_internship: "Investigación",
+  internado_pregrado: "Internado Médico Pregrado",
+  servicio_social: "Servicio Social",
+  phd: "Doctorado",
+  postdoc: "Postdoctorado",
+  research_fellowship: "Fellowship Investigación",
+  clinical_fellowship: "Fellowship Clínico",
+  summer_research: "Verano de Investigación",
+  winter_research: "Invierno de Investigación",
+  observership: "Observership",
+  online: "En Línea",
+  certification: "Certificación",
+  bootcamp: "Bootcamp",
+  summer_school: "Escuela de Verano",
+  short_program: "Programa Corto",
+  mentorship: "Mentoría",
+  congress: "Congreso",
+  hackathon: "Hackathon",
+  competition: "Competencia",
+  conference: "Conferencia",
+  exchange: "Intercambio",
+  mission_brain: "Mission Brain",
+  student_chapter: "Capítulo Estudiantil",
+};
+
+const subtypesByType: Record<string, { value: string; label: string }[]> = {
+  scholarship: [
+    { value: "all", label: "Todas las becas" },
+    { value: "full_scholarship", label: "Beca Completa" },
+    { value: "fellowship", label: "Fellowship" },
+    { value: "government", label: "Gubernamental" },
+    { value: "need_based", label: "Necesidad Económica" },
+    { value: "merit_based", label: "Mérito Académico" },
+    { value: "travel_grant", label: "Travel Grant" },
+  ],
+  internship: [
+    { value: "all", label: "Todas las internships" },
+    { value: "corporate", label: "Corporativo" },
+    { value: "un_international", label: "Organismo Internacional" },
+    { value: "consulting", label: "Consultoría" },
+    { value: "tech", label: "Tecnología" },
+    { value: "research_internship", label: "Investigación" },
+  ],
+  internado_ss: [
+    { value: "all", label: "Todos" },
+    { value: "internado_pregrado", label: "Internado Médico Pregrado" },
+    { value: "servicio_social", label: "Servicio Social" },
+  ],
+  research: [
+    { value: "all", label: "Toda la investigación" },
+    { value: "phd", label: "Doctorado" },
+    { value: "postdoc", label: "Postdoctorado" },
+    { value: "research_fellowship", label: "Fellowship Investigación" },
+    { value: "clinical_fellowship", label: "Fellowship Clínico" },
+    { value: "summer_research", label: "Verano de Investigación" },
+    { value: "winter_research", label: "Invierno de Investigación" },
+    { value: "observership", label: "Observership" },
+  ],
+  course: [
+    { value: "all", label: "Todos los cursos" },
+    { value: "online", label: "En Línea" },
+    { value: "certification", label: "Certificación" },
+    { value: "bootcamp", label: "Bootcamp" },
+    { value: "summer_school", label: "Escuela de Verano" },
+    { value: "short_program", label: "Programa Corto" },
+    { value: "mentorship", label: "Mentoría" },
+  ],
+  event: [
+    { value: "all", label: "Todos los eventos" },
+    { value: "congress", label: "Congreso" },
+    { value: "hackathon", label: "Hackathon" },
+    { value: "competition", label: "Competencia" },
+    { value: "conference", label: "Conferencia" },
+    { value: "exchange", label: "Intercambio" },
+    { value: "mission_brain", label: "Mission Brain" },
+    { value: "student_chapter", label: "Capítulo Estudiantil" },
+  ],
 };
 
 const levelLabels: Record<string, string> = {
@@ -45,6 +139,7 @@ interface Props {
   searchParams: Promise<{
     q?: string;
     type?: string;
+    subtype?: string;
     funding?: string;
     level?: string;
     field?: string;
@@ -57,6 +152,7 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
   const { data: opportunities, count } = await getOpportunities({
     search: params.q,
     type: params.type,
+    subtype: params.subtype,
     funding: params.funding === "true",
     level: params.level,
     field: params.field,
@@ -104,8 +200,35 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
                       <option value="all">Todos</option>
                       <option value="scholarship">Becas</option>
                       <option value="research">Investigación</option>
-                      <option value="internship">Internados</option>
+                      <option value="internship">Internships</option>
                       <option value="course">Cursos</option>
+                      <option value="internado_ss">Internado y SS</option>
+                      <option value="event">Eventos</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="mb-1 flex items-center gap-1.5 text-sm font-medium text-text-main">
+                      <span className="size-1.5 rounded-full bg-purple-500" />
+                      Subcategoría
+                    </label>
+                    <select
+                      name="subtype"
+                      defaultValue={params.subtype}
+                      className="w-full rounded-xl border border-border bg-card px-3 py-2 text-sm text-text-main"
+                    >
+                      <option value="all">Todas las subcategorías</option>
+                      {params.type && params.type !== "all" && subtypesByType[params.type]
+                        ? subtypesByType[params.type].map((s) => (
+                            <option key={s.value} value={s.value}>{s.label}</option>
+                          ))
+                        : Object.entries(subtypesByType).map(([, subs]) =>
+                            subs.slice(0, 1).map((s) =>
+                              s.value === "all" ? null : (
+                                <option key={s.value} value={s.value}>{s.label}</option>
+                              )
+                            )
+                          )}
                     </select>
                   </div>
 
@@ -205,6 +328,11 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
                           <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-medium ${typeColors[opp.type]}`}>
                             {typeLabels[opp.type] || opp.type}
                           </span>
+                          {opp.subtype && (
+                            <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-medium ${typeColors[opp.type]} opacity-80`}>
+                              {subtypeLabels[opp.subtype] || opp.subtype}
+                            </span>
+                          )}
                           {opp.educational_level && opp.educational_level !== 'universidad' && (
                             <span className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-300">
                               {levelLabels[opp.educational_level] || opp.educational_level}
