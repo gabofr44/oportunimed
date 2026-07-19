@@ -28,6 +28,11 @@ export interface Profile {
   role: UserRole;
   created_at: string;
   updated_at: string;
+  educational_level: string | null;
+  educational_field: string | null;
+  interests: string[];
+  goals: string[];
+  onboarding_complete: boolean;
 }
 
 export type CallFrequency =

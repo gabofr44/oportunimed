@@ -1,7 +1,7 @@
 "use client";
 
 import { AuthForm } from "@/components/auth/AuthForm";
-import { signIn, signInWithGoogle } from "@/actions/auth";
+import { signIn } from "@/actions/auth";
 
 export default function LoginPage() {
   return (
@@ -9,7 +9,10 @@ export default function LoginPage() {
       <AuthForm
         type="login"
         onSubmit={signIn}
-        onGoogle={signInWithGoogle}
+        onGoogle={() => {
+          window.location.href = "/api/auth/google";
+          return Promise.resolve({});
+        }}
       />
     </div>
   );

@@ -20,6 +20,7 @@ interface NavItem {
 interface HeaderProps {
   children?: React.ReactNode;
   navItems?: NavItem[];
+  user?: { email?: string; name?: string | null } | null;
 }
 
 const defaultNavItems: NavItem[] = [
@@ -38,7 +39,7 @@ function useIsClient() {
   );
 }
 
-export function Header({ children, navItems = defaultNavItems }: HeaderProps) {
+export function Header({ children, navItems = defaultNavItems, user }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { theme, setTheme } = useTheme();
@@ -102,12 +103,34 @@ export function Header({ children, navItems = defaultNavItems }: HeaderProps) {
               </button>
             )}
 
-            <Link
-              href="/auth/login"
-              className="hidden rounded-xl bg-primary px-4 py-1.5 text-sm font-medium text-primary-foreground transition-all hover:scale-[1.03] sm:block"
-            >
-              Iniciar sesión
-            </Link>
+            {user ? (
+              <div className="hidden items-center gap-2 sm:flex">
+                <Link
+                  href="/dashboard"
+                  className="rounded-xl px-3 py-1.5 text-sm font-medium text-text-muted transition-colors hover:bg-secondary hover:text-text-main"
+                >
+                  Dashboard
+                </Link>
+                <Link
+                  href="/dashboard/cuenta"
+                  className="flex items-center gap-2 rounded-xl border border-border bg-card px-3 py-1.5 text-sm font-medium text-text-main transition-all hover:border-blue/30 hover:shadow-sm"
+                >
+                  <div className="flex size-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground">
+                    {(user.name || user.email || "?")[0].toUpperCase()}
+                  </div>
+                  <span className="max-w-[120px] truncate">
+                    {user.name || user.email || "Cuenta"}
+                  </span>
+                </Link>
+              </div>
+            ) : (
+              <Link
+                href="/auth/login"
+                className="hidden rounded-xl bg-primary px-4 py-1.5 text-sm font-medium text-primary-foreground transition-all hover:scale-[1.03] sm:block"
+              >
+                Iniciar sesión
+              </Link>
+            )}
 
             <button
               className="flex size-8 items-center justify-center rounded-xl text-text-muted md:hidden"
@@ -131,13 +154,32 @@ export function Header({ children, navItems = defaultNavItems }: HeaderProps) {
                   {item.label}
                 </Link>
               ))}
-              <Link
-                href="/auth/login"
-                className="mt-2 rounded-xl bg-primary px-4 py-2 text-center text-sm font-medium text-primary-foreground"
-                onClick={() => setMobileOpen(false)}
-              >
-                Iniciar sesión
-              </Link>
+              {user ? (
+                <>
+                  <Link
+                    href="/dashboard"
+                    className="rounded-lg px-3 py-2 text-sm font-medium text-text-muted hover:bg-secondary hover:text-text-main"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    Dashboard
+                  </Link>
+                  <Link
+                    href="/dashboard/cuenta"
+                    className="mt-2 rounded-xl bg-primary px-4 py-2 text-center text-sm font-medium text-primary-foreground"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    Mi Cuenta
+                  </Link>
+                </>
+              ) : (
+                <Link
+                  href="/auth/login"
+                  className="mt-2 rounded-xl bg-primary px-4 py-2 text-center text-sm font-medium text-primary-foreground"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  Iniciar sesión
+                </Link>
+              )}
             </nav>
           </div>
         )}
