@@ -42,6 +42,7 @@ export const searchSchema = z.object({
   course_subject: z.string().optional(),
   course_language: z.string().optional(),
   call_status: z.enum(["all", "activa", "por_salir", "pasada"]).default("all"),
+  recommended: z.boolean().default(false),
 });
 
 export type SearchInput = z.infer<typeof searchSchema>;

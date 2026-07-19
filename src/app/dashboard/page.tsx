@@ -3,8 +3,9 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getCurrentUser } from "@/actions/auth";
 import { getUserApplications, updateApplicationStatus } from "@/actions/applications";
+import { getNotificationPreferences } from "@/actions/notifications";
 import Link from "next/link";
-import { FileText, Clock, CheckCircle, ArrowUpRight, Eye, XCircle } from "lucide-react";
+import { FileText, Clock, CheckCircle, ArrowUpRight, Eye, XCircle, Bell, BellRing } from "lucide-react";
 
 const statusColors: Record<string, string> = {
   pending: "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950 dark:text-amber-300 dark:border-amber-800",
@@ -28,6 +29,7 @@ export default async function DashboardPage() {
   }
 
   const { data: applications } = await getUserApplications();
+  const { data: notifPrefs } = await getNotificationPreferences();
   const total = applications?.length || 0;
   const pending = applications?.filter((a) => a.status === "pending").length || 0;
   const accepted = applications?.filter((a) => a.status === "accepted").length || 0;
@@ -125,6 +127,48 @@ export default async function DashboardPage() {
               </Link>
             </div>
           )}
+        </div>
+
+        <div className="mt-10">
+          <h2 className="text-xl font-semibold text-text-main flex items-center gap-2">
+            <Bell className="size-5 text-blue" />
+            Alertas de nuevas convocatorias
+          </h2>
+          <p className="mt-1 text-sm text-text-muted">
+            Recibe notificaciones cuando publiquemos oportunidades que coincidan con tu perfil.
+          </p>
+
+          <div className="mt-4 rounded-2xl border border-border bg-card p-6 noise">
+            <div className="relative z-10">
+              {notifPrefs?.active ? (
+                <div className="flex items-center gap-3">
+                  <BellRing className="size-8 text-primary" />
+                  <div>
+                    <p className="font-semibold text-text-main">Alertas activas</p>
+                    <p className="text-xs text-text-muted">
+                      {notifPrefs.types?.length ? `Tipos: ${notifPrefs.types.join(", ")}` : "Todos los tipos"}
+                      {notifPrefs.fields?.length ? ` · Campos: ${notifPrefs.fields.join(", ")}` : ""}
+                      {notifPrefs.email ? ` · Enviar a: ${notifPrefs.email}` : ""}
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-sm text-text-muted">No tienes alertas configuradas.</p>
+              )}
+              <div className="mt-4 flex gap-3">
+                <Link href="/dashboard/alertas">
+                  <Button variant={notifPrefs?.active ? "outline" : "default"} className="rounded-xl text-sm">
+                    {notifPrefs?.active ? "Editar alertas" : "Configurar alertas"}
+                  </Button>
+                </Link>
+                <Link href="/proximos">
+                  <Button variant="outline" className="rounded-xl text-sm">
+                    Ver próximos 30 días
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </main>

@@ -2,8 +2,9 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getOpportunities } from "@/actions/opportunities";
+import { getCurrentUser } from "@/actions/auth";
 import { getOpportunityStatus, getStatusLabel } from "@/types";
-import { Search, MapPin, Calendar, Sparkles, ArrowUpRight, GraduationCap, BookOpen, Timer } from "lucide-react";
+import { Search, MapPin, Calendar, Sparkles, ArrowUpRight, GraduationCap, BookOpen, Timer, Star } from "lucide-react";
 import Link from "next/link";
 
 const typeColors: Record<string, string> = {
@@ -154,11 +155,16 @@ interface Props {
     course_subject?: string;
     course_language?: string;
     call_status?: string;
+    recommended?: string;
   }>;
 }
 
 export default async function OpportunitiesPage({ searchParams }: Props) {
   const params = await searchParams;
+  const user = await getCurrentUser();
+  const userLevel = user?.profile?.educational_level as string | undefined;
+  const userField = user?.profile?.educational_field as string | undefined;
+  const recommended = params.recommended === "true" && !!(userLevel || userField);
 
   const { data: opportunities, count } = await getOpportunities({
     search: params.q,
@@ -171,6 +177,9 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
     course_subject: params.course_subject,
     course_language: params.course_language,
     call_status: params.call_status,
+    recommended: recommended || undefined,
+    userLevel,
+    userField,
   });
 
   return (
@@ -192,6 +201,21 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
                 </h3>
 
                 <form className="space-y-4">
+                  {user && (userLevel || userField) && (
+                    <div>
+                      <Link
+                        href={recommended ? "/opportunities" : "/opportunities?recommended=true"}
+                        className={`flex items-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-medium transition-all ${
+                          recommended
+                            ? "border-yellow-300 bg-yellow-50 text-yellow-800 dark:border-yellow-700 dark:bg-yellow-950 dark:text-yellow-200"
+                            : "border-border bg-card text-text-muted hover:border-yellow-300/50"
+                        }`}
+                      >
+                        <Star className={`size-4 ${recommended ? "fill-yellow-500 text-yellow-500" : ""}`} />
+                        {recommended ? "Recomendados activos" : "Recomendado para ti"}
+                      </Link>
+                    </div>
+                  )}
                   <div>
                     <label className="mb-1 block text-sm font-medium text-text-main">
                       Buscar

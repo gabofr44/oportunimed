@@ -3,7 +3,9 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getOpportunityById } from "@/actions/opportunities";
+import { createClient } from "@/lib/supabase/server";
 import { ApplyButton } from "@/components/opportunities/ApplyButton";
+import { ChecklistSection } from "@/components/opportunities/ChecklistSection";
 import { ArrowLeft, MapPin, Calendar, ExternalLink, Sparkles, GraduationCap, BookOpen, Timer } from "lucide-react";
 import { getOpportunityStatus, getStatusLabel } from "@/types";
 
@@ -57,6 +59,19 @@ export default async function OpportunityDetailPage({ params }: Props) {
 
   if (error || !opportunity) {
     notFound();
+  }
+
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  let checklistItems = null;
+  if (user) {
+    const { data: cl } = await supabase
+      .from("checklists")
+      .select("items")
+      .eq("user_id", user.id)
+      .eq("opportunity_id", id)
+      .maybeSingle();
+    checklistItems = cl?.items || null;
   }
 
   return (
@@ -226,6 +241,8 @@ export default async function OpportunityDetailPage({ params }: Props) {
                 </a>
               )}
             </div>
+
+            <ChecklistSection opportunityId={opportunity.id} initialItems={checklistItems as any} />
           </div>
         </div>
       </div>

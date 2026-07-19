@@ -28,6 +28,9 @@ export async function getOpportunities(filters?: {
   course_subject?: string;
   course_language?: string;
   call_status?: string;
+  recommended?: boolean;
+  userLevel?: string;
+  userField?: string;
 }) {
   const supabase = await createClient();
 
@@ -115,6 +118,18 @@ export async function getOpportunities(filters?: {
       })
       .filter(opp => opp._score > 0)
       .sort((a, b) => b._score - a._score);
+  }
+
+  // Sort by recommendation match (user profile)
+  if (filters?.recommended && (filters.userLevel || filters.userField)) {
+    results = results.sort((a, b) => {
+      let scoreA = 0, scoreB = 0;
+      if (filters.userLevel && a.educational_level === filters.userLevel) scoreA += 2;
+      if (filters.userField && a.educational_field === filters.userField) scoreA += 1;
+      if (filters.userLevel && b.educational_level === filters.userLevel) scoreB += 2;
+      if (filters.userField && b.educational_field === filters.userField) scoreB += 1;
+      return scoreB - scoreA;
+    });
   }
 
   // Filter by call status (activa, por_salir, pasada)

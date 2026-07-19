@@ -25,6 +25,7 @@ interface HeaderProps {
 const defaultNavItems: NavItem[] = [
   { label: "Inicio", href: "/" },
   { label: "Convocatorias", href: "/opportunities" },
+  { label: "Próximos", href: "/proximos" },
   { label: "Recursos", href: "/recursos" },
   { label: "Blog", href: "/blog" },
 ];
