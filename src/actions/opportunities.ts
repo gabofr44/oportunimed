@@ -129,6 +129,31 @@ export async function getOpportunities(filters?: {
   return { data: results, count: results.length, error: null };
 }
 
+export async function getOpportunityStats() {
+  const supabase = await createClient();
+
+  const { count: total } = await supabase
+    .from("opportunities")
+    .select("*", { count: "exact", head: true });
+
+  const { data: locations } = await supabase
+    .from("opportunities")
+    .select("location");
+
+  const { data: types } = await supabase
+    .from("opportunities")
+    .select("type");
+
+  const uniqueLocations = new Set((locations || []).map((l: { location: string }) => l.location?.trim()).filter(Boolean));
+  const uniqueTypes = new Set((types || []).map((t: { type: string }) => t.type).filter(Boolean));
+
+  return {
+    total: total || 0,
+    countries: uniqueLocations.size,
+    types: uniqueTypes.size,
+  };
+}
+
 export async function getOpportunitiesByCountry(country: string) {
   const supabase = await createClient();
 
