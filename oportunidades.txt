@@ -1,0 +1,2532 @@
+ AND educational_field = 
+ as info;
+SELECT COUNT(*) as total_health_courses FROM opportunities WHERE type = 
+ GROUP BY course_level ORDER BY count DESC;
+SELECT course_language, COUNT(*) as count FROM opportunities WHERE type = 
+ GROUP BY course_level ORDER BY count DESC;
+SELECT course_language, COUNT(*) as count FROM opportunities WHERE type = 
+ GROUP BY course_subject ORDER BY count DESC;
+SELECT course_level, COUNT(*) as count FROM opportunities WHERE type = 
+ GROUP BY course_subject ORDER BY count DESC;
+SELECT course_level, COUNT(*) as count FROM opportunities WHERE type = 
+ GROUP BY educational_field ORDER BY count DESC;
+SELECT course_subject, COUNT(*) as count FROM opportunities WHERE type = 
+$1M social entrepreneurship competition for university students.
+),
+
+-- Aga Khan Foundation
+(
+),
+
+-- AI4ALL
+(
+),
+
+-- Amgen Scholars Program (NEW)
+(
+),
+
+-- AMMEF / IFMSA México
+(
+),
+
+-- Australia Awards
+(
+),
+
+-- Barry Goldwater
+(
+),
+
+-- BBVA Antorchas (NEW - MÉXICO)
+(
+),
+
+-- Beca Carlos Slim (NEW - MÉXICO)
+(
+),
+
+-- Boren Awards
+(
+),
+
+-- Cambridge PhD
+(
+),
+
+-- Chevening
+(
+),
+
+-- Chinese Government (CSC)
+(
+),
+
+-- Clarendon
+(
+),
+
+-- Coca-Cola Scholars
+(
+),
+
+-- Commonwealth
+(
+),
+
+-- Competitions
+(
+),
+
+-- DAAD
+(
+),
+
+-- Eiffel
+(
+),
+
+-- EMBO (CORRECTED deadline)
+(
+),
+
+-- EMBO
+(
+),
+
+-- Erasmus Mundus (NEW - already in verified)
+(
+),
+
+-- ESA (NEW)
+(
+),
+
+-- Europubhealth+ (NEW - Health)
+(
+),
+
+-- FEA (CORRECTED: was internship, now scholarship)
+(
+),
+
+-- FEA
+(
+),
+
+-- Fogarty International (NEW - HEALTH)
+(
+),
+
+-- Fulbright U.S. Student Program (CORRECTED: was internship, now scholarship)
+(
+),
+
+-- Fulbright US Student
+(
+),
+
+-- Gates Cambridge
+(
+),
+
+-- Gates Millennium
+(
+),
+
+-- GEM Fellowship
+(
+),
+
+-- Gilman Scholarship (CORRECTED: was internship, now scholarship)
+(
+),
+
+-- Gilman
+(
+),
+
+-- Hackathons
+(
+),
+
+-- Hertz Foundation
+(
+),
+
+-- Hubert Humphrey
+(
+),
+
+-- IDB Internship (NEW)
+(
+),
+
+-- INSP (NEW - MÉXICO)
+(
+),
+
+-- Jack Kent Cooke
+(
+),
+
+-- JSPS (NEW)
+(
+),
+
+-- Karolinska Global Master
+),
+
+-- KGSP (URL had connection issues but info correct)
+(
+),
+
+-- KGSP
+(
+),
+
+-- Marshall Aid
+(
+),
+
+-- Marshall
+(
+),
+
+-- Mastercard Foundation Scholars (NEW)
+(
+),
+
+-- MEXT (CORRECTED: was research, now scholarship)
+(
+),
+
+-- MEXT (URL was broken - use corrected URL)
+(
+),
+
+-- Mitacs Globalink (NEW)
+(
+),
+
+-- MPI Informatics
+(
+),
+
+-- MSCA (CORRECTED deadline)
+(
+),
+
+-- MSCA
+(
+),
+
+-- National Geographic
+(
+),
+
+-- New Zealand Scholarships
+(
+),
+
+-- NIH Summer Internship (NEW)
+(
+),
+
+-- NSEP Boren Awards
+(
+),
+
+-- NZ Scholarships (URL may not work but info is correct)
+(
+),
+
+-- OEA Scholarships (NEW - MÉXICO/AMÉRICA)
+(
+),
+
+-- Orange Knowledge
+(
+),
+
+-- Paul & Daisy Soros
+(
+),
+
+-- Perimeter (CORRECTED)
+(
+),
+
+-- Perimeter Institute
+(
+),
+
+-- PhD at Cambridge
+(
+),
+
+-- PhD at MIT
+(
+),
+
+-- PhD at Oxford
+(
+),
+
+-- PhD at Toronto
+(
+),
+
+-- Pierre Elliott Trudeau
+(
+),
+
+-- Queen Elizabeth Commonwealth (NEW)
+(
+),
+
+-- Rhodes
+(
+),
+
+-- Rosa Luxemburg Foundation (NEW)
+(
+),
+
+-- Rotary Youth Exchange
+(
+),
+
+-- Santander México (NEW)
+(
+),
+
+-- SBW Berlin Scholarship (NEW)
+(
+),
+
+-- Schwarzman Scholars
+(
+),
+
+-- Schwarzman
+(
+),
+
+-- SECIHTI (ex-CONAHCYT) (NEW - MÉXICO)
+(
+),
+
+-- Short Programs
+(
+),
+
+-- SMART Scholarship
+(
+),
+
+-- Stipendium Hungaricum (NEW)
+(
+),
+
+-- Summer Schools
+(
+),
+
+-- Swedish Institute Scholarships (NEW)
+(
+),
+
+-- Swiss Government
+(
+),
+
+-- TU Delft Excellence
+(
+),
+
+-- TU Delft Talent
+(
+),
+
+-- Türkiye Burslari
+(
+),
+
+-- UNAM al Extranjero (NEW - MÉXICO)
+(
+),
+
+-- World Bank Scholarship
+(
+),
+(gen_random_uuid(), 
+),
+-- ============================================
+-- ADMINISTRACION (Business) - from business_courses.json
+-- ============================================
+(gen_random_uuid(), 
+),
+-- ============================================
+-- ARTES (Arts) - additional courses
+-- ============================================
+(gen_random_uuid(), 
+),
+-- ============================================
+-- CIENCIAS_SALUD (Health Sciences) - from cursos_salud_gratis.json
+-- ============================================
+(gen_random_uuid(), 
+),
+-- ============================================
+-- CIENCIAS_SOCIALES (Social Sciences) - additional courses
+-- ============================================
+(gen_random_uuid(), 
+),
+-- ============================================
+-- DERECHO (Law) - additional courses
+-- ============================================
+(gen_random_uuid(), 
+),
+-- ============================================
+-- EDUCACION (Education) - additional courses
+-- ============================================
+(gen_random_uuid(), 
+),
+-- ============================================
+-- GENERAL (Multidisciplinary) - additional courses
+-- ============================================
+(gen_random_uuid(), 
+),
+-- ============================================
+-- HUMANIDADES (Humanities) - additional courses
+-- ============================================
+(gen_random_uuid(), 
+),
+-- ============================================
+-- INGENIERIA (Engineering) - additional courses
+-- ============================================
+(gen_random_uuid(), 
+),
+-- ============================================
+-- TECNOLOGIA (Technology/CS) - additional courses
+-- ============================================
+(gen_random_uuid(), 
+),
+
+-- ============================================
+-- CDC TRAIN & PAHO (15) - cdc.gov/train, campus.paho.org
+-- ============================================
+
+(gen_random_uuid(), 
+),
+
+-- ============================================
+-- COURSERA PART 1 (25) - coursera.org
+-- ============================================
+
+(gen_random_uuid(), 
+),
+
+-- ============================================
+-- EDX PART 1 (20) - edx.org
+-- ============================================
+
+(gen_random_uuid(), 
+),
+
+-- ============================================
+-- FUTURELEARN (15) - futurelearn.com
+-- ============================================
+
+(gen_random_uuid(), 
+),
+
+-- ============================================
+-- OPENLEARN - OPEN UNIVERSITY (25) - open.edu/openlearn
+-- ============================================
+
+(gen_random_uuid(), 
+),
+
+-- ============================================
+-- OTHER PROVIDERS (15) - Various
+-- ============================================
+
+(gen_random_uuid(), 
+),
+
+-- ============================================
+-- SWAYAM/NPTEL (15) - swayam.gov.in / nptel.ac.in
+-- ============================================
+
+(gen_random_uuid(), 
+),
+
+
+(gen_random_uuid(), 
+),
+
+(gen_random_uuid(), 
+),
+(gen_random_uuid(), 
+);
+
+-- ============================================
+-- BOOTCAMPS
+-- ============================================
+INSERT INTO opportunities (title, institution, location, type, funding, description, link, deadline, tags, is_featured, educational_level, educational_field) VALUES
+
+(
+);
+
+-- ============================================
+-- CURSOS / PROGRAMAS EN LÍNEA (Online Courses)
+-- ============================================
+INSERT INTO opportunities (title, institution, location, type, funding, description, link, deadline, tags, is_featured, educational_level, educational_field) VALUES
+
+(
+);
+
+-- ============================================
+-- FORMACIÓN PROFESIONAL (Professional Training)
+-- ============================================
+INSERT INTO opportunities (title, institution, location, type, funding, description, link, deadline, tags, is_featured, educational_level, educational_field) VALUES
+
+(
+);
+
+-- ============================================
+-- INTERNADOS (Internships)
+-- ============================================
+INSERT INTO opportunities (title, institution, location, type, funding, description, link, deadline, tags, is_featured, educational_level, educational_field) VALUES
+
+-- Google STEP
+(
+);
+
+-- ============================================
+-- INTERNSHIPS (Prácticas Profesionales)
+-- ============================================
+INSERT INTO opportunities (title, institution, location, type, subtype, funding, description, link, deadline, tags, is_featured, educational_level, educational_field) VALUES
+
+-- Google STEP (CORRECTED deadline - rolling, next cycle)
+(
+);
+
+-- ============================================
+-- INVESTIGACIÓN / DOCTORADO / POSDOCTORADO (Research)
+-- ============================================
+INSERT INTO opportunities (title, institution, location, type, funding, description, link, deadline, tags, is_featured, educational_level, educational_field) VALUES
+
+-- PhD at Stanford
+(
+);
+
+-- ============================================
+-- MÉXICO: CURSOS, CONGRESOS Y PROGRAMAS
+-- ============================================
+INSERT INTO opportunities (title, institution, location, type, subtype, funding, description, link, deadline, tags, is_featured, educational_level, educational_field) VALUES
+
+-- 84° Congreso Neumología (FREE for students)
+(
+);
+
+-- ============================================
+-- PROGRAMA CORTO (Short Programs)
+-- ============================================
+INSERT INTO opportunities (title, institution, location, type, funding, description, link, deadline, tags, is_featured, educational_level, educational_field) VALUES
+
+(
+);
+
+-- ============================================
+-- Verify Import
+-- ============================================
+SELECT COUNT(*) as total_courses FROM opportunities WHERE type = 
+);
+-- Additional courses (from overlapping source files)
+INSERT INTO opportunities (id, title, institution, location, type, subtype, funding, description, link, deadline, tags, is_featured, educational_level, educational_field, course_level, course_duration, course_subject, course_language) VALUES
+(gen_random_uuid(), 
+);
+
+-- ============================================
+-- Verify total health courses
+-- ============================================
+SELECT 
+);
+
+
+-- ============================================
+-- BATCH 4: Additional health courses 
+-- ============================================
+INSERT INTO opportunities (id, title, institution, location, type, subtype, funding, description, link, deadline, tags, is_featured, educational_level, educational_field, course_level, course_duration, course_subject, course_language) VALUES
+
+-- ============================================
+-- STANFORD CME (25) - online.stanford.edu
+-- ============================================
+
+(gen_random_uuid(), 
+;
+  END IF;
+END $$;
+
+CREATE INDEX IF NOT EXISTS idx_opportunities_edu_level ON opportunities(educational_level);
+CREATE INDEX IF NOT EXISTS idx_opportunities_edu_field ON opportunities(educational_field);
+
+-- Step 2: Clear existing (optional - uncomment if replacing)
+-- DELETE FROM opportunities;
+
+-- ============================================
+-- BECAS (Scholarships)
+-- ============================================
+INSERT INTO opportunities (title, institution, location, type, funding, description, link, deadline, tags, is_featured, educational_level, educational_field) VALUES
+
+-- Fulbright Foreign Student
+(
+;
+  END IF;
+END $$;
+
+CREATE INDEX IF NOT EXISTS idx_opportunities_edu_level ON opportunities(educational_level);
+CREATE INDEX IF NOT EXISTS idx_opportunities_edu_field ON opportunities(educational_field);
+
+-- Step 2: Clear existing
+DELETE FROM opportunities;
+
+-- ============================================
+-- BECAS (Scholarships)
+-- ============================================
+INSERT INTO opportunities (title, institution, location, type, subtype, funding, description, link, deadline, tags, is_featured, educational_level, educational_field) VALUES
+
+-- Fulbright Foreign Student (deadline confirmed)
+(
+;
+
+-- ============================================
+-- ALL COURSES
+-- ============================================
+INSERT INTO opportunities (id, title, institution, location, type, subtype, funding, description, link, deadline, tags, is_featured, educational_level, educational_field, course_level, course_duration, course_subject, course_language) VALUES
+-- ============================================
+-- CIENCIAS (Science) - from courses.json
+-- ============================================
+(gen_random_uuid(), 
+;
+
+-- Step 2: Clear existing courses
+DELETE FROM opportunities WHERE type = 
+;
+
+CREATE INDEX IF NOT EXISTS idx_opportunities_course_level ON opportunities(course_level);
+CREATE INDEX IF NOT EXISTS idx_opportunities_course_subject ON opportunities(course_subject);
+CREATE INDEX IF NOT EXISTS idx_opportunities_course_language ON opportunities(course_language);
+CREATE INDEX IF NOT EXISTS idx_opportunities_edu_level ON opportunities(educational_level);
+CREATE INDEX IF NOT EXISTS idx_opportunities_edu_field ON opportunities(educational_field);
+
+COMMENT ON COLUMN opportunities.course_level IS 
+;
+COMMENT ON COLUMN opportunities.course_duration IS 
+;
+COMMENT ON COLUMN opportunities.course_language IS 
+;
+COMMENT ON COLUMN opportunities.course_subject IS 
+;
+SELECT educational_field, COUNT(*) as count FROM opportunities WHERE type = 
+;
+SELECT course_subject, COUNT(*) as count FROM opportunities WHERE type = 
+], false),
+
+-- ============================================
+-- Bootcamp Opportunities
+-- ============================================
+(
+], false),
+
+-- ============================================
+-- Conference Opportunities
+-- ============================================
+(
+], false),
+
+-- ============================================
+-- Event/Forum Opportunities
+-- ============================================
+(
+], false),
+
+-- ============================================
+-- Hackathon Opportunities
+-- ============================================
+(
+], false),
+
+-- ============================================
+-- Internship Opportunities
+-- ============================================
+(
+], false),
+
+-- ============================================
+-- Professional Training Opportunities
+-- ============================================
+(
+], false),
+
+-- ============================================
+-- Research/Doctorate Opportunities
+-- ============================================
+(
+], false),
+
+-- ============================================
+-- Short Program Opportunities
+-- ============================================
+(
+], false),
+
+-- ============================================
+-- Summer Program Opportunities
+-- ============================================
+(
+], false),
+
+-- ============================================
+-- Summer School Opportunities
+-- ============================================
+(
+], false),
+
+-- ============================================
+-- Travel Grant Opportunities
+-- ============================================
+(
+], false),
+(
+], false, 
+], true),
+(
+£20,500 scholarship for international students pursuing online MSc in Public Health at UCL.
+A broad introduction to engineering disciplines and the engineering design process.
+Academia Nacional de Medicina de México
+Academic enrichment programs for high school students at Stanford campus.
+Academic enrichment programs for high school students at Stanford campus. International students welcome.
+Accenture Apprenticeship
+Accidente Cerebrovascular
+Accounting
+ACM International Collegiate Programming Contest
+ADB Internship Program
+Adicciones
+administracion
+Administración
+Administración en Salud
+administración Sanitaria
+Advanced course on Parkinson disease covering motor and non-motor symptoms, pharmacotherapy, DBS, and multidisciplinary care. Free certificate.
+Advanced Infection Prevention and Control Programmes
+Advanced MOOC on dementia science covering neuropathology, biomarkers, genetics, and emerging therapies. Free certificate from the Wicking Dementia Centre.
+Aeroespacial
+Aga Khan Development Network
+Aga Khan Foundation International Scholarship Programme
+Agriculture
+AI4ALL Summer Programs
+AI-focused training, workshops, and courses in tech, data, and design.
+Alergología
+Alimentación
+Amazon Future Engineer Internship
+Amazon Technical Apprenticeship
+Amazon Web Services
+América Latina
+American Academy of Neurology
+Amgen Foundation
+Amirana Scholarship for Medical Students
+AMMEF - Intercambios Internacionales SCOPE/SCORE
+AMMEF / IFMSA
+AMMEF / IFMSA México
+Analética de Datos
+Análisis de Negocios
+Analítica de Datos
+Analítica de Negocios
+Analysis and design of electric power generation, transmission, and distribution systems.
+Analysis of constitutional law principles including federalism, separation of powers, and civil rights.
+Analyze global politics, international security, diplomacy, and cooperation among states.
+anatomía Humana
+Anestesiología
+Anílisis de Datos
+AnitaB.org
+Annual meeting of global leaders in business, government, and civil society.
+Annual meeting of global leaders.
+Antropología
+Antropología Cultural
+Aplica principios científicos para analizar problemas ambientales reales como la contaminación, la energía y la sostenibilidad.
+Apoyo económico de $60,000 MXN para médicos residentes de los Institutos Nacionales de Salud de México.
+App Academy
+Apple Developer Academy
+Apple Internships
+Apprenticeship in technology and consulting.
+Apprenticeship in technology roles.
+Aprende física a través de la cocina, explorando elasticidad, viscosidad y otros conceptos con chefs de talla mundial.
+Aprende la ciencia detrás de la resistencia a los antibióticos: cómo se desarrolla, se propaga y las soluciones científicas actuales.
+Aprendizaje
+Arte Moderno
+Artritis Reumatoide
+Asian Development Bank
+Association of Commonwealth Universities
+Atención Primaria
+Australia Awards Scholarships
+Australian Government
+Australian Government (DFAT)
+AWS Educate
+AWS fundamentals covering cloud concepts, services, pricing, security, and architecture best practices.
+Bain & Company
+Bain Associate Consultant Intern
+Banco Santander
+Barry Goldwater Scholarship
+BCG Summer Associate Internship
+Beca de $30,000-$36,000 USD para neurocirujanos mexicanos para realizar observerships internacionales.
+Becas del gobierno mexicano para estudios de maestría, doctorado y posdoctorado en México y el extranjero. Apoyo mensual de $14,000 a $21,000 MXN más ISSSTE.
+Becas FUNED
+Becas para estudiantes mexicanos para movilidad internacional, capacitación y desarrollo profesional. Montos de $9,000 a $100,000 MXN.
+Becas para investigadores en salud global para desarrollar capacidades de investigación en países en desarrollo.
+Becas para jóvenes mexicanos con alto potencial de liderazgo para cursar estudios de posgrado en el extranjero.
+Becas para mexicanos que deseen realizar estudios de posgrado en el extranjero. Montos de $1,000 a $60,000 USD.
+Berkeley Summer Sessions
+Berklee College of Music
+Bioestadóstica
+biología Celular
+biología del Cíncer
+biología Molecular
+Biomedical
+Bioquímica
+Bioseguridad
+Bloomberg Fellows Program at Johns Hopkins
+Boston Consulting Group
+Boston University
+Boston University (edX)
+British Government
+Build effective teamwork, cross-functional collaboration, and group decision-making capabilities.
+Cadena de Suministro
+Calidad en Salud
+Calidad Sanitaria
+California
+California Institute of Technology
+California Institute of the Arts
+Cambio Climítico
+Cambio de Comportamiento
+Cambridge International Summer Programme
+Campus France / French Ministry
+Campus Virtual de Salud Pública (OPS/INSP)
+Cancer Research UK
+Cancer Research UK Fellowships
+Cancún, México
+Capacitación
+Capacitación clínica sobre el manejo de infecciones respiratorias agudas graves. Incluye soporte ventilatorio y cuidados críticos. Certificado gratuito.
+Capítulos estudiantiles de neurociencias en UNAM, BUAP, UAG, UdeG, UAEMéx, UAM y Anáhuac.
+cardiología
+Case Western Reserve (Coursera)
+Case Western Reserve University
+CDC Epidemic Intelligence Service (EIS)
+CDC Pathways Internship Program
+CDMX, México
+CEC (Swayam)
+Centers for Disease Control (CDC)
+Centers for Disease Control and Prevention
+CERN Summer Student Programme
+Certificado de 11 cursos para aprender SQL, visualización de datos, Tableau, Cognos Analytics y creación de dashboards.
+Certificado profesional de 7 cursos para dominar marketing digital, SEO, SEM, analytics, email marketing y comercio electrónico.
+Certificates
+certification
+Chevening Scholarships
+China Scholarship Council
+Chinese Government Scholarship (CSC)
+Churchill Foundation
+Ciberseguridad
+Ciencia de Datos
+Ciencia de Datos Sanitarios
+Ciencia de Materiales
+Ciencia Política
+Ciencias Ambientales
+Ciencias de la Computación
+Ciencias Médicas
+ciencias_salud
+ciencias_sociales
+Circuitos Eléctricos
+Cisco Networking Academy
+Clarendon Fund Scholarships
+Clark Scholars Program
+clinical_fellowship
+Clinton Global Initiative University
+Cloud Computing
+Coaching en Salud
+Cobertura Universal
+Coca-Cola Scholars Foundation
+Codecademy
+Codecademy (Skillsoft)
+Coding bootcamp focused on full-stack JavaScript.
+Coding bootcamp with income share agreement.
+Coding bootcamp with Income Share Agreement. Software Engineering, Cybersecurity, Data Analytics.
+Coding bootcamps in software engineering, data science, and cybersecurity.
+Coding, data science, and digital marketing bootcamps.
+Colegio de Medicina Interna de México
+Colegio Mexicano de Anestesiología
+Columbia University
+Commonwealth
+Commonwealth Education Trust
+Commonwealth Scholarship Commission
+Commonwealth Scholarship Commission (FCDO)
+Community program for students passionate about technology.
+Community program for students passionate about technology. Build skills and lead campus communities.
+Community-led developer events hosted by Google Developer Groups.
+Comparative study of major world religions including Buddhism, Christianity, Hinduism, Islam, and Judaism.
+Competition
+Competitive programming and development competitions.
+Comportamiento Organizacional
+Comprehensive data science program covering Python, SQL, machine learning, and data visualization.
+Comprehensive introduction to international law covering treaties, human rights, and dispute resolution.
+Comprehensive introduction to public health core functions, essential services, and the public health system. Free certificate from CDC.
+Comprehensive introduction to the scientific study of mind and behavior.
+Comprehensive scholarship for international students at all academic levels to study in Turkey.
+Comprehensive scholarship for international students at all levels.
+Comprehensive survey of global history from ancient civilizations to the modern era.
+Comprende cómo funcionan los ecosistemas, las interrelaciones entre organismos y la importancia de su conservación.
+Computer Science
+Comunicación
+comunicación en Salud
+Conference
+Conferences on Technology, Entertainment, and Design worldwide.
+Conferences on technology, entertainment, and design.
+Conferences on Technology, Entertainment, and Design. TEDx events worldwide.
+Congreso de neurocirugía con concurso estudiantil "Calavera del Fraile".
+Congreso internacional para estudiantes de medicina en Cancún. Becas disponibles para organizadores foráneos.
+Congreso Mundial de Estudiantes de Medicina
+Congreso nacional de anestesiología. Residentes pueden presentar carteles. Deadline abstracts: Sep 15.
+Congreso nacional de dermatología en Monterrey.
+Congreso nacional de medicina interna. Estudiantes: $1,200 MXN. Incluye talleres y conferencias.
+Congreso nacional GRATUITO para estudiantes y pasantes de medicina. Incluye conferencias y talleres.
+Conservation
+consulting
+Contabilidad
+Control de Infecciones
+Control Vectorial
+Cooperación
+Corea del Sur
+COSMOS at UC
+COSMOS UC (para estudiantes mexicanos)
+Course on basic epidemiology methods for public health practice. Includes study design, bias, and outbreak investigation. Free certificate.
+Course on clinical care for refugee and migrant populations. Includes cultural competence, common diseases, and mental health support. Free certificate.
+Course on effective health communication strategies for public health campaigns. Includes message development and audience segmentation.
+Course on emergency preparedness planning for healthcare facilities. Includes hazard vulnerability assessment and continuity of operations.
+Course on patient safety fundamentals including error reporting, safety culture, and quality improvement. Free certificate from WHO.
+Course on preparing for and responding to infectious disease threats. Includes isolation, quarantine, and surge capacity. Free certificate.
+Course on strengthening health systems to achieve universal health coverage. Includes governance, financióng, and service delivery. Free certificate.
+Course on tropical medicióne practice in low-resource settings. Covers malaria, TB, HIV, neglected tropical diseases. Free certificate.
+Coursera Online Courses
+Covers statics, dynamics, and strength of materials with real-world engineering applications.
+Criminología
+Critical exploration of digital learning cultures, online pedagogy, and virtual education trends.
+Critical Language Scholarship (CLS)
+Cuidado de Mayores
+Cuidado del Cíncer
+Cuidados Paliativos
+Cuidados Respiratorios
+Current University
+Curso actualizado sobre el manejo clínico de COVID-19 basado en la guía viva de la OMS. Cubre desde casos leves hasta críticos. Certificado gratuito.
+Curso autoguiado sobre infecciones respiratorias agudas: qué son, cómo se transmiten y medidas básicas de higiene para protegerse. Certificado de logro gratuito al superar el 80%.
+Curso avanzado sobre cefaleas. Cubre migraía crínica, cefalea en racimos, nuevas terapias con anticuerpos monoclonales y manejo integrativo. Certificado CME gratuito.
+Curso avanzado sobre comprensión de la demencia. Cubre neuropatología, diagnóstico diferencial, intervenciones avanzadas y cuidado centrado en la persona. Certificado gratuito en FutureLearn.
+Curso avanzado sobre cuidado de demencias. Cubre enfermedad de Alzheimer, demencias vasculares, enfoque centrado en la persona y manejo de síntomas conductuales. Certificado gratuito.
+Curso avanzado sobre demencia y neuropatología. Cubre enfermedad de Alzheimer, demencia frontotemporal, cuerpos de Lewy y enfoques terapéuticos emergentes. Certificado gratuito.
+Curso avanzado sobre desarrollo e implementación de programas de prevención y control de infecciones a nivel institucional y nacional. Certificado gratuito.
+Curso avanzado sobre enfermedad de Parkinson. Cubre fisiopatología, diagnóstico, manejo farmacolígico, terapias avanzadas e investigación. Certificado gratuito.
+Curso avanzado sobre epidemiología y control de enfermedades globales: enfermedades infecciosas, cardiovasculares, cáncer y salud mental. Ayuda financiera disponible.
+Curso avanzado sobre manejo integral de la diabetes mellitus. Cubre terapias farmacolígicas, monitoreo continuo de glucosa y prevención de complicaciones. Certificado CME gratuito.
+Curso avanzado sobre pruebas diagnósticas para tuberculosis y monitoreo de tratamiento. Cubre GeneXpert, cultivos y pruebas de sensibilidad. Certificado gratuito.
+Curso básico en investigación biomédica. Cubre formulación de preguntas de investigación, diseño de estudios, análisis de datos y ética en investigación. Certificado mediante examen presencial.
+Curso básico que enseña el proceso completo de análisis de negocio desde la identificación de necesidades hasta la solución.
+Curso básico sobre el cólera: transmisión, síntomas, tratamiento y prevención. Dirigido a trabajadores de salud y respondedores humanitarios. Certificado gratuito.
+Curso básico sobre métodos de investigación en salud. Fundamentos de epidemiología y bioestadística para diseñar estudios biomédicos. Certificado mediante examen presencial (tarifa aplicable).
+Curso centrado en la mitocondria, el orgánulo que genera energía en las células, y los fundamentos de la biología celular.
+Curso CME gratuito de Stanford sobre diagnóstico y manejo de migrañas en adultos. Enfoque basado en evidencia para atención primaria y neurología. Certificado gratuito.
+Curso CME gratuito sobre diagnóstico y manejo de insuficiencia cardíaca. Cubre farmacología, dispositivos y monitoreo ambulatorio. Certificado gratuito.
+Curso CME gratuito sobre manejo integral de diabetes tipo 2. Incluye farmacología, monitoreo y prevención de complicaciones. Certificado gratuito.
+Curso CME gratuito sobre telemedicina y cómo mantener la conexión humana durante visitas virtuales. Modelo Presence 5 para atención compasiva digital. Certificado gratuito.
+Curso completo de biología introductoria que abarca bioquímica, genética, biología molecular y genómica con el profesor Eric Lander.
+Curso completo de fisiología humana. Cubre sistemas cardiovascular, respiratorio, renal, endocrino y nervioso. Certificado mediante examen.
+Curso completo de química general de dos semestres que cubre estequiometría, enlaces, cinética, equilibrio y termodinámica.
+Curso de anatomía humana con enfoque sistímico. Cubre sistemas esquelítico, muscular, nervioso, circulatorio, respiratorio y digestivo. Certificado de auditoría gratuita en MITx.
+Curso de bioestadóstica para ciencias de la salud. Cubre probabilidad, pruebas de hipítesis, regresión y anílisis de supervivencia. Certificado de auditoría gratuita en edX.
+Curso de bioestadóstica para investigación biomídica. Cubre probabilidad, pruebas estadósticas, regresión y anílisis multivariado. Certificado gratuito de NPTEL.
+Curso de biología celular para ciencias mídicas. Cubre membrana, orgínulos, seíalización, ciclo celular y apoptosis. Certificado de auditoría gratuita en edX.
+Curso de biología molecular aplicada a la medicióna. Cubre replicación, transcripción, traducción y enfermedades genéticas. Certificado mediante examen.
+Curso de capacitación para trabajadores de salud sobre administración de vacunas COVID-19, manejo de cadena de frío y monitoreo de eventos adversos. Certificado gratuito.
+Curso de contabilidad financiera que cubre preparación de estados financieros, teoría contable y su interpretación.
+Curso de dermatología para atención primaria. Cubre diagnóstico y manejo de condiciones cutíneas comunes, cíncer de piel y dermatoscopia bósica. Certificado CME gratuito.
+Curso de fisiología humana. Cubre homeostasis, fisiología cardiovascular, respiratoria, renal, endocrina y del sistema nervioso. Certificado de auditoría gratuita en MITx.
+Curso de gestión de personas que cubre comunicación efectiva, valores gerenciales y desarrollo del liderazgo.
+Curso de Harvard sobre liderazgo adaptativo, autoridad y cómo movilizar equipos para resolver problemas complejos.
+Curso de matemáticas aplicadas a ciencias que cubre álgebra, trigonometría, logaritmos, probabilidad y estadística básica.
+Curso enfocado en la higiene de manos como medida fundamental de prevención de infecciones. Basado en las guías de la OMS. Certificado de logro gratuito.
+Curso enfocado en metodologías ágiles, Scrum, Kanban y gestión de riesgos en proyectos.
+Curso gratuito de anatomía humana que cubre los principales sistemas del cuerpo humano. Incluye sistema musculoesquelético, cardiovascular y nervioso. Certificado con ayuda financiera.
+Curso gratuito de bioestadóstica para ciencias de la salud. Cubre estadóstica descriptiva, pruebas de hipítesis y regresión. Certificado mediante examen.
+Curso gratuito de Harvard sobre ciencia de la mejora en salud. Aprende metodologías para mejorar calidad y seguridad en sistemas sanitarios. Acceso completo gratuito.
+Curso gratuito de Harvard sobre los efectos del cambio climático en la salud humana. Cubre enfermedades infecciosas, calor extremo y salud mental. Acceso completo gratuito.
+Curso gratuito de Harvard sobre mejora de la salud global mediante calidad y seguridad. Estrategias para fortalecer sistemas de salud. Acceso completo gratuito.
+Curso gratuito de Harvard sobre ventilación mecánica para pacientes con COVID-19. Dirigido a profesionales de cuidados intensivos. Acceso completo gratuito al contenido.
+Curso gratuito de la OPS sobre detección y manejo de trastornos mentales comunes en atención primaria. Incluye depresión y ansiedad. Certificado gratuito.
+Curso gratuito de Stanford para profesionales de la salud sobre interpretación crítica de ensayos clínicos aleatorizados. Incluye certificado CME gratuito.
+Curso gratuito de Stanford sobre salud de personas transgénero y de género diverso. Ofrece formación clínica culturalmente competente con certificado gratuito y créditos CME.
+Curso gratuito del programa BCom que introduce los fundamentos de la organización empresarial y la gestión moderna.
+Curso gratuito que presenta elementos clave de la salud pública y promoción de la salud. Cubre el alcance, enfoque y contexto global de la salud pública. Certificado gratuito.
+Curso gratuito sobre administración de antimicrobianos para optimizar el uso de antibióticos y mejorar resultados clínicos. 7 créditos CME gratuitos.
+Curso gratuito sobre cómo el entorno físico y social afecta el bienestar. Explora la psicología de los lugares y su impacto en la salud mental. Certificado gratuito.
+Curso gratuito sobre cuidados paliativos basado en evidencia. Cubre manejo del dolor, comunicación y atención al final de la vida. Certificado CME gratuito.
+Curso gratuito sobre diagnóstico y manejo del asma basado en guías GINA. Incluye escalonamiento terapéutico. Certificado CME gratuito.
+Curso gratuito sobre el bienestar infantil y juvenil. Explora preocupaciones contemporáneas y prácticas de apoyo psicosocial para niños y adolescentes. Certificado gratuito.
+Curso gratuito sobre el histórico estudio del cólera de John Snow en Londres. Aprende sobre epidemiología y mapeo de enfermedades. Acceso completo gratuito.
+Curso gratuito sobre el microbioma humano y su relación con la nutrición y la salud. Explora cómo las bacterias intestinales afectan el bienestar. Acceso completo gratuito.
+Curso gratuito sobre enfermedades infecciosas y el sistema inmunológico. Aprende sobre patógenos y cómo el cuerpo se defiende contra infecciones. Certificado de participación gratuito.
+Curso gratuito sobre epidemiología aplicada a la práctica clínica. Cubre medidas de frecuencia, asociación y estudios epidemiológicos. Certificado con ayuda financiera.
+Curso gratuito sobre fundamentos de salud pública global. Cubre determinantes sociales, sistemas de salud y equidad sanitaria. Certificado con ayuda financiera.
+Curso gratuito sobre identificación temprana de signos de psicosis en adolescentes y adultos jóvenes. Dirigido a profesionales de salud mental. Certificado CME gratuito.
+Curso gratuito sobre interpretación crítica de pruebas de tamizaje. Habilidades prácticas para analizar investigaciones y mejorar decisiones clínicas. Certificado CME gratuito.
+Curso gratuito sobre la ciencia de la nutrición y alimentación saludable. Cubre biología, química y física detrás de la nutrición. Certificado de participación gratuito y badge digital.
+Curso gratuito sobre la ciencia detrás de la resistencia a antibióticos. Explora la historia de los antibióticos, cómo funcionan y cómo se desarrolla la resistencia. Certificado gratuito.
+Curso gratuito sobre la ciencia, prevención y control de epidemias. Incluye módulo sobre COVID-19 y paneles con expertos mundiales. Acceso completo gratuito.
+Curso gratuito sobre nutrición y control de peso corporal. Cubre dietas balanceadas, metabolismo y actividad física. Certificado con ayuda financiera.
+Curso gratuito sobre prevención de demencia basado en evidencia científica. Cubre factores de riesgo modificables como dieta, ejercicio y salud cardiovascular para reducir el riesgo de demencia.
+Curso gratuito sobre principios básicos de farmacología. Cubre farmacociónética, farmacodinamia e interacciones. Certificado con ayuda financiera.
+Curso gratuito sobre procesos de aptitud profesional en salud. Basado en evidencia para mejorar la experiencia de testigos en procedimientos disciplinarios. Certificado gratuito.
+Curso gratuito sobre salud física y mental de bebés y niños pequeños. Aborda obesidad infantil, salud mental y enfermedades infecciosas en la primera infancia. Certificado gratuito.
+Curso gratuito sobre salud mental adolescente. Diseñado para fomentar la comprensión de los problemas de salud mental y estrategias de apoyo a jóvenes. Certificado gratuito.
+Curso gratuito sobre salud pública global. Aborda desafíos sanitarios mundiales, sistemas de salud y los Objetivos de Desarrollo Sostenible. Acceso completo gratuito.
+Curso gratuito sobre sesgos inconscientes en medicina. Aprende a reconocer y mitigar sesgos que afectan la atención al paciente. Certificado CME gratuito.
+Curso gratuito sobre uso indebido de medicamentos recetados y adicción. Enfoque en cuidado compasivo y tratamiento basado en evidencia. Certificado CME gratuito.
+Curso inicial del certificado Google Digital Marketing que cubre los conceptos básicos del marketing digital y el embudo de conversión.
+Curso integral de anatomía humana. Cubre sistemas esquelítico, muscular, nervioso, circulatorio, respiratorio y digestivo. Certificado mediante examen.
+Curso integral de terminología mídica. Cubre raíces, prefijos, sufijos, tírminos de anatomía, diagnóstico y procedimientos. Certificado de auditoría gratuita en edX.
+Curso integral para clínicos que atienden pacientes con enfermedad por virus del Ébola. Cubre triaje, prevención de infecciones y manejo clínico. Certificado gratuito.
+Curso integral sobre diagnóstico rápido de tuberculosis siguiendo el manual operativo de la OMS. Incluye módulos autoguiados con certificado de logro gratuito.
+Curso integral sobre insuficiencia cardíaca. Cubre fisiopatología, tratamiento farmacolígico, dispositivos y trasplante cardíaco. Certificado CME gratuito de Stanford.
+Curso integral sobre manejo clínico de infecciones respiratorias agudas graves. Incluye oxigenoterapia, ventilación no invasiva y cuidados créticos. Certificado gratuito de la OMS.
+Curso integral sobre VIH. Cubre PrEP, terapia antirretroviral, manejo de comorbilidades y atención a largo plazo. Certificado CME gratuito de Stanford Medicióne.
+Curso interactivo gratuito basado en simulación para entrenar a clínicos en atención de salud para personas transgénero. 18 encuentros clínicos simulados. Créditos CME gratuitos.
+Curso interdisciplinario sobre salud global. Aborda enfermedades infecciosas, cambio climático, equidad y sistemas de salud desde múltiples perspectivas. Ayuda financiera disponible.
+Curso introductorio a las finanzas empresariales que cubre valor del dinero en el tiempo, riesgo y rendimiento.
+Curso introductorio en edX que cubre los fundamentos de la gestión de proyectos, planificación y ejecución.
+Curso introductorio sobre influenza aviar y otras influenza zoonóticas. Cubre epidemiología básica y medidas de preparación. Certificado gratuito.
+Curso introductorio sobre prevención y control de infecciones. Cubre los principios básicos de IPC, incluyendo higiene de manos y precauciones estándar. Certificado gratuito.
+Curso introductorio sobre salud global que cubre sistemas de salud, salud materno-infantil, enfermedades infecciosas y equidad en salud. Ayuda financiera disponible para certificado.
+Curso introductorio sobre salud píblica. Cubre funciones esenciales, servicios poblacionales y roles del CDC en la protección sanitaria. Certificado gratuito en CDC Train.
+Curso masivo gratuito sobre la demencia: explora la ciencia detrás de esta enfermedad, los tipos de demencia y el cuidado centrado en la persona. Incluye certificado de finalización gratuito.
+Curso masivo gratuito sobre la enfermedad de Parkinson. Cubre síntomas, factores de riesgo, medicamentos, terapias aliadas y estrategias para vivir bien con Parkinson. Certificado gratuito.
+Curso OPS sobre clasificación y manejo clínico del dengue segín guías actualizadas. Incluye signos de alarma y manejo de líquidos. Certificado gratuito.
+Curso OPS sobre control de vectores para dengue, chikungunya, zika y otras enfermedades. Incluye manejo integrado de vectores. Certificado gratuito.
+Curso OPS sobre cuidados esenciales para la salud materna y neonatal en Amírica Latina. Certificado gratuito.
+Curso OPS sobre diagnóstico y tratamiento de tuberculosis en América Latina. Incluye TB sensible y resistente. Certificado gratuito.
+Curso OPS sobre enfermedad de Chagas: diagnóstico, tratamiento y manejo clínico. Incluye cribado neonatal y control vectorial. Certificado gratuito.
+Curso OPS sobre herramientas de mejora de la calidad en servicios de salud. Incluye indicadores, auditoría y planes de mejora. Certificado gratuito.
+Curso OPS sobre prevención de enfermedades cardiovasculares en atención primaria. Cubre factores de riesgo, tamizaje y consejería. Certificado gratuito.
+Curso OPS sobre prevención de enfermedades crínicas. Cubre factores de riesgo cardiovascular, diabetes y cíncer. Certificado gratuito.
+Curso OPS sobre prevención de infecciones asociadas a la atención sanitaria. Incluye higiene de manos y precauciones estíndar. Certificado gratuito.
+Curso OPS sobre prevención del suicidio con estrategias basadas en evidencia. Incluye detección de factores de riesgo e intervención. Certificado gratuito.
+Curso OPS sobre prevención y control de diabetes en atención primaria. Incluye diagnóstico, tratamiento y monitoreo. Certificado gratuito.
+Curso OPS sobre prícticas seguras de vacunación. Incluye manejo de cadena de frío, administración y eventos adversos. Certificado gratuito.
+Curso OPS sobre promoción y apoyo clínico a la lactancia materna. Incluye técnicas, manejo de dificultades y banco de leche. Certificado gratuito.
+Curso OPS sobre salud ocupacional para trabajadores de salud. Cubre riesgos biológicos, ergonómicos y psicosociales. Certificado gratuito.
+Curso OPS sobre salud sexual y reproductiva con enfoque de derechos humanos. Cubre planificación familiar y prevención de ITS. Certificado gratuito.
+Curso OPS sobre sistemas de vigilancia epidemiolígica. Incluye notificación, anílisis de datos y respuesta a brotes. Certificado gratuito.
+Curso OPS sobre tamizaje y diagnóstico temprano del cáncer de mama. Incluye mamografía, autoexamen y seguimiento. Certificado gratuito.
+Curso que analiza principios tradicionales y alternativos de gestión en las organizaciones modernas.
+Curso que combina fundamentos del emprendimiento con herramientas modernas de marketing digital.
+Curso que enseña a formular estrategias competitivas, analizar industrias y posicionar una empresa en el mercado.
+Curso que enseña a tomar decisiones empresariales basadas en datos utilizando análisis y visualización.
+Curso que enseña análisis predictivo, modelado de riesgos y toma de decisiones basada en datos empresariales.
+Curso que explica los fundamentos del marketing, la mezcla de marketing (4Ps) y las estrategias comerciales.
+Curso riguroso de contabilidad financiera del MIT para aprender a leer y analizar estados financieros.
+Curso riguroso de probabilidad que cubre variables aleatorias, distribuciones, teorema de Bayes y aplicaciones en ciencia de datos.
+Curso sobre adicciones y recuperación. Cubre neurobiología de la adicción, modelos de tratamiento, apoyo en recuperación y prevención de recaídas. Certificado gratuito.
+Curso sobre administración sanitaria. Cubre gestión hospitalaria, liderazgo, planificación estratígica y finanzas sanitarias. Certificado de auditoría gratuita en edX.
+Curso sobre agua, saneamiento e higiene en instalaciones sanitarias. Cubre estíndares de WASH y prevención de infecciones. Certificado gratuito OMS.
+Curso sobre alergia e inmunología clínica. Cubre rinitis alírgica, asma alírgico, alergias alimentarias y anafilaxia. Certificado CME gratuito.
+Curso sobre alimentación infantil en emergencias. Incluye lactancia en crisis, alimentación complementaria y sucedíneos. Certificado gratuito OMS.
+Curso sobre alimentación y salud desde una perspectiva científica. Cubre macronutrientes, micronutrientes, dietas saludables y mitos alimentarios. Certificado con ayuda financiera disponible.
+Curso sobre analética de datos en salud. Cubre R, Python, visualización de datos clínicos y modelos predictivos en salud poblacional. Certificado con ayuda financiera disponible.
+Curso sobre anatomía humana. Cubre sistemas esquelítico, muscular, nervioso, cardiovascular y respiratorio con disecciones virtuales. Certificado con ayuda financiera disponible.
+Curso sobre anílisis de datos sanitarios con Python y R. Cubre limpieza de datos, visualización, estadóstica descriptiva y modelos predictivos aplicados a salud. Certificado gratuito.
+Curso sobre anílisis y abogacía en poléticas de salud. Cubre formulación, implementación y evaluación de poléticas sanitarias. Certificado de auditoría gratuita en edX.
+Curso sobre artritis reumatoide. Cubre criterios diagnósticos, terapias dirigidas con DMARDs y biolígicos, y manejo de comorbilidades. Certificado CME gratuito.
+Curso sobre atención clínica y respuesta a brotes de chikungunya. Aborda manejo de artralgia crínica y prevención vectorial. Certificado gratuito.
+Curso sobre atención pediítrica integral. Cubre enfermedades comunes, screening del desarrollo, vacunación y nutrición infantil. Certificado CME gratuito de Stanford.
+Curso sobre atención primaria de salud. Cubre fundamentos de APS, implementación comunitaria, equipos multidisciplinarios y coordinación. Certificado gratuito de la OMS.
+Curso sobre autismo desde la perspectiva de la neurodiversidad. Cubre diagnóstico, intervenciones, vida independiente y apoyo familiar. Certificado gratuito en FutureLearn.
+Curso sobre bioética aplicada. Cubre principios éticos, consentimiento informado, dilemas al final de la vida y ética en investigación. Certificado con ayuda financiera disponible.
+Curso sobre bioética en investigación biomídica. Cubre integridad científica, consentimiento informado, uso de animales y comitós de ética. Certificado gratuito de NPTEL.
+Curso sobre bioética y dimensiones éticas en medicióna. Cubre dilemas morales, justicia sanitaria, ética clínica e investigación. Certificado de auditoría gratuita disponible en edX.
+Curso sobre biología celular. Cubre membrana, orgínulos, citoesqueleto, ciclo celular, seíalización y apoptosis. Certificado gratuito de NPTEL.
+Curso sobre biología del cíncer del laboratorio a la clínica. Cubre oncogenes, microambiente tumoral, inmunoterapia y medicióna personalizada. Certificado de auditoría gratuita en edX.
+Curso sobre biología del cíncer. Cubre oncogenes, supresores tumorales, ciclo celular, metóstasis y terapias dirigidas. Certificado con ayuda financiera disponible.
+Curso sobre biología molecular humana. Cubre estructura del ADN, expresión gínica, proteínas, mutaciones y enfermedades moleculares. Certificado de auditoría gratuita en MITx.
+Curso sobre biología molecular. Cubre replicación, transcripción, traducción, regulación gínica y tícnicas moleculares. Certificado gratuito de NPTEL.
+Curso sobre bioquímica y base molecular de los procesos vitales. Cubre enzimas, metabolismo, bioenergética y regulación metabílica. Certificado gratuito de NPTEL.
+Curso sobre bioseguridad en laboratorios de salud píblica. Cubre niveles de contención, EPP, gestión de residuos y transporte de muestras. Certificado gratuito en CDC Train.
+Curso sobre bioseguridad y biocustodia en laboratorios. Cubre niveles de contención, equipos de protección y gestión de residuos. Certificado gratuito.
+Curso sobre calidad en atención sanitaria y mejora de resultados. Cubre medición de calidad, mejora de procesos y seguridad del paciente. Certificado de auditoría gratuita en edX.
+Curso sobre calidad en atención sanitaria. Cubre indicadores de calidad, mejora continua, acreditación y seguridad del paciente. Certificado con ayuda financiera disponible.
+Curso sobre calidad sanitaria. Cubre indicadores, benchmarking, mejora continua y rendición de cuentas en organizaciones de salud. Certificado de auditoría gratuita en edX.
+Curso sobre cambio climítico y salud. Cubre impactos sanitarios, estrategias de adaptación, sistemas de salud resilientes y mitigación. Certificado gratuito de la OMS.
+Curso sobre cambio de comportamiento en salud. Cubre teorías del comportamiento, diseío de intervenciones y evaluación de programas. Certificado de auditoría gratuita en edX.
+Curso sobre centros de operaciones de emergencia sanitaria. Cubre estructura, funciones y coordinación en respuesta a emergencias. Certificado gratuito OMS.
+Curso sobre ciencia de datos aplicada a la salud. Cubre anílisis estadóstico, visualización de datos y modelos predictivos en salud píblica. Certificado con ayuda financiera disponible.
+Curso sobre ciencia de datos sanitarios para salud poblacional. Cubre bases de datos, anílisis estadóstico y aprendizaje automítico. Certificado de auditoría gratuita en edX.
+Curso sobre ciencia de la alimentación saludable. Cubre nutrientes, guías dietéticas, etiquetado nutricional y dietas equilibradas. Certificado gratuito en FutureLearn.
+Curso sobre ciencia de la nutrición. Cubre metabolismo de nutrientes, requerimientos dietéticos, nutrición clínica y salud poblacional. Certificado de auditoría gratuita en edX.
+Curso sobre coaching en salud. Cubre entrevista motivacional, establecimiento de metas, cambio de comportamiento y comunicación efectiva con pacientes. Certificado con ayuda financiera disponible.
+Curso sobre cobertura universal de salud. Cubre principios de UHC, financiamiento, prestación de servicios y monitoreo del progreso. Certificado gratuito de la OMS.
+Curso sobre comprensión de la investigación mídica. Cubre diseío de estudios, anílisis crítico, ética y publicación científica. Certificado gratuito en FutureLearn.
+Curso sobre comprensión de medicamentos y su acción en el cuerpo. Cubre farmacociónética, farmacodinamia, efectos adversos e interacciones. Certificado gratuito en FutureLearn.
+Curso sobre comprensión del cíncer desde la biología al tratamiento. Cubre carciónogínesis, diagnóstico, terapias y cuidados. Certificado gratuito en FutureLearn.
+Curso sobre comprensión del TDAH. Cubre criterios diagnósticos, tratamiento multimodal, apoyo educativo y estrategias para adultos. Certificado gratuito en FutureLearn.
+Curso sobre comprensión del VIH. Cubre prevención, tratamiento antirretroviral, eliminación del estigma y apoyo a pacientes. Certificado gratuito en FutureLearn.
+Curso sobre comunicación de riesgos en emergencias de salud píblica. Estrategias para comunicación efectiva y combate a desinformación. Certificado gratuito OMS.
+Curso sobre comunicación efectiva en salud píblica. Cubre diseío de mensajes, comunicación de riesgos, alfabetización sanitaria y medios digitales. Certificado gratuito en CDC Train.
+Curso sobre comunicación en salud. Cubre diseío de mensajes, campaías de salud píblica, alfabetización sanitaria y comunicación digital. Certificado con ayuda financiera disponible.
+Curso sobre concienciación del TDAH. Cubre síntomas en niíos y adultos, estrategias de manejo, apoyo educativo y tratamiento multimodal. Certificado gratuito.
+Curso sobre control de infecciones en contextos humanitarios. Cubre brotes, aislamiento, EPP y gestión de residuos en condiciones adversas. Certificado gratuito de MSF.
+Curso sobre control de vectores y prevención de enfermedades transmitidas. Cubre dengue, chikungunya, zika y malaria. Certificado gratuito en Campus PAHO.
+Curso sobre control y eliminación de geohelmintiasis. Cubre quimioterapia preventiva, WASH y monitoreo de prevalencia. Certificado gratuito OMS.
+Curso sobre coordinación de equipos mídicos de emergencia. Incluye clasificación, despliegue y estíndares mínimos. Certificado gratuito OMS.
+Curso sobre cuidado del accidente cerebrovascular. Cubre manejo agudo, rehabilitación neurolígica y prevención secundaria. Certificado gratuito en FutureLearn.
+Curso sobre cuidado del cíncer y apoyo a pacientes y familias. Cubre comunicación, manejo de síntomas y cuidados paliativos oncolígicos. Certificado gratuito en FutureLearn.
+Curso sobre cuidados al final de la vida. Cubre cuidados paliativos, planificación anticipada de cuidados, manejo del duelo y aspectos éticos. Certificado gratuito.
+Curso sobre cuidados de personas mayores. Cubre envejecimiento saludable, evaluación geriítrica integral, cuidados de larga duración y apoyo a cuidadores. Certificado gratuito.
+Curso sobre cuidados esenciales en salud materna y neonatal. Cubre atención prenatal, parto seguro y cuidados del reción nacido. Certificado gratuito en Campus PAHO.
+Curso sobre cuidados esenciales para la salud materna y neonatal. Cubre atención prenatal, parto seguro y cuidados del reción nacido. Certificado gratuito OMS.
+Curso sobre cuidados paliativos. Cubre manejo de dolor, síntomas complejos y comunicación con pacientes y familias. Certificado CME gratuito de Stanford.
+Curso sobre cuidados respiratorios. Cubre fisiología pulmonar, ventilación mecínica, oxigenoterapia y rehabilitación respiratoria. Certificado con ayuda financiera disponible.
+Curso sobre dengue con enfoque en clasificación, manejo clínico y prevención. Basado en guías actualizadas de la OPS/OMS. Certificado gratuito en Campus PAHO.
+Curso sobre desafíos actuales de la salud global. Cubre cambio climítico, pandemias, resistencia antimicrobiana y cobertura universal. Certificado gratuito en FutureLearn.
+Curso sobre desarrollo de fírmacos. Cubre descubrimiento de molículas, ensayos preclínicos, fases clínicas y aprobación regulatoria. Certificado con ayuda financiera disponible.
+Curso sobre descontaminación y esterilización de dispositivos médicos. Cubre procesos esenciales para prevenir infecciones en entornos clínicos. Certificado gratuito.
+Curso sobre descubrimiento y desarrollo de fírmacos. Cubre identificación de dianas, cribado de compuestos, ensayos clínicos y aprobación regulatoria. Certificado de auditoría gratuita en edX.
+Curso sobre detección y respuesta a brotes infecciosos. Cubre vigilancia epidemiolígica, investigación de brotes y medidas de control. Certificado gratuito en FutureLearn.
+Curso sobre determinantes sociales de la salud en Estados Unidos. Examina factores conductuales, psicológicos y estructurales que contribuyen a las desigualdades en salud. Ayuda financiera disponible.
+Curso sobre diabetes en adultos. Cubre tipos de diabetes, monitoreo glucímico, alimentación saludable y prevención de complicaciones. Certificado gratuito de OpenLearn.
+Curso sobre diagnóstico y manejo de la lepra (enfermedad de Hansen). Cubre clasificación, tratamiento multidroga y prevención de discapacidades. Certificado gratuito OMS.
+Curso sobre diagnóstico y manejo del asma. Incluye escalonamiento terapéutico, uso de biolígicos y manejo de exacerbaciones. Certificado CME gratuito de Stanford Medicióne.
+Curso sobre diagnóstico y tratamiento de la ílcera de Buruli. Incluye manejo de heridas, antibioticoterapia y prevención de discapacidad. Certificado gratuito.
+Curso sobre diagnóstico y tratamiento de la malaria basado en las guías de la OMS. Cubre malaria no complicada y grave en poblaciones especiales. Certificado gratuito.
+Curso sobre diagnóstico y tratamiento de leishmaniasis visceral y cutínea. Basado en guías actualizadas de la OMS. Certificado gratuito.
+Curso sobre diplomacia en salud global. Cubre gobernanza sanitaria internacional, tratados, OMS y negociaciones en salud. Certificado con ayuda financiera disponible.
+Curso sobre diseío e implementación de investigación clínica. Cubre protocolos, selección de participantes, recolección de datos y monitoreo. Certificado de auditoría gratuita en edX.
+Curso sobre diseío e implementación de sistemas de vigilancia epidemiolígica. Cubre alerta temprana, respuesta y evaluación. Certificado gratuito de la OMS.
+Curso sobre diseío y conducción de ensayos clínicos. Cubre fases, randomización, enmascaramiento y anílisis. Certificado mediante examen presencial.
+Curso sobre diseío, ética y gestión de ensayos clínicos. Cubre protocolos, consentimiento informado, monitoreo y anílisis. Certificado gratuito de NPTEL.
+Curso sobre diseño, integración y optimización de cadenas de suministro, inventarios y logística empresarial.
+Curso sobre dispositivos mídicos. Cubre diseío, materiales biocompatibles, regulación FDA, pruebas clínicas e innovación. Certificado de auditoría gratuita en MITx.
+Curso sobre duelo y pírdida. Explora teorías del duelo, procesos de aflicción, apoyo en duelo complicado y acompaíamiento terapéutico. Certificado gratuito.
+Curso sobre economía de la salud. Cubre oferta y demanda sanitaria, seguros, mercados farmacíuticos y evaluación econímica. Certificado con ayuda financiera disponible.
+Curso sobre el enfoque Una Sola Salud que conecta la salud humana, animal y ambiental. Aborda enfermedades zoonóticas y resistencia antimicrobiana. Certificado mediante examen presencial.
+Curso sobre el manejo clínico del dengue basado en las guías actualizadas de la OMS. Incluye clasificación de severidad y manejo de líquidos. Certificado gratuito.
+Curso sobre el manejo clínico y rehabilitación de pacientes con COVID-19 persistente (Long COVID). Cubre síntomas multisistémicos. Certificado gratuito.
+Curso sobre el negocio de la salud: financiamiento, gestión y políticas del sistema sanitario estadounidense. Desarrolla habilidades de gestión en salud. Ayuda financiera disponible.
+Curso sobre el plan de acción global contra la resistencia antimicrobiana. Incluye vigilancia, prevención y uso racional de antibiéticos. Certificado gratuito OMS.
+Curso sobre el sueío y su impacto en la salud. Cubre fisiología del sueío, trastornos comunes, higiene del sueío y consecuencias de la privación. Certificado gratuito.
+Curso sobre el trastorno del espectro autista. Cubre criterios diagnósticos, intervenciones tempranas, apoyo educativo y vida adulta con autismo. Certificado gratuito.
+Curso sobre eliminación de la oncocercosis. Incluye diagnóstico, tratamiento con ivermectina y estrategias de eliminación. Certificado gratuito OMS.
+Curso sobre eliminación del tracoma como problema de salud píblica. Estrategia SAFE: cirugía, antibiéticos, higiene facial y saneamiento. Certificado gratuito.
+Curso sobre enfermedad pulmonar obstructiva crínica. Cubre diagnóstico, tratamiento farmacolígico, rehabilitación pulmonar y manejo de exacerbaciones. Certificado CME gratuito.
+Curso sobre enfermedad renal crínica. Cubre estratificación de riesgo, nefroprotección, manejo de complicaciones y preparación para diílisis. Certificado CME gratuito.
+Curso sobre enfermedades infecciosas. Cubre bacterias, virus, hongos y parósitos, mecanismos de transmisión y estrategias de control. Certificado de auditoría gratuita en edX.
+Curso sobre enfermedades zoonéticas y enfoque Una Salud. Cubre rabia, influenza aviar, íbola y colaboración intersectorial. Certificado gratuito en CDC Train.
+Curso sobre enfoque Una Salud integrando salud humana, animal y ambiental. Cubre zoonosis, resistencia antimicrobiana y cambio climítico. Certificado gratuito.
+Curso sobre ensayos clínicos. Cubre fases, randomización, cegamiento, anílisis estadóstico y regulación. Certificado gratuito en FutureLearn.
+Curso sobre epidemiología aplicada a la salud píblica. Cubre medidas de frecuencia, diseío de estudios, sesgos y causalidad. Certificado gratuito de NPTEL.
+Curso sobre epidemiología aplicada a la salud pública. Aprende métodos de vigilancia, investigación de brotes y análisis de datos epidemiológicos. Ayuda financiera disponible.
+Curso sobre epidemiología como ciencia fundamental de la salud píblica. Cubre diseío de estudios, medidas de asociación, sesgos y causalidad. Certificado con ayuda financiera disponible.
+Curso sobre epidemiología de enfermedades infecciosas. Cubre vigilancia, notificación, control de brotes y medidas preventivas. Certificado gratuito en CDC Train.
+Curso sobre epidemiología y medición de salud poblacional. Cubre tasas, incidencia, prevalencia, estudios observacionales y sesgos. Certificado de auditoría gratuita en edX.
+Curso sobre equidad en salud en sistemas sanitarios. Explora disparidades raciales y socioeconómicas en la atención médica. Ayuda financiera disponible para certificado.
+Curso sobre equidad en salud. Cubre determinantes sociales, disparidades raciales, acceso a servicios y estrategias para reducir brechas sanitarias. Certificado con ayuda financiera disponible.
+Curso sobre estadóstica mídica aplicada a decisiones clínicas. Cubre pruebas diagnósticas, NNT, intervalos de confianza y meta-anílisis. Certificado gratuito.
+Curso sobre estrategias de control y eliminación de esquistosomiasis. Incluye diagnóstico, tratamiento masivo y control vectorial. Certificado gratuito.
+Curso sobre estrategias de erradicación de la polio y vigilancia epidemiolígica. Incluye manejo de brotes y comunicación. Certificado gratuito OMS.
+Curso sobre ética en investigación en salud global. Cubre consentimiento informado, comitós de ética, protección de participantes y equidad. Certificado gratuito de la OMS.
+Curso sobre ética en salud píblica. Cubre principios morales, justicia distributiva, paternalismo, libertad y equidad sanitaria. Certificado de auditoría gratuita en edX.
+Curso sobre ética mídica y dilemas en salud. Cubre confidencialidad, consentimiento, autonomía, justicia y ética al final de la vida. Certificado gratuito de NPTEL.
+Curso sobre ética mídica y profesionalismo. Cubre consentimiento informado, confidencialidad, dilemas éticos y relación mídico-paciente. Certificado mediante examen.
+Curso sobre evaluación de teciónologías sanitarias. Cubre anílisis de costo-efectividad, evaluación de impacto presupuestario y toma de decisiones. Certificado con ayuda financiera disponible.
+Curso sobre eventos adversos posteriores a la vacunación. Cubre identificación, notificación, investigación y respuesta. Certificado gratuito OMS.
+Curso sobre farmacología y mecanismos de acción de fírmacos. Cubre receptores, enzimas, canales iónicos y transportadores como dianas. Certificado de auditoría gratuita en edX.
+Curso sobre farmacología y principios de acción de fírmacos. Cubre farmacociónética, farmacodinamia, toxicología y terapíutica. Certificado gratuito de NPTEL.
+Curso sobre financiamiento sanitario para cobertura universal de salud. Cubre recaudación, mancomunación y compra de servicios. Certificado gratuito OMS.
+Curso sobre fisiología humana y funciones sistímicas. Cubre neurofisiología, fisiología cardiovascular, respiratoria, renal y endocrina. Certificado gratuito de NPTEL.
+Curso sobre fisiopatología y mecanismos de enfermedad. Cubre inflamación, daío celular, neoplasia, trastornos hemodinímicos y genéticos. Certificado gratuito de NPTEL.
+Curso sobre fortalecimiento de sistemas de salud. Cubre componentes del sistema, resiliencia, financiamiento y gobernanza sanitaria. Certificado gratuito de la OMS.
+Curso sobre fundamentos de inmunología: respuesta innata y adaptativa, cílulas inmunes, anticuerpos y vacunas. Certificado mediante examen.
+Curso sobre fundamentos de salud global que cubre carga de enfermedad, sistemas de salud, determinantes sociales y desafíos sanitarios internacionales. Ayuda financiera disponible.
+Curso sobre fundamentos de salud píblica en la región de las Amíricas. Cubre funciones esenciales, sistemas de salud y cooperación tícnica. Certificado gratuito en Campus PAHO.
+Curso sobre fundamentos de salud píblica. Cubre epidemiología, bioestadóstica, ciencias ambientales, administración y ciencias sociales. Certificado de auditoría gratuita en edX.
+Curso sobre fundamentos de salud píblica. Cubre historia, funciones esenciales, epidemiología bósica, bioestadóstica y promoción de la salud. Certificado con ayuda financiera disponible.
+Curso sobre fundamentos de seguridad del paciente. Cubre cultura de seguridad, eventos adversos, anílisis de causa raíz y mejora de sistemas. Certificado gratuito de la OMS.
+Curso sobre genética humana. Cubre herencia mendeliana, genética molecular, trastornos genéticos y asesoramiento genítico. Certificado gratuito de NPTEL.
+Curso sobre genética y genímica aplicadas a la medicióna. Incluye herencia mendeliana, cariotipo, diagnóstico genítico y asesoramiento. Certificado mediante examen.
+Curso sobre genímica y medicióna de precisión. Cubre secuenciación, farmacogenímica, diagnóstico genímico y terapias personalizadas. Certificado de auditoría gratuita en edX.
+Curso sobre gestión de la cadena de frío para vacunas. Incluye almacenamiento, transporte y monitoreo de temperatura. Certificado gratuito OMS.
+Curso sobre gestión de víctimas masivas en instalaciones sanitarias. Cubre triaje, organización hospitalaria y respuesta a desastres. Certificado gratuito OMS.
+Curso sobre hepatitis C. Cubre screening poblacional, tratamiento antiviral directo y estrategias de eliminación. Certificado CME gratuito de Stanford.
+Curso sobre herramientas para prevenir y controlar la influenza: vacunas estacionales, diagnóstico y terapéutica. Certificado de logro gratuito de la OMS.
+Curso sobre identificación y manejo de la anafilaxis. Dirigido a profesionales de la salud que necesitan responder a reacciones alérgicas graves. Certificado gratuito.
+Curso sobre informética en salud desde datos hasta conocimiento. Cubre bases de datos clínicas, minería de datos y aprendizaje automítico en salud. Certificado con ayuda financiera disponible.
+Curso sobre informética en salud. Cubre sistemas de registros electrínicos, interoperabilidad, seguridad de datos y anílisis clínico. Certificado con ayuda financiera disponible.
+Curso sobre informética mídica y gestión de datos de salud. Incluye historias clínicas electrínicas y sistemas de información hospitalaria. Certificado mediante examen.
+Curso sobre informética mídica y sistemas de datos sanitarios. Cubre EHR, estíndares HL7, interoperabilidad y seguridad informética. Certificado gratuito de NPTEL.
+Curso sobre informética sanitaria. Cubre sistemas de información hospitalaria, registros electrínicos y sistemas de apoyo a decisiones clínicas. Certificado con ayuda financiera disponible.
+Curso sobre inmunología y el sistema inmunitario. Cubre inmunidad innata y adaptativa, cílulas T y B, anticuerpos y vacunas. Certificado de auditoría gratuita en MITx.
+Curso sobre inmunología y sistema inmunolígico. Cubre inmunidad innata y adaptativa, anticuerpos, vacunas y enfermedades autoinmunes. Certificado gratuito de NPTEL.
+Curso sobre innovación en salud. Cubre identificación de oportunidades, diseío de soluciones, modelos de negocio y emprendimiento sanitario. Certificado con ayuda financiera disponible.
+Curso sobre innovación en salud: principios y práctica. Cubre diseño thinking, emprendimiento digital en salud y transformación de sistemas sanitarios. Ayuda financiera disponible.
+Curso sobre innovación sanitaria centrada en el paciente. Cubre design thinking, teciónologías digitales y modelos de atención innovadores. Certificado de auditoría gratuita en edX.
+Curso sobre investigación clínica. Cubre diseío de ensayos clínicos, protocolos, gestión de datos, anílisis estadóstico y aspectos regulatorios. Certificado con ayuda financiera disponible.
+Curso sobre investigación clínica. Cubre diseío de estudios, ética en investigación, gestión de datos y publicación científica. Certificado de auditoría gratuita en edX.
+Curso sobre investigación de brotes en instalaciones sanitarias. Aprende a identificar y controlar brotes para proteger a pacientes y personal. Certificado gratuito.
+Curso sobre la ciencia del bienestar. Cubre psicología positiva, híbitos de felicidad, gratitud, meditación y estrategias para una vida plena. Certificado con ayuda financiera disponible.
+Curso sobre la estrategia AIEPI para atención integrada de enfermedades prevalentes en la infancia. Incluye evaluación y clasificación. Certificado gratuito OMS.
+Curso sobre la experiencia de vivir con enfermedades crínicas. Explora estrategias de autocuidado, adaptación psicosocial y apoyo comunitario. Certificado gratuito.
+Curso sobre la menopausia desde una perspectiva biolígica y clínica. Cubre cambios hormonales, manejo de síntomas y opciones de tratamiento. Certificado gratuito.
+Curso sobre la obesidad como problema de salud píblica. Cubre causas multifactoriales, consecuencias metabílicas y estrategias de intervención. Certificado gratuito de Open University.
+Curso sobre la viruela del mono (mpox), su epidemiología y la respuesta al brote global 2022-2023. Certificado gratuito disponible al superar evaluaciones.
+Curso sobre logóstica para emergencias sanitarias. Incluye cadena de suministro, almacenamiento y distribución de insumos mídicos. Certificado gratuito OMS.
+Curso sobre los fundamentos de la práctica de salud pública. Cubre prevención, determinantes de salud y políticas sanitarias. Ayuda financiera disponible para certificado.
+Curso sobre los principios energéticos, el cambio climático y las soluciones tecnológicas y políticas para un futuro sostenible.
+Curso sobre manejo basado en evidencia de la hipertensión arterial. Incluye guías actualizadas, terapias combinadas y metas de tratamiento personalizadas. Certificado CME gratuito.
+Curso sobre manejo clínico de mordeduras de serpiente. Cubre identificación, antivenenos y manejo de complicaciones. Certificado gratuito OMS.
+Curso sobre manejo clínico y prevención del virus Zika. Cubre complicaciones neurolígicas y síndrome congínito. Certificado gratuito OMS.
+Curso sobre manejo de desnutrición aguda severa. Cubre screening, tratamiento ambulatorio e intrahospitalario. Certificado gratuito OMS.
+Curso sobre manejo de hipertensión arterial segín guías actualizadas. Incluye tratamiento farmacolígico y cambios de estilo de vida. Certificado CME gratuito.
+Curso sobre manejo de la menopausia. Cubre terapia hormonal, síntomas vasomotores, salud ósea y cardiovascular en la transición menopíusica. Certificado CME gratuito.
+Curso sobre manejo del accidente cerebrovascular. Cubre atención aguda, trombílisis, trombectomía y prevención secundaria. Certificado CME gratuito de Stanford.
+Curso sobre manejo del dolor con enfoque multimodal. Incluye seguridad de opioides, terapias no farmacolígicas y manejo del dolor crínico. Certificado CME gratuito.
+Curso sobre manejo del estrós para trabajadores sanitarios en emergencias. Tícnicas de autocuidado y apoyo entre pares. Certificado gratuito.
+Curso sobre manejo integral de la enfermedad pulmonar obstructiva crínica. Incluye rehabilitación pulmonar y oxigenoterapia. Certificado CME gratuito.
+Curso sobre mecanismos fisiopatolígicos de enfermedades comunes. Incluye inflamación, neoplasia, trastornos metabílicos. Certificado mediante examen.
+Curso sobre medicióna conductual. Cubre intervenciones psicolígicas en enfermedades crínicas, manejo del estrós y promoción de híbitos saludables. Certificado con ayuda financiera disponible.
+Curso sobre medicióna deportiva. Cubre prevención de lesiones, evaluación en el campo y criterios de retorno al deporte. Certificado CME gratuito de Stanford.
+Curso sobre medicióna genímica. Cubre secuenciación, interpretación de variantes, farmacogenímica y aplicaciones clínicas. Certificado con ayuda financiera disponible.
+Curso sobre medicióna geriítrica. Cubre síndromes geriítricos, polifarmacia, evaluación funcional y cuidados al final de la vida. Certificado CME gratuito de Stanford.
+Curso sobre medicióna tropical y enfermedades desatendidas. Cubre malaria, tuberculosis, VIH, leishmaniasis y cílera en contextos humanitarios. Certificado gratuito de MSF.
+Curso sobre medidas de prevención y control de infecciones para COVID-19 en entornos sanitarios. Incluye triaje, cohortes y EPP. Certificado gratuito.
+Curso sobre mejora de la salud global. Cubre medición de carga de enfermedad, intervenciones costo-efectivas y programas internacionales. Certificado de auditoría gratuita en edX.
+Curso sobre metodología de investigación biomídica. Cubre diseío de estudios, recolección de datos, anílisis y comunicación científica. Certificado gratuito de NPTEL.
+Curso sobre metodología de investigación en salud. Cubre preguntas de investigación, diseío de estudios, revisión bibliogrífica y redacción científica. Certificado.
+Curso sobre métodos de diagnóstico de laboratorio para COVID-19 incluyendo PCR, antígenos y serología. Interpretación de resultados. Certificado gratuito.
+Curso sobre microplanificación para implementar quimioterapia preventiva contra enfermedades tropicales desatendidas. Certificado gratuito de la OMS.
+Curso sobre modelado de enfermedades infecciosas. Cubre modelos SIR, parímetros epidemiolígicos, predicción de brotes y evaluación de intervenciones. Certificado con ayuda financiera disponible.
+Curso sobre neurociencia mídica. Cubre neuroanatomía, neurofisiología, sistemas sensoriales y motores, y bases neurales de la conducta. Certificado con ayuda financiera disponible.
+Curso sobre nutrición en contextos de emergencia. Cubre evaluación nutricional, alimentación terapíutica y programas de alimentación suplementaria. Certificado gratuito de MSF.
+Curso sobre nutrición infantil. Cubre alimentación durante el embarazo, lactancia, introducción de alimentos sílidos y nutrición en edad preescolar. Certificado con ayuda financiera disponible.
+Curso sobre nutrición materna e infantil en los primeros 1000 días de vida. Cubre lactancia, alimentación complementaria y evaluación antropométrica. Certificado mediante examen presencial.
+Curso sobre nutrición y enfermedad. Cubre dietas terapíuticas, nutrigenímica, alimentación en enfermedades crínicas y suplementación. Certificado con ayuda financiera disponible.
+Curso sobre osteoporosis. Cubre screening con DEXA, prevención, tratamiento farmacolígico y manejo de fracturas por fragilidad. Certificado CME gratuito.
+Curso sobre participación comunitaria, comunicación de riesgos y aplicación de intervenciones de ciencias sociales en emergencias de salud pública. Certificado gratuito.
+Curso sobre participación del paciente. Cubre empoderamiento, toma de decisiones compartida, herramientas digitales y mejora de la experiencia del paciente. Certificado con ayuda financiera disponible.
+Curso sobre planificación operativa y preparación para la respuesta a COVID-19 a nivel nacional y local. Certificado gratuito de la OMS.
+Curso sobre planificación y gestión del personal sanitario. Cubre estimación de necesidades, distribución y retención. Certificado gratuito OMS.
+Curso sobre poléticas de salud. Cubre sistemas comparados, reformas sanitarias, financiamiento y diseío de poléticas basadas en evidencia. Certificado de auditoría gratuita en edX.
+Curso sobre poléticas de salud. Cubre sistemas de salud, financiamiento, acceso, calidad y reformas sanitarias a nivel global. Certificado con ayuda financiera disponible.
+Curso sobre preparación para emergencias sanitarias. Cubre planificación, respuesta a desastres, continuidad de operaciones y recuperación. Certificado gratuito en CDC Train.
+Curso sobre prevención de diabetes. Cubre programas de estilo de vida, intervención nutricional, actividad fósica y farmacoterapia preventiva. Certificado con ayuda financiera disponible.
+Curso sobre prevención de infecciones del sitio quirúrgico. Cubre medidas preoperatorias, intraoperatorias y postoperatorias basadas en evidencia. Certificado gratuito.
+Curso sobre prevención de infecciones del torrente sanguíneo asociadas a catéteres venosos centrales. Estrategias basadas en guías de la OMS. Certificado gratuito.
+Curso sobre prevención de infecciones del tracto urinario asociadas a catéteres. Estrategias basadas en evidencia para reducir estas infecciones hospitalarias. Certificado gratuito.
+Curso sobre prevención de neumonía asociada a ventilación mecánica en unidades de cuidados intensivos. Incluye bundles de cuidado. Certificado gratuito OMS.
+Curso sobre prevención y control de enfermedades crínicas. Cubre diabetes, hipertensión, cíncer y enfermedades cardiovasculares. Certificado gratuito en Campus PAHO.
+Curso sobre prevención y control de la fiebre amarilla. Incluye vacunación, vigilancia epidemiolígica y manejo de brotes. Certificado gratuito de la OMS.
+Curso sobre prevención y control de la rabia. Incluye profilaxis post-exposición, vacunación canina y eliminación de la rabia humana. Certificado gratuito.
+Curso sobre prevención y respuesta a la violencia de gínero en salud. Cubre detección, atención integral y derivación. Certificado gratuito en Campus PAHO.
+Curso sobre príctica farmacíutica. Cubre dispensación, atención farmacíutica, seguimiento farmacoterapéutico y seguridad de medicamentos. Certificado gratuito en FutureLearn.
+Curso sobre primeros auxilios en salud mental. Cubre reconocimiento de crisis, intervención temprana, escucha activa y derivación a servicios especializados. Certificado gratuito.
+Curso sobre primeros auxilios psicolígicos para trabajadores de salud. Aprende a brindar apoyo psicosocial bósico en emergencias. Certificado gratuito OMS.
+Curso sobre principios de farmacología. Cubre farmacociónética, farmacodinamia, interacciones farmacolígicas y terapíutica. Certificado de auditoría gratuita en MITx.
+Curso sobre principios de farmacología: farmacociónética, farmacodinamia, interacciones medicamentosas y farmacología de sistemas. Certificado mediante examen.
+Curso sobre principios epidemiolígicos bósicos. Cubre tasas, estudios epidemiolígicos, investigación de brotes y vigilancia. Certificado gratuito en CDC Train.
+Curso sobre principios epidemiolígicos para vigilancia en salud. Cubre indicadores, anílisis de datos y sistemas de vigilancia. Certificado gratuito en Campus PAHO.
+Curso sobre procedimientos operativos estándar de la OMS para emergencias. Diseñado para personal desplegado en respuesta a emergencias sanitarias. Certificado gratuito.
+Curso sobre programas de administración de antimicrobianos en hospitales. Cubre implementación, monitoreo y evaluación. Certificado gratuito OMS.
+Curso sobre programas de eliminación de filariasis linfética. Cubre quimioterapia preventiva, morbilidad y discapacidad. Certificado gratuito OMS.
+Curso sobre promoción de la salud. Cubre modelos teíricos, diseío de intervenciones comunitarias, determinantes sociales y evaluación de programas. Certificado gratuito.
+Curso sobre promoción y apoyo a la lactancia materna. Cubre beneficios, tícnicas de amamantamiento y manejo de dificultades comunes. Certificado gratuito OMS.
+Curso sobre psicología de la salud. Cubre estrós, afrontamiento, conductas de salud, adherencia terapíutica y psico-neuro-inmunología. Certificado con ayuda financiera disponible.
+Curso sobre rastreo de contactos para enfermedades infecciosas. Cubre principios de epidemiología, entrevistas y notificación. Certificado con ayuda financiera disponible.
+Curso sobre resistencia antimicrobiana (RAM) y prevención de infecciones. Aborda cómo la RAM amenaza la salud global y las estrategias de control. Certificado gratuito.
+Curso sobre salud ambiental. Cubre contaminación, toxicología, epidemiología ambiental y poléticas de protección. Certificado de auditoría gratuita en edX.
+Curso sobre salud auditiva. Cubre anatomía del oído, tipos de pírdida auditiva, audiometría, audífonos e implantes cocleares. Certificado gratuito.
+Curso sobre salud cardiovascular. Explora la anatomía del corazín, factores de riesgo, prevención primaria y estilo de vida cardiosaludable. Certificado gratuito.
+Curso sobre salud cerebral y promoción de la función cognitiva. Cubre factores protectores, estimulación cognitiva y prevención del deterioro. Certificado gratuito.
+Curso sobre salud comunitaria. Cubre evaluación de necesidades, intervenciones comunitarias, participación ciudadana y promoción de la salud colectiva. Certificado con ayuda financiera disponible.
+Curso sobre salud de refugiados y poblaciones desplazadas. Cubre enfermedades prevalentes, salud mental, violencia sexual y atención primaria. Certificado gratuito de MSF.
+Curso sobre salud digital. Cubre telemedicióna, aplicaciones míviles, wearables, inteligencia artificial y regulación digital en salud. Certificado de auditoría gratuita en edX.
+Curso sobre salud global y carga de enfermedad. Cubre DALYs, intervenciones prioritarias, salud maternoinfantil y enfermedades infecciosas. Certificado de auditoría gratuita en edX.
+Curso sobre salud global. Cubre carga global de enfermedad, sistemas de salud internacionales, cooperación sanitaria y Objetivos de desarrollo Sostenible. Certificado con ayuda financiera disponible.
+Curso sobre salud humana desde la base molecular hasta la clínica. Cubre genética, metabolismo, inmunología y medicióna molecular. Certificado de auditoría gratuita en edX.
+Curso sobre salud humanitaria y atención en crisis. Cubre evaluación rípida, manejo de brotes, nutrición en emergencias y logóstica humanitaria. Certificado gratuito de MSF.
+Curso sobre salud infantil. Cubre hitos del desarrollo, enfermedades comunes, vacunación y promoción de la salud en la infancia. Certificado gratuito en FutureLearn.
+Curso sobre salud integral de la mujer. Cubre anticoncepción, salud reproductiva, menopausia y prevención de cíncer ginecolígico. Certificado CME gratuito.
+Curso sobre salud maternoinfantil global. Cubre mortalidad materna, salud neonatal, nutrición infantil y programas internacionales. Certificado con ayuda financiera disponible.
+Curso sobre salud mental desde la perspectiva de salud píblica. Cubre epidemiología psiquiítrica, prevención y poléticas de salud mental. Certificado con ayuda financiera disponible.
+Curso sobre salud mental global. Cubre brecha de tratamiento, intervenciones comunitarias, tareas compartidas y poléticas de salud mental. Certificado con ayuda financiera disponible.
+Curso sobre salud mental y apoyo psicosocial en emergencias humanitarias. Introduce conceptos clave para proteger el bienestar psicológico en crisis. Certificado gratuito.
+Curso sobre salud mental y apoyo psicosocial en emergencias. Cubre intervenciones comunitarias, manejo del trauma y protección infantil. Certificado gratuito de la OMS.
+Curso sobre salud musculoesquelética. Explora anatomía ósea y articular, trastornos comunes como artritis y osteoporosis, y ejercicio terapéutico. Certificado gratuito.
+Curso sobre salud poblacional desde datos hasta poléticas. Cubre indicadores, anílisis de tendencias y formulación de poléticas basadas en evidencia. Certificado con ayuda financiera disponible.
+Curso sobre salud poblacional desde epidemiología hasta acción. Cubre mediciones, intervenciones poblacionales y evaluación de impacto. Certificado de auditoría gratuita en edX.
+Curso sobre salud poblacional. Cubre determinantes sociales, mediciones epidemiolígicas, disparidades en salud y estrategias de intervención comunitaria. Certificado con ayuda financiera disponible.
+Curso sobre salud reproductiva. Cubre mítodos anticonceptivos, fertilidad, salud sexual y derechos reproductivos. Certificado con ayuda financiera disponible.
+Curso sobre salud respiratoria. Cubre anatomía pulmonar, enfermedades respiratorias comunes, función pulmonar y promoción de la salud respiratoria. Certificado gratuito.
+Curso sobre salud vesical e intestinal. Cubre incontinencia, infecciones urinarias, síndrome de intestino irritable y manejo de síntomas. Certificado gratuito de OpenLearn.
+Curso sobre salud visual. Cubre anatomía ocular, errores refractivos, cataratas, glaucoma, degeneración macular y prevención de ceguera. Certificado gratuito.
+Curso sobre salud y sociedad con enfoque en determinantes sociales. Cubre desigualdades, pobreza, educación y salud. Certificado de auditoría gratuita en edX.
+Curso sobre salud y sociedad. Cubre determinantes sociales, desigualdades en salud, poléticas píblicas y justicia sanitaria. Certificado de auditoría gratuita en edX.
+Curso sobre seguridad alimentaria e higiene. Cubre contaminación de alimentos, enfermedades transmitidas por alimentos, HACCP y normativas sanitarias. Certificado gratuito.
+Curso sobre seguridad de vacunas y manejo de eventos adversos. Cubre sistemas de monitoreo, investigación y comunicación. Certificado gratuito en CDC Train.
+Curso sobre seguridad del paciente y prevención de errores. Cubre cultura justa, notificación de incidentes, anílisis de causa raíz y mejora continua. Certificado con ayuda financiera disponible.
+Curso sobre seguridad del paciente. Cubre cultura de seguridad, eventos adversos, prevención de errores mídicos y mejora de calidad. Certificado gratuito de OpenLearn.
+Curso sobre seguridad sanitaria global y prevención de pandemias. Cubre Reglamento Sanitario Internacional, vigilancia y respuesta coordinada. Certificado gratuito de la OMS.
+Curso sobre seguridad sanitaria global. Cubre Reglamento Sanitario Internacional, preparación para pandemias y respuesta a emergencias. Certificado con ayuda financiera disponible.
+Curso sobre signos vitales y su interpretación clínica. Cubre temperatura, pulso, respiración, presión arterial y saturación de oxígeno. Certificado con ayuda financiera disponible.
+Curso sobre sistemas de gestión de calidad en laboratorios clínicos. Incluye control de calidad, aseguramiento y mejora continua. Certificado gratuito.
+Curso sobre sistemas de salud comparados y reformas. Cubre modelos de financiamiento, organización de servicios y poléticas de reforma. Certificado de auditoría gratuita en edX.
+Curso sobre sistemas de salud resilientes al clima. Cubre evaluación de vulnerabilidad, adaptación y mitigación. Certificado gratuito OMS.
+Curso sobre sistemas de salud. Cubre organización, fuentes de financiamiento, modelos de pago y evaluación de desempeío. Certificado de auditoría gratuita en edX.
+Curso sobre suplementación y fortificación de micronutrientes. Cubre hierro, ícido fílico, zinc, vitamina A y yodo. Certificado gratuito OMS.
+Curso sobre terminología mídica. Cubre raíces griegas y latinas, prefijos y sufijos, tírminos anatímicos y vocabulario clínico esencial. Certificado gratuito.
+Curso sobre trastorno del espectro autista. Cubre evaluación diagnóstica, intervención temprana, terapias conductuales y apoyo educativo. Certificado con ayuda financiera disponible.
+Curso sobre trastornos del sueío. Cubre insomnio, apnea del sueío, trastornos del ritmo circadiano y parasomnias. Certificado CME gratuito de Stanford.
+Curso sobre trastornos gastrointestinales comunes. Cubre ERGE, síndrome de intestino irritable, enfermedad inflamatoria intestinal y trastornos hepéticos. Certificado CME gratuito.
+Curso sobre trastornos por uso de sustancias. Cubre screening, intervención breve, tratamiento farmacolígico y recuperación. Certificado CME gratuito de Stanford.
+Curso sobre trastornos tiroideos. Cubre hipertiroidismo, hipotiroidismo, nídulos tiroideos y cíncer de tiroides. Certificado CME gratuito de Stanford Medicióne.
+Curso sobre tratamiento de adicciones basado en evidencia. Cubre evaluación, intervenciones farmacolígicas y psicolígicas, y manejo de recaídas. Certificado con ayuda financiera disponible.
+Curso sobre trauma y resiliencia. Cubre neurobiología del trauma, intervenciones en crisis, cuidado informado en trauma y resiliencia comunitaria. Certificado con ayuda financiera disponible.
+Curso sobre triaje de emergencias y evaluación rípida de pacientes. Incluye sistemas de clasificación y priorización. Certificado gratuito OMS.
+Curso sobre vigilancia de infecciones asociadas a la atención sanitaria (IAAS). Aprende a implementar sistemas de vigilancia para reducir infecciones hospitalarias. Certificado gratuito.
+Curso sobre vigilancia y respuesta a brotes de sarampión y rubíola. Incluye estrategias de vacunación y laboratorio. Certificado gratuito.
+Curso sobre visualización de datos de salud píblica. Cubre gríficos interactivos, mapas epidemiolígicos y dashboards con datos sanitarios. Certificado gratuito.
+Curso sobre vivir con VIH. Cubre diagnóstico, tratamiento antirretroviral, calidad de vida, estigma y apoyo comunitario. Certificado gratuito de OpenLearn.
+Curso universitario sobre los principios básicos de la genética y la evolución, incluyendo ADN, selección natural y genética de poblaciones.
+Cursos gratuitos de la UNAM en Coursera. Salud, nutrición, microbiología y más. Certificado opcional.
+Cursos gratuitos en salud pública con certificado. Más de 100 cursos disponibles en español y portugués.
+Cursos gratuitos y diplomados en línea del IMSS para profesionales de la salud.
+Cursos y Diplomados IMSS
+Cybersecurity
+DAAD EPOS Scholarship
+Dartmouth College
+Data Science
+DataCamp for Classrooms
+Delft University of Technology
+Deloitte Internship Program
+Derecho Ambiental
+Derecho Común
+Derecho Constitucional
+Derecho Contractual
+Derecho Corporativo
+Derecho Internacional
+Derecho Penal
+Derecho Penal Internacional
+Derecho y Sociedad
+Derechos Humanos
+Dermatología
+Desarrollo Back-End
+Desarrollo Curricular
+desarrollo de Fírmacos
+Desarrollo Web
+Descubrimiento de Fírmacos
+Develop academic writing skills including research papers, citations, argumentation, and thesis development.
+Develop analytical reasoning, argument analysis, and structured problem-solving skills.
+Develop confident public speaking, presentation design, and persuasive communication skills.
+Develop creative writing skills across fiction, poetry, and creative nonfiction genres.
+Develop essential study skills including note-taking, critical reading, essay writing, and exam preparation.
+Develop essential teaching skills including planning, assessment, and classroom management.
+Develop foundational drawing and painting skills including perspective, composition, and color.
+Develop leadership capabilities, emotional intelligence, and influence skills for career advancement.
+Develop research methodologies, information literacy, data analysis, and academic integrity skills.
+Develop skills for teaching English to speakers of other languages in various contexts.
+Developing Countries
+Development
+Development-related postgraduate courses scholarship. For students from developing countries to study in Germany.
+Diagnóstico
+Dibujo y Pintura
+Digital Skills
+DigitalOcean
+Dinámica de Fluidos
+Diplomacia en Salud
+Diplomados
+Diseño Asistido por Computadora
+Diseño Gráfico
+Diseño Instruccional
+Dispositivos Mídicos
+Divulgación
+Dr David Perel Medical Scholarship for international students at UQ School of Medicine.
+Duke University
+Duke University (Coursera)
+Duke-NUS Medical School
+Duke-NUS Medical School Scholarship
+Dutch Ministry of Education
+Economía de la Salud
+Economía del Comportamiento
+Economía del Desarrollo
+Educación Especial
+Educación Superior
+educational_field
+educational_level
+edX Online Courses
+E-Learning
+EMBO Postdoctoral Fellowships
+Emergencias en Salud
+Emory University
+Emprendimiento
+endocrinología
+Enfermedad Crínica
+Enfermedad Renal
+Enfermedades Crínicas
+Enfermedades Infecciosas
+Enfermedades Respiratorias
+Enfermedades Tropicales
+Engineering
+Ensayos clínicos
+Enseñanza de Inglés
+Entomología Mídica
+Entrepreneurship
+Entry-level cybersecurity program covering network security, cryptography, and incident response.
+Epidemiología
+Epidemiology
+Equidad en Salud
+Erasmus+ Student Exchange
+Ernst & Young
+Ernst & Young (EY)
+Escritura Académica
+Escritura Creativa
+Especialización que enseña análisis de datos, visualización y presentación de informes empresariales con enfoque PwC.
+Estados Unidos
+Estadóstica Mídica
+Esterilización
+Estrategia Empresarial
+Estrategias de Enseñanza
+Estudia la ciencia del efecto invernadero, el cambio climático antropogénico y las tecnologías de energía renovable como solución.
+Estudiantes
+Estudio de cómo un organismo se desarrolla a partir de una sola célula, cubriendo embriología, expresión génica y diferenciación celular.
+Estudio de las propiedades de los materiales sólidos, incluyendo cristales, defectos, diagramas de fase y propiedades electrónicas.
+ética en investigación
+ética en Salud píblica
+ética Mídica
+European Commission
+European Consortium (8 universities)
+European Molecular Biology Laboratory
+European Molecular Biology Organization
+European Parliament
+European Space Agency
+European Space Agency (ESA) Internship
+European Union
+European Youth Event (EYE)
+Evaluación de Teciónologías
+Evaluación Educativa
+Event bringing together thousands of young Europeans.
+Evento gratuito de divulgación neurocientífica. Conferencias y talleres abiertos al público.
+Events bringing together leaders from business, government, and academia.
+Evidence-based approaches to college-level teaching, course design, and student engagement.
+Evidence-based teaching strategies to engage students and promote deep learning outcomes.
+Examina cómo el cambio climático afecta la salud humana a través de la calidad del aire, la nutrición y las enfermedades infecciosas.
+Examine ethical theories including utilitarianism, deontology, virtue ethics, and applied ethics.
+Examine the relationship between law, social change, and justice in contemporary society.
+Examine the structure of society, social institutions, inequality, and cultural dynamics.
+Excelencia
+Explora cómo la química explica fenómenos culinarios como la mayonesa, el horneado y la textura de los alimentos.
+Explora el comportamiento humano en organizaciones, motivación, liderazgo y dinámicas de grupo.
+Explora el papel de los microbios: desde bacterias que causan enfermedades hasta microorganismos esenciales para el tratamiento de aguas residuales.
+Explora los mecanismos de transporte celular y las vías de señalización que regulan el comportamiento de las células.
+Exploration
+Explore aerodynamics, propulsion, structures, and materials in aerospace systems.
+Explore classic and contemporary theories of justice, liberty, democracy, and political legitimacy.
+Explore criminal law principles, culpability, defenses, and punishment from an interdisciplinary perspective.
+Explore cultural variation, kinship, religion, and globalization through ethnographic case studies.
+Explore how people think about, influence, and relate to each other in social contexts.
+Explore how psychological insights improve economic decision-making models and policy design.
+Explore how students learn, cognitive development, motivation, and classroom psychology.
+Explore human cultural diversity, social organization, kinship systems, and ethnographic research methods.
+Explore instructional design, learning management systems, and technology integration in education.
+Explore major art movements from the Renaissance through Impressionism to Contemporary Art.
+Explore major philosophical questions about knowledge, reality, morality, and the meaning of life.
+Explore modern art through key themes like identity, place, and everyday objects.
+Explore national income, inflation, unemployment, fiscal and monetary policy, and economic growth.
+Explore patent, copyright, trademark, and trade secret law in the digital age.
+Explore the fundamentals of music theory, listening skills, and musical form across cultures.
+Explore the scientific study of language including phonetics, syntax, semantics, and language acquisition.
+Explore the structure-property relationships in materials including metals, ceramics, and polymers.
+Explore theatre history, performance theory, and dramatic literature from around the world.
+EY Internship Program
+Facebook Fellowship Program
+FAO Internship Programme
+farmacología
+Fellowship
+Fellowship for outstanding PhD students in STEM fields. $37,000 annual stipend for 3 years.
+Fellowship for PhD students in applied physical, biological, and engineering sciences.
+Fellowship for underrepresented minority students in STEM.
+Fellowships for immigrants and children of immigrants.
+Fellowships for individuals working on criminal justice reform.
+Fellowships for outstanding PhD students in areas aligned with IBM research.
+Fellowships for outstanding PhD students in computer science and related fields.
+Fellowships for outstanding PhD students in computer science.
+Fellowships for PhD students and postdocs committed to diversity.
+Fellowships for PhD students in computer science and related fields.
+Fellowships for PhD students in electrical and computer engineering.
+Fellowships for PhD students in GPU computing.
+Fellowships for researchers in biomedical science and medical humanities.
+Filosofía Política
+fisiología
+fisiología Humana
+Fisiopatología
+Flatiron School
+Flatiron School (WeWork)
+Food and Agriculture Organization
+Food Security
+For American students to pursue graduate study in the UK.
+For college sophomores and juniors pursuing research careers in STEM fields.
+For doctoral students in applied physical, biological, and engineering sciences. Up to 5 years of support.
+For experienced professionals from designated countries to strengthen leadership skills.
+For experienced professionals from priority countries. Graduate-level study and professional experiences at U.S. host universities.
+For Federal Pell Grant recipients to study or intern abroad.
+For foreign researchers and artists holding a master degree to conduct research or further studies in Switzerland.
+For foreign researchers and artists with a master degree.
+For graduate students in international development, children
+For graduate students, young professionals & artists from abroad to study in the U.S.
+For immigrants and children of immigrants pursuing graduate education in the U.S.
+For intellectually distinguished young Americans to pursue graduate study in the UK.
+For intellectually distinguished young Americans to study in the UK.
+For international students enrolled in French higher education institutions at master
+For international students enrolled in French institutions.
+For mid-career professionals from developing countries to study in the Netherlands.
+For non-EEA international students to study at Dutch universities.
+For non-U.S. students to study in the U.S. Administered by IIE for the U.S. Department of State. 150+ countries represented.
+For outstanding American students to pursue PhD at Cambridge.
+For outstanding doctoral candidates studying social and human sciences in Canada.
+For outstanding doctoral candidates studying social and human sciences.
+For outstanding postgraduate study at Cambridge.
+For outstanding students worldwide to study at Oxford.
+For PhD students and postdocs committed to increasing diversity in academia.
+For students from Commonwealth countries to pursue master
+For students from Commonwealth countries to study in the UK.
+For students from developing OPEC member countries to pursue undergraduate and graduate studies.
+For students interested in sustainable development, governance, and international cooperation.
+For U.S. citizens to study, research, or teach English abroad in 140+ countries.
+For undergraduate and graduate students to study critical languages abroad.
+For underrepresented minority students pursuing graduate degrees in STEM and business.
+Ford Foundation
+Ford Foundation Fellowship Programs
+Formación Docente
+Foro anual de investigación pediátrica con presentación de trabajos y carteles.
+Foro de Investigación INP
+Fotografía
+Fotografía Digital
+Four-week intensive STEM program for California high school students at UC campuses.
+Four-week intensive STEM program for high school students at UC campuses.
+Four-week intensive STEM program for high school students.
+Free 300-hour curriculum covering HTML, CSS, Flexbox, Grid, and responsive design principles.
+Free access to data science courses for educators and students.
+Free AI education program launched May 2026. Self-paced, modular, with AI-powered personalization.
+Free AI-powered university. 106 courses across 7 schools. No tuition, no applications, no deadlines.
+Free business mentoring and education.
+Free business mentoring from experienced volunteers. 10,000+ mentors nationwide.
+Free cloud computing resources and training for students.
+Free cloud computing resources, training, and AWS credits for students and educators.
+Free coding bootcamp and certification.
+Free course on acute stroke management and rehabilitation. Includes thrombolysis, thrombectomy, and multidisciplinary care. Free certificate.
+Free course on ADHD across the lifespan covering diagnosis, treatment and support strategies. Free certificate.
+Free course on autism spectrum conditions across the lifespan. Covers diagnosis, interventions and neurodiversity. Free certificate.
+Free course on behavioral medicióne integrating psychology and medicióne for stress and chronic disease management. Financial aid available.
+Free course on cancer biology, diagnosis, and modern treatment approaches. Includes chemotherapy, immunotherapy and radiotherapy. Free certificate.
+Free course on child nutrition and healthy cooking covering balanced meals and feeding children. Financial aid available.
+Free course on clinical research methodology covering study design and regulatory compliance. Financial aid available.
+Free course on clinical research methodology. Covers study design, statistical analysis, and critical appraisal of medical literature. Free certificate.
+Free course on drug development including discovery, clinical trials and regulatory approval. Financial aid available.
+Free course on ethical principles in public health practice and policy. Includes justice, autonomy, and community engagement. Free audit.
+Free course on evidence-based nutrition covering macronutrients, micronutrients and dietary patterns. Financial aid available.
+Free course on global child health covering malnutrition, immunization and child development. Free certificate.
+Free course on global health diplomacy covering international health regulations and governance. Financial aid available.
+Free course on health communication strategies and patient engagement techniques. Financial aid available.
+Free course on health data analysis using Python. Covers medical statistics, data visualization, and health informatics. Free certification.
+Free course on health informatics covering EHRs, data standards and health information exchange. Financial aid available.
+Free course on health technology assessment for evaluating medical interventions and cost-effectiveness. Financial aid available.
+Free course on HIV prevention, diagnosis, and modern antiretroviral therapy. Includes PrEP and stigma reduction. Free certificate.
+Free course on how mediciónes work in the body. Covers pharmacokinetics, pharmacodynamics, and adverse drug reactions. Free certificate.
+Free course on humanitarian health responses in crisis settings. Covers field hospitals, disease outbreaks, and refugee health. Free certificate.
+Free course on interpreting vital signs and understanding physiological parameters in clinical assessment. Financial aid available.
+Free course on medical neuroscience covering neural systems, sensory pathways and clinical neurology. Financial aid available.
+Free course on medical statistics for healthcare professionals. Covers sensitivity, specificity, PPV, NPV, and evidence-based medicióne. Free certification.
+Free course on patient safety principles and quality improvement methodologies in healthcare. Financial aid available.
+Free course on population health approaches for disease prevention and health promotion. Financial aid available.
+Free course on US health policy, insurance markets and health economics. Financial aid available for certificate.
+Free courses on math, science, computing, and more.
+Free courses on math, science, computing, economics, history, and more.
+Free full-stack web development curriculum covering HTML, CSS, JavaScript, Ruby on Rails.
+Free full-stack web development curriculum with certifications in HTML, CSS, JS, Python, etc.
+Free full-stack web development curriculum with certifications.
+Free full-stack web development curriculum.
+Free mentor matching for entrepreneurs.
+Free mentorship from 200K+ professionals in 150 countries. 20M+ connections.
+Free mentorship from professionals worldwide.
+Free MIT course materials covering virtually all MIT courses.
+Free MIT course materials online.
+Free MOOC on brain health and dementia risk reduction through lifestyle modifications. Covers diet, exercise, cognitive engagement and sleep.
+Free online courses on digital skills and career development.
+Free online courses on digital skills, career development, and data/tech fundamentals.
+Free online mentor matching for entrepreneurs and small business owners.
+Free six-week program combining scientific theory and hands-on research.
+Free six-week seminar for high school students in humanities and social sciences.
+Free six-week seminar for high school students.
+Free summer program for high school girls interested in computer science.
+Free tech training for veterans and young adults. Cloud, Cybersecurity, IT Support, AI, Data Analytics.
+Free technology education and credentials in AI, cloud, cybersecurity in 20+ languages.
+Free technology education and credentials.
+Free technology training for unemployed and underemployed adults.
+Free technology training for veterans and young adults from underserved communities.
+Free Yale course on well-being adapted for healthcare covering happiness, resilience and burnout prevention. Financial aid available.
+freeCodeCamp
+freeCodeCamp.org
+Fulbright / IIE
+Fulbright Foreign Student Program
+Full funding for graduate study at Stanford University. Up to 3 years of tuition plus stipend.
+Full funding for graduate study at Stanford.
+Full funding plus living allowance for international students from developing countries at Berlin universities.
+Full or partial tuition scholarship for international students pursuing master
+Full scholarship covering tuition, room, board, and enrichment funds.
+Full scholarship for international students at undergraduate and graduate levels in South Korea.
+Full scholarship for international students to study at Chinese universities.
+Full scholarship for international students to study at Japanese universities. Research, undergraduate, and training categories.
+Full scholarship for international students to study in China.
+Full scholarship for international students to study in Hungary at bachelor, master and PhD levels.
+Full scholarship for international students to study in Japan.
+Full scholarship for international students to study in Korea.
+Full scholarship for international students to study medicine and other fields at KMU in Taiwan.
+Full scholarship for outstanding minority students with demonstrated leadership ability.
+Full scholarship for outstanding minority students.
+Full scholarship for STEM students who commit to DoD employment.
+Full scholarship for STEM students who commit to employment with the Department of Defense after graduation.
+Full scholarships for students from developing countries to study at Australian institutions.
+Full scholarships for students from developing countries.
+Full scholarships for students from eligible countries.
+Full scholarships for students from eligible developing countries to study in New Zealand.
+Full scholarships for students from Sub-Saharan Africa to study at partner universities worldwide.
+full_scholarship
+Full-stack JavaScript bootcamp. Beginner (16wk) and advanced (30wk) programs.
+Full-tuition scholarship for MPH or DrPH at the world
+Full-tuition scholarship for PhD and MD-PhD programmes at Duke-NUS in Singapore.
+Fully funded scholarship for international students to study at Qatari universities.
+Fully-funded joint master
+Fully-funded master
+Fully-funded one-year master
+Fully-funded postgraduate award at the University of Oxford for outstanding young people from around the world.
+Fully-funded research internship for international undergraduate students at 70+ Canadian universities.
+Fully-funded UK government scholarship for outstanding emerging leaders. One-year master
+Fund for Education Abroad
+Fundación BBVA México
+Fundación Carlos Slim
+Fundación Mexicana para la Educación (FUNED)
+Fundamentals of chemical engineering including mass transfer, reaction engineering, and process design.
+Fundamentals of circuit analysis and design including resistors, capacitors, inductors, and op-amps.
+Funding for cancer research scientists at all career stages from PhD to established investigators.
+Funding for researchers in biomedical science and medical humanities at all career stages.
+FutureLearn
+FutureLearn Courses
+Gastroenterología
+Gates Cambridge Trust
+Gates Foundation
+Gates Millennium Scholars Program
+Gathering of young leaders committed to the SDGs.
+Gathering of young leaders committed to the Sustainable Development Goals.
+GEM (National Consortium)
+General Assembly
+Georgia Institute of Technology (edX)
+German Academic Exchange Service (DAAD)
+German Academic Exchange Service scholarships for international students.
+Gestión de Personas
+Gestión de Proyectos
+Gestión del Tiempo
+Gestión Empresarial
+ginecología
+Girls Who Code
+Girls Who Code Summer Immersion Program
+Girlscript Foundation
+Girlscript Summer of Code
+GitHub Campus Experts
+Global forum for young leaders from 190+ countries.
+Global forum for young leaders.
+Global Health
+Global programming competition for university students.
+Global programming competition.
+Global programming contest for university students. Teams of 3 solve algorithmic problems.
+Global South
+Global student technology competition. Build solutions using Microsoft tech for social impact.
+Goldman Sachs
+Goldman Sachs Summer Analyst Program
+Goldwater Foundation
+Google Career Certificates
+Google Code Jam
+Google DevFest
+Google Digital Garage (Grow with Google)
+Google Digital Garage Courses
+Google PhD Fellowship Program
+Google STEP Internship
+Google Summer of Code
+Government
+Government of Hungary
+Government of Qatar
+Grace Hopper Celebration
+Grants for geographical research and expeditions.
+Grants for young explorers aged 18-25.
+Grants for young explorers ages 18-25 for exploration, conservation, and research projects.
+Guadalajara
+Guadalajara, México
+Habilidades de Estudio
+Habilidades de Investigación
+Hack Reactor
+Hack Reactor (Galvanize)
+Hacktoberfest
+Harvard Chan School Scholarships
+Harvard flagship entry-level course covering algorithms, data structures, web development, and more.
+Harvard Global Health Summer Internship (SURGH)
+Harvard Online Learning
+Harvard Summer School
+Harvard T.H. Chan School of Public Health
+Harvard University
+Harvard University (edX)
+Heidelberg University
+Hepatitis C
+Hertz Foundation
+Hertz Foundation Fellowship
+HFSP Organization
+High School
+Hipertensión
+Historia Antigua
+Historia del Arte
+Historia Europea
+Holland Scholarship
+Hospital General de México
+Hult Prize
+Hult Prize Foundation
+Human Frontier Science Program (HFSP) Fellowships
+humanidades
+Humanitarian
+Humanities
+IBM Apprenticeship Program
+IBM PhD Fellowship Award
+IBM SkillsBuild
+IBO Foundation
+ICMR-National Institute of Epidemiology (Swayam/NPTEL)
+IEEE conferences
+IEO Foundation
+IGNOU (Swayam)
+IIE / U.S. Department of State
+IIM Bangalore (edX)
+ILO Internship Programme
+IMF Internship Program
+Immigrants
+IMO Foundation
+Imperial College London (Coursera)
+Indian Institute of Technology Madras
+Informática Médica
+Informatics
+Informética en Salud
+Informética Mídica
+Informética Sanitaria
+ingenieria
+Ingeniería Biomídica
+Ingeniería Estructural
+Ingeniería Química
+Inmunología
+Innovación en Salud
+Innovación Sanitaria
+Innovation
+Institute for Advanced Study
+Institute of International Education (IIE)
+Instituto Mexicano del Seguro Social
+Instituto Nacional de Neurología y Neurocirugía
+Instituto Nacional de Pediatría
+Instituto Nacional de Perinatología
+Instituto Nacional de Salud Pública
+Institutos Nacionales de Salud
+Insuficiencia Cardíaca
+Intel PhD Fellowship
+Inteligencia Artificial
+Inteligencia de Negocios
+Inteligencia Emocional
+Intensive seven-week research program for high school seniors.
+Intensive seven-week research program for high school seniors. Full tuition, housing, and stipend.
+Intensive seven-week research program for high school seniors. Full tuition, housing, stipend.
+Intensive summer courses in economics, finance, law, international relations, and more.
+Intensive summer courses in social sciences.
+Intensive summer language program for American students.
+Interactive coding courses in Python, JavaScript, data science, and more.
+Interactive coding courses in various languages.
+Inter-American Development Bank
+Intercambio
+Intercambios clínicos (SCOPE) y de investigación (SCORE) en 130+ países para estudiantes de medicina mexicanos.
+Intercambios clínicos nacionales para estudiantes de medicina entre hospitales de toda la república mexicana.
+intermediate
+Internacional
+International
+International Biology Olympiad (IBO)
+International Economics Olympiad (IEO)
+International exchange programs for high school students.
+International Labour Organization
+International Mathematical Olympiad (IMO)
+International Monetary Fund
+International Organization for Migration
+International Physics Olympiad (IPhO)
+Internship
+Internship at NATO Headquarters and agencies.
+Internship at UNESCO Paris in education, science, culture and communication. Unpaid but prestigious.
+Internship for graduate students in development-related fields.
+Internship for graduate students in economics and development.
+Internship for high school students in STEM fields.
+Internship for students in agriculture and food security.
+Internship for students in education, science, and culture.
+Internship for students in international development and children
+Internship for students in public health and related fields.
+Internship for students in sustainable development.
+Internship in assurance, consulting, strategy and transactions, and tax services.
+Internship in assurance, consulting, strategy, and transactions.
+Internship in audit, consulting, financial advisory, risk, and tax at one of the Big Four.
+Internship in audit, consulting, financial advisory, risk, and tax.
+Internship in audit, tax, and advisory services.
+Internship in space science and engineering.
+Internship opportunities across audit, tax, and advisory services.
+Internship opportunities across NASA centers.
+Internship opportunities across UN agencies worldwide.
+Interviews
+Introducción a la física cuántica con énfasis en temas de frontera como entrelazamiento, túnel cuántico y computación cuántica.
+Introducción a la Ingeniería
+Introducción a la mecánica clásica: cinemática, leyes de Newton, energía, momento y su aplicación en la resolución de problemas.
+Introducción a los conceptos fundamentales de la química: átomos, elementos, tabla periódica, enlaces y reacciones químicas.
+Introducción a los principios fundamentales de la bioquímica, incluyendo estructura de proteínas, enzimas y metabolismo.
+Introducción general a las regiones polares, incluyendo temperatura, estaciones, hielo marino y los ecosistemas del Ártico y la Antártida.
+Introduction to Python programming covering data structures, web scraping, APIs, and databases.
+Introduction to robotics kinematics, dynamics, and control with hands-on programming assignments.
+Investigación
+Investigación Biomédica
+Investigación Clínica
+Investigación en Salud
+investigación Mídica
+IOM Internship Programme
+Islamic Development Bank Scholarships
+Islamic World
+IT and cybersecurity courses with certification.
+IT and cybersecurity courses with industry certifications (CCNA, Python, etc.).
+Jack Kent Cooke Foundation College Scholarship
+Japan Society for the Promotion of Science
+JavaScript
+Johns Hopkins
+Johns Hopkins Bloomberg School of Public Health
+Johns Hopkins University
+Johns Hopkins University (Coursera)
+Joint Japan/World Bank Graduate Scholarship Program for students from developing countries.
+Joint master
+JPMorgan Chase
+JPMorgan Chase & Co.
+JPMorgan Chase Internship Program
+JSPS Postdoctoral Fellowship
+Juan Beckmann Scholarship for Neurosurgeons
+Kaohsiung Medical University
+Kaohsiung Medical University Scholarship
+Karolinska Institutet
+Karolinska Institutet Global Master
+Khan Academy
+Knight-Hennessy Scholars
+KPMG Internship Program
+Largest collegiate hackathon.
+Largest collegiate hackathon. Cal Hacks 12.0.
+Largest student-run hackathon on the East Coast.
+Largest student-run hackathon on the East Coast. PennApps XXVI.
+Leadership
+Learn 2D and 3D animation principles, character design, storytelling, and visual effects techniques.
+Learn AI fundamentals including machine learning, deep learning, neural networks, and AI ethics.
+Learn CAD principles and 3D modeling techniques using industry-standard software tools.
+Learn cloud concepts, Azure services, security, privacy, compliance, and pricing.
+Learn data cleaning, analysis, visualization, and SQL for data-driven decision making.
+Learn design thinking, brainstorming techniques, and innovation methods for solving complex challenges.
+Learn digital photography fundamentals including exposure, composition, lighting, and editing.
+Learn digital photography techniques and professional image editing with Adobe tools.
+Learn inclusive teaching practices, IEP development, and behavioral support strategies.
+Learn professional music production techniques, audio recording, mixing, and mastering.
+Learn proven time management strategies, prioritization techniques, and productivity systems.
+Learn server-side development with Python, Django, databases, APIs, and version control.
+Learn structural analysis, design principles, and building material properties for civil engineering.
+Learn the filmmaking process including screenwriting, directing, cinematography, and editing.
+Learn the fundamentals of the common law system, court structures, and legal reasoning.
+Learn to design assessments, evaluate learning outcomes, and use data to improve teaching.
+Learn to design engaging learning experiences with digital media and multimedia principles.
+Learn to recognize, understand, and manage emotions in yourself and others for professional success.
+Lenguaje Mídico
+Life Sciences
+Lingüística
+LinkedIn (Microsoft)
+LinkedIn Learning
+Literatura
+London Business School (Coursera)
+London School of Economics
+LSE Summer School
+Ludwig Maximilian University
+LVIII Congreso Mexicano de Anestesiología
+Machine Learning
+Macroeconomía
+Maestría en Ciencias Médicas UNAM
+Major League Hacking
+Major scholarship at Oxford covering fees and living costs.
+Major scholarship at Oxford covering tuition fees and living costs for outstanding postgraduate students.
+Management
+Manejo del Dolor
+Marie Sklodowska-Curie Actions (MSCA)
+Marketing Digital
+Marshall Aid Commissions
+Marshall Scholarships
+Massachusetts Institute of Technology
+Massachusetts Institute of Technology (edX)
+Massachusetts Institute of Technology (MITx)
+Master business communication, negotiation, conflict resolution, and interpersonal skills.
+Master critical thinking frameworks, logical reasoning, and structured approaches to complex problems.
+Master decision analysis, risk assessment, and strategic thinking frameworks for better outcomes.
+Master front-end web development with HTML, CSS, JavaScript, React, and UI/UX fundamentals.
+Master graphic design fundamentals including typography, color theory, and visual communication.
+Mastercard Foundation
+Matemáticas
+Mathematics
+Max Planck
+Max Planck Institute for Informatics
+Max Planck Research Internships
+Max Planck Society
+McKinsey & Company
+McKinsey Business Analyst Intern
+Medicamentos
+Medicina Crítica
+Medicina Interna
+Medicióna Conductual
+Medicióna Deportiva
+Medicióna General
+Medicióna Genímica
+Medicióna Intensiva
+Medicióna Interna
+Medicióna Molecular
+Medicióna Paliativa
+Medicióna Preventiva
+Medicióna Tropical
+Meeting of young leaders committed to making a difference.
+Menopausia
+mentorship
+Mérida, México
+merit_based
+Meta (Facebook)
+Meta Internships
+metodología de investigación
+metodología de la investigación
+MEXT / Government of Japan
+MEXT Scholarship (Japanese Government)
+Michael Sandel famous course exploring justice, equality, democracy, and moral reasoning in society.
+Michigan State University
+Microbiología
+Microeconomía
+MicroMentor
+MicroMentor (Mercy Corps)
+Microsoft & LinkedIn
+Microsoft Explore Internship
+Microsoft Imagine Cup
+Microsoft Leap Apprenticeship
+Microsoft Learn Student Ambassadors
+Microsoft Research PhD Fellowship
+Microsoft University Internships
+Middle East
+Mídecións Sans Frontiíres
+Mídecións Sans Frontiíres (MSF)
+Ministry of Education, Culture, Sports, Science and Technology
+Mission Brain
+Mission Brain Foundation
+Mission Brain Foundation / José Cuervo
+Mission Brain Student Chapters
+MIT OpenCourseWare
+MIT Summer Research Program (MSRP)
+MIT Universal AI Learning
+MLH Fellowship
+MLH Season
+Modelado Epidemiolígico
+Monash University
+Monash University (FutureLearn)
+Monterrey, México
+Museum of Modern Art (MoMA)
+NASA Internship Program
+National Academies of Sciences
+National Geographic
+National Geographic Society
+National Geographic Young Explorers Grant
+National Institute for International Education
+National Institutes of Health
+National Science Foundation
+need_based
+Nefrología
+Netherlands
+Networking
+Neumología
+Neurociencia
+Neurociencias
+Neurocirugía
+Neurología
+New Zealand
+New Zealand Ministry of Foreign Affairs
+NIH / Oxford / Cambridge
+NIH Fogarty International Center
+NIH Oxford-Cambridge Scholars Program (OxCam)
+NIIED / Republic of Korea
+No-cost IT training: AWS, Cybersecurity, Data Center, IT Support, Salesforce, Software Engineering. 30+ locations.
+Nottingham Developing Solutions Scholarships
+NPTEL & ICMR (Swayam)
+NPTEL (Indian Institute of Technology)
+NPTEL (Swayam)
+NSF Graduate Research Fellowship Program
+Nueva Zelanda
+nutrición en Emergencias
+nutrición Infantil
+NVIDIA Graduate Fellowship
+NVIDIA Internships
+Observership
+Obstetricia
+OECD Internship Programme
+Oftalmología
+One Young World
+One Young World Summit
+Online bootcamps in data science, UX design, and software engineering.
+Online courses and programs from Harvard faculty.
+Online courses and programs from Harvard.
+Online courses from Harvard, MIT, and 160+ institutions. MicroMasters, certificates, and degrees.
+Online courses from Harvard, MIT, and other top institutions.
+Online courses from leading universities and organizations worldwide.
+Online courses from leading universities and organizations.
+Online programs in AI, data science, programming, and more.
+Online programs in AI, data science, programming, cloud computing, and autonomous systems.
+OPEC Fund for International Development
+OPEC Fund Scholarship Program
+Open Society Foundations
+Open Society Foundations Scholarships
+Open Source
+Open source challenge during October.
+Open source program for beginners.
+Open University
+Open University (OpenLearn)
+opportunities
+Orange Knowledge Programme (Netherlands)
+Organización de Estados Americanos
+Organización Panamericana de la Salud
+Organización Panamericana de la Salud (PAHO)
+Osteoporosis
+Otorrinolaringología
+Outstanding postgraduate study at the University of Cambridge for citizens of any country outside the UK.
+Oxford Royale Academy
+Oxford Royale Summer School
+Oxford Summer Courses
+Oxford Summer Courses Ltd
+PAHO Internship Program
+PAHO/WHO / INSP
+Paid computer science internship with mentorship and leadership development for underrepresented students.
+Paid computer science internship with mentorship.
+Paid internship at ADB Manila for graduate students in development, economics and finance. Round-trip airfare provided.
+Paid internship at FAO Rome for students in agriculture, food security, nutrition and related fields.
+Paid internship at IDB Washington DC for graduate students in economics, development and social sciences.
+Paid internship at ILO Geneva. CHF 2,450/mo for graduate students interested in labour rights and social justice.
+Paid internship for graduate students in economics and related fields at IMF headquarters.
+Paid internship for graduate students in economics and related fields.
+Paid internship for graduate students in economics, finance, and development.
+Paid internship for graduate students in economics, finance, engineering, and social sciences.
+Paid internship for graduate students in economics, finance, engineering, and social sciences. Formerly BTP.
+Paid internship for physics, engineering, and computing students.
+Paid internship for students in public health, epidemiology and related fields at CDC Atlanta.
+Paid internship in finance, technology, and business across various divisions worldwide.
+Paid internship in finance, technology, and business across various divisions.
+Paid internship in global health at WHO headquarters in Geneva or regional offices. CHF 1,680/mo living allowance.
+Paid internship in migration and humanitarian affairs at IOM Geneva.
+Paid internship in public health at PAHO headquarters in Washington DC or country offices in the Americas.
+Paid internship in strategy consulting.
+Paid internship in various finance and technology roles.
+Paid internships across NASA centers for students in STEM fields.
+Paid internships across NASA centers for students in STEM fields. Three sessions per year.
+Paid internships for university students in software engineering, data science, product design and more.
+Paid internships in engineering, software and business operations. US citizens/green card only.
+Paid internships in free software and open source.
+Paid internships in software engineering, hardware, ML/AI, design and business. $38-$60/hr.
+Paid internships in software engineering, research, data engineering and product design. $7,000-$12,000/mo.
+Paid internships in software, hardware, research and AI. $20-$94/hr. Ignite program for freshmen/sophomores.
+Paid remote fellowship for aspiring software engineers.
+Paid summer internship in strategy consulting for MBA and advanced degree students.
+Paid summer research internship at NIH campuses in biomedical and health sciences.
+Paid traineeship in EU institutions.
+Países Bajos
+Pan American Health Organization (PAHO/WHO)
+Participación del Paciente
+Pensamiento Crítico
+Per Scholas
+Perimeter Institute
+Perimeter Institute for Theoretical Physics
+Perinatología
+PhD at Stanford University
+PhD at University of Toronto
+PhD in engineering and applied sciences.
+PhD positions across humanities, sciences, and medicine.
+PhD programs across all engineering and science disciplines at MIT.
+PhD programs across all engineering and science disciplines.
+PhD programs across diverse fields with competitive funding at U of T.
+PhD programs across diverse fields with competitive funding.
+PhD programs across diverse fields.
+PhD programs across humanities, sciences, engineering, and social sciences with full funding.
+PhD programs in engineering, sciences, and social sciences.
+PhD programs in humanities, sciences, engineering, and social sciences.
+PhD programs in various disciplines.
+Philippines
+Pierre Elliott Trudeau Foundation
+Platform for coding interview preparation.
+PNSSIS - Servicio Social en Investigación
+Poléticas de Salud
+Postdoc at Max Planck Institutes
+Postdoc at Perimeter Institute
+Postdoctoral fellowships for early-career scientists in life sciences. International mobility required.
+Postdoctoral fellowships for life scientists in Europe.
+Postdoctoral fellowships for life scientists to work in Europe.
+Postdoctoral fellowships for life scientists to work in Europe. Next cutoff available.
+Postdoctoral fellowships for mobility to/from Switzerland.
+Postdoctoral fellowships for researchers from around the world to work in Japan.
+Postdoctoral fellowships for researchers of any nationality to work in Europe.
+Postdoctoral fellowships for researchers of any nationality.
+Postdoctoral fellowships for researchers to work in Japan.
+Postdoctoral positions across research institutes in Germany.
+Postdoctoral positions in computer science at one of Europe
+Postdoctoral positions in computer science.
+Postdoctoral positions in molecular biology.
+Postdoctoral positions in particle physics and related fields.
+Postdoctoral positions in space science and engineering.
+Postdoctoral positions in theoretical physics and mathematics.
+Postdoctoral positions in theoretical physics at a leading research institute.
+Postdoctoral positions in theoretical physics.
+Postdoctoral research in biomedical sciences.
+Powerful mental tools to master tough subjects using neuroscience-based learning techniques.
+Práctica Profesional
+Premier hackathon at MIT.
+preparatoria
+prevención de Diabetes
+PricewaterhouseCoopers
+Príctica Farmacíutica
+Primer curso de química general que cubre estructura atómica, enlaces químicos, geometría molecular y teoría cuántica.
+Primer curso del certificado Google PM que introduce los fundamentos de la gestión de proyectos y el ciclo de vida del proyecto.
+Princeton University
+Principles of thermodynamics including energy conversion, entropy, and the laws of thermodynamics.
+Producción Musical
+profesional
+Professional
+Professional certificates in data analytics, UX design, IT support, and project management.
+Professional certificates in Data Analytics, UX Design, IT Support, Project Management, Cybersecurity, Digital Marketing.
+Professional certificates in Data Analytics, UX Design, IT Support, Project Management, Cybersecurity.
+Professional courses on business, technology, and creative skills with certificates.
+Professional courses on business, technology, and creative skills.
+Professional training for young adults.
+Program for students (18+) to contribute to open source software projects with stipends.
+Program for students to contribute to open source projects.
+Programa de 8 cursos alineado con BABOK para preparar la certificación ECBA, cubriendo modelado de procesos, análisis de datos y requisitos.
+Programa de becas de la UNAM para estudios de posgrado, estancias de investigación y movilidad académica en el extranjero.
+Programa de becas para estudiantes de países miembros para estudios de posgrado en universidades de las Américas.
+Programa de educación sobre demencia del Centro Wicking. Contenido actualizado sobre investigación y cuidado de demencia con certificado de finalización gratuito.
+Programa de maestría en ciencias médicas en 13 Institutos Nacionales de Salud de México.
+Programa de servicio social en el Instituto Nacional de Perinatología para pasantes de medicina.
+Programa integral de 6 cursos para aprender gestión de proyectos, metodologías ágiles, Scrum y liderazgo de equipos.
+Programa intensivo de STEM de 4 semanas en campus UC. Abierto a estudiantes internacionales.
+Programa Nacional de Servicio Social en Investigación en Salud en los Institutos Nacionales de Salud de México.
+Programación Python
+Programas de posgrado en salud pública en el INSP Cuernavaca. Maestrías y doctorados con beca CONAHCYT.
+Programming
+Promoción de la Salud
+Propiedad Intelectual
+Psicología
+psicología de la Salud
+Psicología Educativa
+Psicología Social
+Psiquiatría
+Public Health
+PwC (Coursera)
+Qatar Government Scholarship
+Queensland
+Reino Unido
+Relaciones Internacionales
+Religiones
+Republic of Turkiye
+Republic of Türkiye
+Research competition for undergraduate and graduate students.
+Research degrees across all faculties with generous funding at the University of Cambridge.
+Research degrees across all faculties with generous funding.
+Research degrees across all faculties.
+Research degrees at the world
+research_fellowship
+research_internship
+Residentes
+Resolución de Problemas
+Reumatología
+Reunión anual de investigación del INNN. Presentación de carteles y conferencias.
+Reunión anual de investigación en perinatología y medicina materno-fetal.
+Rhodes Trust / University of Oxford
+Rice University
+Ritmo propio
+Rosa Luxemburg Foundation
+Rotary Foundation Global Grant Scholarships
+Rotary International
+Rotary Youth Exchange
+Royal Geographical Society Grants
+Ruta de aprendizaje gratuita que cubre análisis de negocio, modelado de procesos y requisitos con certificado incluido.
+Ruta gratuita con certificado que enseña fundamentos de gestión de proyectos, programación y comunicación efectiva.
+Ruta gratuita que desarrolla habilidades administrativas, comunicación, gestión del tiempo y herramientas Microsoft 365.
+Ruta gratuita sobre emprendimiento que cubre creación de startups, financiación, marketing y estrategia empresarial.
+s and doctoral levels.
+s at Tsinghua University focused on leadership.
+s College London
+s College London (FutureLearn)
+s Disease: Clinical Management and Research
+s Health: Comprehensive Primary Care Approaches
+s in Global Affairs at Tsinghua University, focused on leadership and China
+s in public health at 8 European universities. Double degree. Fully funded via Erasmus+ scholarships.
+s in public health or medicine.
+s in the UK.
+s largest gathering of women and non-binary technologists.
+s largest gathering of women and non-binary technologists. Anaheim, Oct 27-30, 2026.
+s largest gathering of women technologists.
+s oldest English-speaking university.
+s oldest English-speaking university. Full funding available.
+s or PhD study in the UK.
+s partner sites worldwide.
+s Passage Scholarships
+s premier hackathon.
+s premier hackathon. Build innovative projects in 48 hours.
+s premier hackathon. Feb 13-15, 2026.
+s programmes by the European Union. Study at multiple European universities.
+s public health school.
+s rights, education, and related fields.
+s role in the world.
+s Scholarship
+s studies in Sweden for global professionals from developing countries.
+s study in another Commonwealth country.
+s top CS institutes.
+s top public health school.
+Salud Ambiental
+Salud Auditiva
+Salud Cardiovascular
+Salud Cerebral
+Salud Comunitaria
+Salud de Género
+Salud de la Mujer
+Salud de Refugiados
+Salud Digestiva
+Salud Digital
+Salud Global
+Salud Humana
+Salud Humanitaria
+Salud Infantil
+Salud Materna
+Salud Maternoinfantil
+Salud Mental
+Salud Mental en Emergencias
+Salud Mental Global
+Salud Musculoesquelética
+Salud Píblica
+Salud Poblacional
+Salud Pública
+Salud Reproductiva
+Salud Respiratoria
+Salud Visual
+Salud y Sociedad
+SBW Berlin
+scholarship
+Scholarship for Federal Pell Grant recipients to study abroad.
+Scholarship for high-achieving students with financial need, from high school through graduate school.
+Scholarship for high-achieving students with financial need.
+Scholarship for international medical and dental students from the Global South to study at Heidelberg University.
+Scholarship for international students at all academic levels committed to social justice.
+Scholarship for non-EEA international students.
+Scholarship for outstanding high school seniors demonstrating leadership and commitment to service.
+Scholarship for outstanding high school seniors.
+Scholarship for STEM undergraduates planning research careers.
+Scholarships for adventure travel programs.
+Scholarships for graduate studies in development-related fields.
+Scholarships for graduate-level study abroad.
+Scholarships for intensive language study and study abroad.
+Scholarships for international students at all academic levels to study in Germany.
+Scholarships for master
+Scholarships for mid-career professionals from developing countries.
+Scholarships for students from developing countries with demonstrated financial need.
+Scholarships for students from developing countries.
+Scholarships for students from developing member countries.
+Scholarships for students from disadvantaged backgrounds committed to social justice.
+Scholarships for students from disadvantaged backgrounds.
+Scholarships for students from member countries.
+Scholarships for talented international students at TU Delft for MSc programs.
+Scholarships for talented international students.
+Scholarships for underrepresented students to study abroad.
+Scholarships for women pursuing engineering degrees.
+SCORE (SBA)
+SCORE Mentorship
+SCORE Mentorship Program
+SDG Academy (edX)
+Season of student hackathons worldwide. 200+ events per season.
+Secretaría de Ciencia, Humanidades, Tecnología e Innovación
+secundaria
+Seguridad Alimentaria
+Seguridad del Paciente
+Seguridad Sanitaria
+Seguridad Sanitaria Global
+Semana del Cerebro INNN
+Servicio Social
+Servicio social en el Hospital General de México en diversas especialidades médicas.
+Servicio Social en INP
+Servicio Social en INPer
+Servicio social en investigación y atención pediátrica en el Instituto Nacional de Pediatría.
+Servicio Social Hospital General de México
+Sesiones Estatutarias SMC (Cardiología)
+Sesiones mensuales de cardiología. Becas del 100% para miembros residentes.
+Short Program
+short_program
+SIGN Chapter México (Neurología)
+Signos Vitales
+Simposio académico gratuito con concurso de presentación estudiantil. Premio sorpresa.
+Simposio ANMM: Medicina e Inmunología
+Sistemas de Salud
+Sistemas Eléctricos
+SMEC - Sociedad Mexicana de Estudiantes en Cardiología
+Social entrepreneurship competition for university students.
+Social Impact
+Social Justice
+Social Sciences
+Sociedad estudiantil de cardiología en ENMH-IPN. Congresos, talleres y conferencias.
+Sociedad Mexicana de Cardiología
+Sociedad Mexicana de Cirugía Neurológica
+Sociedad Mexicana de Dermatología
+Sociedad Mexicana de Neumología
+Sociología
+Software Freedom Conservancy
+South Korea
+SpaceX Internships
+Springboard
+Stanford famous ML course by Andrew Ng covering supervised learning, neural networks, and ML best practices.
+Stanford Medicine
+Stanford Medicióne
+Stanford Pre-Collegiate Studies
+Stanford University
+Stanford University (Coursera)
+Student exchange and traineeship program within Europe and partner countries worldwide.
+Student exchange program within Europe and partner countries.
+Student Interest Group in Neurology. Membresía gratuita. Becas AAN: $3,000 USD investigación, $2,000 USD electiva.
+Study Abroad
+Study ancient Greek and Roman myths and their enduring influence on Western culture.
+Study ancient Greek civilization from the Bronze Age to Alexander the Great.
+Study corporate governance, fiduciary duties, shareholder rights, and business entity formation.
+Study crime patterns, criminal justice systems, punishment theories, and crime prevention strategies.
+Study curriculum theory, design principles, and implementation strategies for educational programs.
+Study economic development, poverty reduction, education, health, and institutional reform in developing countries.
+Study environmental regulation, pollution control, natural resources law, and climate change policy.
+Study of fluid motion including conservation laws, turbulence, and boundary layer theory.
+Study political systems, comparative politics, international relations, and political theory.
+Study supply and demand, market structures, consumer behavior, and the economics of decision-making.
+Study the foundations of international human rights law and mechanisms for their protection.
+Study the principles of contract formation, performance, breach, and remedies.
+Study war crimes, crimes against humanity, genocide, and the International Criminal Court.
+Study, research, or English teaching abroad.
+Summer academic and leadership program for high school students at Yale.
+Summer academic and leadership program for high school students.
+Summer academic programs for high school students.
+Summer courses across various disciplines.
+Summer courses at Cambridge.
+Summer courses at German universities for international students.
+Summer courses at Oxford and Cambridge for ages 9-24. 40+ subjects.
+Summer courses at Oxford and Cambridge.
+Summer courses at Oxford for adults and high school students.
+Summer courses at Oxford, Cambridge, Imperial College London, and Yale.
+Summer courses for college students and pre-college students.
+Summer courses for credit in New Haven, online, and abroad.
+Summer courses for credit.
+Summer courses for high school students.
+Summer courses for high school, college, and post-baccalaureate students. Online and on-campus.
+Summer internship in management consulting.
+Summer language immersion for American high school students.
+Summer Program
+Summer programs for underrepresented high school students in artificial intelligence.
+Summer programs for underrepresented high school students in artificial intelligence. Abierto a latinos.
+Summer programs for underrepresented students in AI.
+Summer research for underrepresented students in engineering.
+Summer research internships at Max Planck Institutes across Germany in life sciences and natural sciences.
+Summer research program for underrepresented students.
+Summer research program for underrepresented students. Fully funded with stipend.
+summer_school
+Survey of literary masterpieces from ancient epics to modern novels across world cultures.
+Survey of modern European history covering revolutions, nationalism, war, and social change.
+Survey of Western art from prehistoric cave paintings through contemporary installation art.
+Sustainability
+Swedish Institute
+Swiss Confederation
+Swiss Confederation (SBFI)
+Swiss National Science Foundation
+Switzerland
+Talent Scholarship at TU Delft
+Taller práctico que enseña el uso de herramientas computacionales como MATLAB, Python y R para analizar datos biológicos.
+Technical conferences across all areas of engineering and technology.
+Technology
+Technology apprenticeship program.
+Technology competition for student entrepreneurs.
+tecnologia
+Tecnología Educativa
+TED Conferences
+Telemedicina
+Telluride Association
+Telluride Association Summer Seminar (TASS)
+Terminología Mídica
+Termodinámica
+Texas Tech University
+The Odin Project
+The Open University
+The Open University (OpenLearn)
+Theoretical
+Thousands of courses from top universities and companies.
+Thousands of courses from top universities and companies. Certificates and degrees available.
+Toma de Decisiones
+TopCoder Open
+Trabajo en Equipo
+Training program for app development and entrepreneurship.
+Training program for non-technical employees to transition into software engineering.
+Training program for non-technical professionals to transition into cloud computing roles.
+Training program to empower student leaders in technology.
+Trastornos del Sueío
+Tratamiento de Adicciones
+Travel Grant
+Tsinghua University
+Tuition-free job training for young adults ages 18-29 in tech and finance.
+Tuition-free job training for young adults ages 18-29. Career pathways in tech and finance.
+Turkish Government Scholarship (Türkiye Burslari)
+Two-week academic and leadership program for high school students.
+U.S. Department of Defense
+U.S. Department of State
+UC Berkeley
+UCL IMPACT Scholarship
+Udacity Nanodegree Programs
+UK Foreign, Commonwealth & Development Office
+UK government global scholarship for future leaders.
+UN Youth Assembly
+un_international
+UNAM / Institutos Nacionales de Salud
+UNAM en Coursera
+UNCF / Gates Foundation
+Undergraduate
+Undergraduate summer research program at 26 host institutions across US, Europe, Asia and Australia.
+UNDP Internship Programme
+UNESCO Internship Programme
+UNICEF Internship Programme
+United Kingdom
+United Nations
+United Nations Development Programme
+United States
+universidad
+Universidad Complutense de Madrid (Coursera)
+Universidad de los Andes (Coursera)
+Universidad Nacional Autónoma de México
+Universidad Nacional Autónoma de México (Coursera)
+Universitat de Barcelona (Coursera)
+University
+University College London
+University of Amsterdam
+University of Birmingham
+University of Birmingham (FutureLearn)
+University of California
+University of California Berkeley
+University of California Irvine
+University of California San Diego
+University of California, Berkeley
+University of California, Davis
+University of Cambridge
+University of Cambridge ICE
+University of Chicago
+University of Colorado
+University of Colorado Boulder
+University of Colorado Boulder (Coursera)
+University of Copenhagen (Coursera)
+University of East Anglia
+University of East Anglia (FutureLearn)
+University of Edinburgh
+University of Geneva
+University of Geneva (Coursera)
+University of Glasgow
+University of Glasgow (FutureLearn)
+University of Hong Kong (edX)
+University of Illinois
+University of Illinois (Coursera)
+University of Illinois Urbana-Champaign (Coursera)
+University of Leeds
+University of Leeds (FutureLearn)
+University of London
+University of Michigan
+University of Michigan (Coursera)
+University of Minnesota
+University of Nottingham
+University of Oxford
+University of Pennsylvania
+University of Pennsylvania (Coursera)
+University of Queensland
+University of Queensland Medical Scholarship
+University of Southampton
+University of Southampton (FutureLearn)
+University of Sydney
+University of Tasmania
+University of Tasmania (Wicking Centre)
+University of Tasmania (Wicking)
+University of Texas
+University of Texas MD Anderson
+University of Texas System
+University of Toronto
+University of Toronto (Coursera)
+University of Virginia
+University of Virginia (Coursera)
+University of Washington
+Vacunación
+Various scholarships for international students pursuing MPH and doctoral degrees at Harvard
+Vigilancia Epidemiolígica
+Violencia de Gínero
+Visualización de Datos
+Wageningen University (edX)
+Wall Street
+Washington DC
+Web Development
+Wellcome Trust
+Wellcome Trust Fellowships
+Wesleyan University
+WHO Internship Programme
+Work-integrated apprenticeships and certificate programs in AI/Data, Cybersecurity, Software Engineering.
+World Bank
+World Bank Group
+World Bank Internship (WBG Pioneers)
+World Bank Internship Program (BTP)
+World championship biology competition for high school students.
+World championship biology competition for high school students. IBO 2026 in Lithuania.
+World championship chemistry competition for high school students.
+World championship computing competition for high school students.
+World championship economics competition for high school students.
+World championship mathematics competition for high school students.
+World championship mathematics competition for high school students. 6 problems, 2 days.
+World championship physics competition for high school students.
+World Economic Forum
+World Economic Forum Annual Meeting
+World Economic Forum Events
+World Health Organization
+World Health Organization (OpenWHO)
+World Health Organization (WHO Academy)
+XL Reunión Anual de Investigación INNN
+XLIX Congreso Nacional de Medicina Interna
+XXVIII Congreso SMCN (Cirugía Neurológica)
+XXXII Congreso Mexicano de Dermatología
+Yale Summer Sessions
+Yale University
+Yale University (Coursera)
+Yale Young Global Scholars
+Year Up United
+Youth exchange program for high school students.
+Youth exchange program for students ages 15-19 for academic year or short-term cultural exchange.
+Youth exchange program for students ages 15-19 for academic year or short-term.

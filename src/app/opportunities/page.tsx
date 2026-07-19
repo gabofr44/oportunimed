@@ -2,7 +2,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getOpportunities } from "@/actions/opportunities";
-import { Search, MapPin, Calendar, Sparkles, ArrowUpRight, GraduationCap, BookOpen } from "lucide-react";
+import { getOpportunityStatus, getStatusLabel } from "@/types";
+import { Search, MapPin, Calendar, Sparkles, ArrowUpRight, GraduationCap, BookOpen, Timer } from "lucide-react";
 import Link from "next/link";
 
 const typeColors: Record<string, string> = {
@@ -113,6 +114,12 @@ const subtypesByType: Record<string, { value: string; label: string }[]> = {
   ],
 };
 
+const statusColors: Record<string, string> = {
+  activa: "bg-green-50 text-green-700 border-green-200 dark:bg-green-950 dark:text-green-300 dark:border-green-800",
+  por_salir: "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950 dark:text-amber-300 dark:border-amber-800",
+  pasada: "bg-gray-50 text-gray-500 border-gray-200 dark:bg-gray-900 dark:text-gray-400 dark:border-gray-700",
+};
+
 const levelLabels: Record<string, string> = {
   secundaria: "Secundaria",
   preparatoria: "Preparatoria",
@@ -143,6 +150,10 @@ interface Props {
     funding?: string;
     level?: string;
     field?: string;
+    course_level?: string;
+    course_subject?: string;
+    course_language?: string;
+    call_status?: string;
   }>;
 }
 
@@ -156,6 +167,10 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
     funding: params.funding === "true",
     level: params.level,
     field: params.field,
+    course_level: params.course_level,
+    course_subject: params.course_subject,
+    course_language: params.course_language,
+    call_status: params.call_status,
   });
 
   return (
@@ -276,6 +291,93 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
                     </select>
                   </div>
 
+                  {params.type === "course" && (
+                    <>
+                      <div>
+                        <label className="mb-1 flex items-center gap-1.5 text-sm font-medium text-text-main">
+                          Nivel del Curso
+                        </label>
+                        <select
+                          name="course_level"
+                          defaultValue={params.course_level}
+                          className="w-full rounded-xl border border-border bg-card px-3 py-2 text-sm text-text-main"
+                        >
+                          <option value="all">Todos los niveles</option>
+                          <option value="beginner">Principiante</option>
+                          <option value="intermediate">Intermedio</option>
+                          <option value="advanced">Avanzado</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="mb-1 flex items-center gap-1.5 text-sm font-medium text-text-main">
+                          Materia
+                        </label>
+                        <select
+                          name="course_subject"
+                          defaultValue={params.course_subject}
+                          className="w-full rounded-xl border border-border bg-card px-3 py-2 text-sm text-text-main"
+                        >
+                          <option value="all">Todas las materias</option>
+                          <option value="Medicina">Medicina</option>
+                          <option value="Salud Pública">Salud Pública</option>
+                          <option value="Neurología">Neurología</option>
+                          <option value="Epidemiología">Epidemiología</option>
+                          <option value="Biología">Biología</option>
+                          <option value="Química">Química</option>
+                          <option value="Física">Física</option>
+                          <option value="Matemáticas">Matemáticas</option>
+                          <option value="Ciencias de la Computación">Ciencias de la Computación</option>
+                          <option value="Programación">Programación</option>
+                          <option value="Inteligencia Artificial">Inteligencia Artificial</option>
+                          <option value="Ciencia de Datos">Ciencia de Datos</option>
+                          <option value="Ingeniería">Ingeniería</option>
+                          <option value="Negocios">Negocios</option>
+                          <option value="Marketing">Marketing</option>
+                          <option value="Finanzas">Finanzas</option>
+                          <option value="Filosofía">Filosofía</option>
+                          <option value="Historia">Historia</option>
+                          <option value="Psicología">Psicología</option>
+                          <option value="Sociología">Sociología</option>
+                          <option value="Derecho">Derecho</option>
+                          <option value="Educación">Educación</option>
+                          <option value="Arte">Arte</option>
+                          <option value="Música">Música</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="mb-1 flex items-center gap-1.5 text-sm font-medium text-text-main">
+                          Idioma
+                        </label>
+                        <select
+                          name="course_language"
+                          defaultValue={params.course_language}
+                          className="w-full rounded-xl border border-border bg-card px-3 py-2 text-sm text-text-main"
+                        >
+                          <option value="all">Todos los idiomas</option>
+                          <option value="en">Inglés</option>
+                          <option value="es">Español</option>
+                        </select>
+                      </div>
+                    </>
+                  )}
+
+                  <div>
+                    <label className="mb-1 flex items-center gap-1.5 text-sm font-medium text-text-main">
+                      <Timer className="size-3.5 text-blue" />
+                      Estado
+                    </label>
+                    <select
+                      name="call_status"
+                      defaultValue={params.call_status}
+                      className="w-full rounded-xl border border-border bg-card px-3 py-2 text-sm text-text-main"
+                    >
+                      <option value="all">Todos los estados</option>
+                      <option value="activa">Activa</option>
+                      <option value="por_salir">Por salir</option>
+                      <option value="pasada">Pasada</option>
+                    </select>
+                  </div>
+
                   <div className="flex items-center gap-2">
                     <input
                       type="checkbox"
@@ -350,11 +452,22 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
                           ))}
                         </div>
 
-                        <div className="mt-auto pt-3">
+                        <div className="mt-auto pt-3 space-y-1.5">
                           <p className="flex items-center gap-1 text-xs text-text-muted">
                             <Calendar className="size-3" />
                             Deadline: {new Date(opp.deadline).toLocaleDateString("es-ES", { year: "numeric", month: "short", day: "numeric" })}
                           </p>
+                          {opp.call_frequency && (
+                            <p className="flex items-center gap-1 text-xs text-text-muted">
+                              <Timer className="size-3" />
+                              {opp.call_frequency}
+                            </p>
+                          )}
+                          <div className="flex items-center gap-1.5">
+                            <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-medium border ${statusColors[getOpportunityStatus(opp.deadline, opp.call_frequency)]}`}>
+                              {getStatusLabel(getOpportunityStatus(opp.deadline, opp.call_frequency))}
+                            </span>
+                          </div>
                         </div>
                       </div>
 

@@ -30,6 +30,40 @@ export interface Profile {
   updated_at: string;
 }
 
+export type CallFrequency =
+  | "Contínua"
+  | "Anual - enero" | "Anual - febrero" | "Anual - marzo" | "Anual - abril"
+  | "Anual - mayo" | "Anual - junio" | "Anual - julio" | "Anual - agosto"
+  | "Anual - septiembre" | "Anual - octubre" | "Anual - noviembre" | "Anual - diciembre"
+  | "Anual - varía" | "Anual - consultar convocatoria"
+  | "Semestral - enero/julio" | "Semestral - febrero/septiembre"
+  | "Semestral - marzo/agosto" | "Semestral - abril/octubre"
+  | "Trimestral"
+  | "Bianual" | "Única";
+
+export type OpportunityStatus = "activa" | "por_salir" | "pasada";
+
+export function getOpportunityStatus(deadline: string, callFrequency?: string | null): OpportunityStatus {
+  const now = new Date();
+  const deadlineDate = new Date(deadline);
+
+  if (deadlineDate > now) return "activa";
+
+  if (callFrequency && callFrequency !== "Única" && callFrequency !== "Contínua" && callFrequency !== "Anual - consultar convocatoria") {
+    return "por_salir";
+  }
+
+  return "pasada";
+}
+
+export function getStatusLabel(status: OpportunityStatus): string {
+  switch (status) {
+    case "activa": return "Activa";
+    case "por_salir": return "Por salir";
+    case "pasada": return "Pasada";
+  }
+}
+
 export interface Opportunity {
   id: string;
   title: string;
@@ -49,6 +83,11 @@ export interface Opportunity {
   updated_at: string;
   educational_level?: string;
   educational_field?: string;
+  course_level?: string;
+  course_duration?: string;
+  course_subject?: string;
+  course_language?: string;
+  call_frequency?: string | null;
 }
 
 export interface Application {

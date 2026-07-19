@@ -8,6 +8,7 @@ import {
   opportunitySchema,
   type OpportunityInput,
 } from "@/lib/validations/opportunity";
+import { getOpportunityStatus } from "@/types";
 
 async function checkRateLimit(userId: string) {
   const { success } = await authLimiter.limit(userId);
@@ -23,6 +24,10 @@ export async function getOpportunities(filters?: {
   search?: string;
   level?: string;
   field?: string;
+  course_level?: string;
+  course_subject?: string;
+  course_language?: string;
+  call_status?: string;
 }) {
   const supabase = await createClient();
 
@@ -49,6 +54,18 @@ export async function getOpportunities(filters?: {
 
   if (filters?.field && filters.field !== "all") {
     query = query.eq("educational_field", filters.field);
+  }
+
+  if (filters?.course_level && filters.course_level !== "all") {
+    query = query.eq("course_level", filters.course_level);
+  }
+
+  if (filters?.course_subject && filters.course_subject !== "all") {
+    query = query.eq("course_subject", filters.course_subject);
+  }
+
+  if (filters?.course_language && filters.course_language !== "all") {
+    query = query.eq("course_language", filters.course_language);
   }
 
   const { data, error } = await query;
@@ -98,6 +115,15 @@ export async function getOpportunities(filters?: {
       })
       .filter(opp => opp._score > 0)
       .sort((a, b) => b._score - a._score);
+  }
+
+  // Filter by call status (activa, por_salir, pasada)
+  if (filters?.call_status && filters.call_status !== "all") {
+    const now = new Date();
+    results = results.filter(opp => {
+      const status = getOpportunityStatus(opp.deadline, opp.call_frequency);
+      return status === filters.call_status;
+    });
   }
 
   return { data: results, count: results.length, error: null };

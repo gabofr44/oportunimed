@@ -4,7 +4,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getOpportunityById } from "@/actions/opportunities";
 import { ApplyButton } from "@/components/opportunities/ApplyButton";
-import { ArrowLeft, MapPin, Calendar, ExternalLink, Sparkles, GraduationCap, BookOpen } from "lucide-react";
+import { ArrowLeft, MapPin, Calendar, ExternalLink, Sparkles, GraduationCap, BookOpen, Timer } from "lucide-react";
+import { getOpportunityStatus, getStatusLabel } from "@/types";
 
 const typeColors: Record<string, string> = {
   scholarship: "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950 dark:text-emerald-300 dark:border-emerald-800",
@@ -75,7 +76,19 @@ export default async function OpportunityDetailPage({ params }: Props) {
               <div className="flex size-14 items-center justify-center rounded-2xl bg-primary/5 text-2xl font-bold text-primary">
                 {opportunity.title.charAt(0)}
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
+                {(() => {
+                  const status = getOpportunityStatus(opportunity.deadline, opportunity.call_frequency);
+                  const statusColor = status === "activa" ? "border-green-200 bg-green-50 text-green-700 dark:border-green-800 dark:bg-green-950 dark:text-green-300" :
+                    status === "por_salir" ? "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-300" :
+                    "border-gray-200 bg-gray-50 text-gray-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-400";
+                  return (
+                    <span className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-medium ${statusColor}`}>
+                      <Timer className="size-3" />
+                      {getStatusLabel(status)}
+                    </span>
+                  );
+                })()}
                 {opportunity.funding && (
                   <Badge variant="outline" className="border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
                     <Sparkles className="mr-1 size-3" />
@@ -139,6 +152,55 @@ export default async function OpportunityDetailPage({ params }: Props) {
                   <div>
                     <p className="text-xs text-text-muted">Rama Educativa</p>
                     <p className="font-medium text-text-main">{educationalFieldLabels[opportunity.educational_field] || opportunity.educational_field}</p>
+                  </div>
+                </div>
+              )}
+              {opportunity.call_frequency && (
+                <div className="flex items-center gap-2 rounded-xl border border-border bg-surface px-4 py-3">
+                  <Timer className="size-5 text-primary" />
+                  <div>
+                    <p className="text-xs text-text-muted">Frecuencia de Convocatoria</p>
+                    <p className="font-medium text-text-main">{opportunity.call_frequency}</p>
+                  </div>
+                </div>
+              )}
+              {opportunity.type === "course" && opportunity.course_level && (
+                <div className="flex items-center gap-2 rounded-xl border border-border bg-surface px-4 py-3">
+                  <GraduationCap className="size-5 text-primary" />
+                  <div>
+                    <p className="text-xs text-text-muted">Nivel del Curso</p>
+                    <p className="font-medium text-text-main">
+                      {opportunity.course_level === "beginner" ? "Principiante" :
+                       opportunity.course_level === "intermediate" ? "Intermedio" :
+                       opportunity.course_level === "advanced" ? "Avanzado" : opportunity.course_level}
+                    </p>
+                  </div>
+                </div>
+              )}
+              {opportunity.type === "course" && opportunity.course_duration && (
+                <div className="flex items-center gap-2 rounded-xl border border-border bg-surface px-4 py-3">
+                  <Calendar className="size-5 text-primary" />
+                  <div>
+                    <p className="text-xs text-text-muted">Duración</p>
+                    <p className="font-medium text-text-main">{opportunity.course_duration}</p>
+                  </div>
+                </div>
+              )}
+              {opportunity.type === "course" && opportunity.course_subject && (
+                <div className="flex items-center gap-2 rounded-xl border border-border bg-surface px-4 py-3">
+                  <BookOpen className="size-5 text-primary" />
+                  <div>
+                    <p className="text-xs text-text-muted">Materia</p>
+                    <p className="font-medium text-text-main">{opportunity.course_subject}</p>
+                  </div>
+                </div>
+              )}
+              {opportunity.type === "course" && opportunity.course_language && (
+                <div className="flex items-center gap-2 rounded-xl border border-border bg-surface px-4 py-3">
+                  <BookOpen className="size-5 text-primary" />
+                  <div>
+                    <p className="text-xs text-text-muted">Idioma</p>
+                    <p className="font-medium text-text-main">{opportunity.course_language === "en" ? "Inglés" : opportunity.course_language === "es" ? "Español" : opportunity.course_language}</p>
                   </div>
                 </div>
               )}

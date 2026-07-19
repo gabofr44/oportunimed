@@ -22,6 +22,10 @@ export const opportunitySchema = z.object({
     .string()
     .min(20, "Description must be at least 20 characters")
     .optional(),
+  course_level: z.string().optional(),
+  course_duration: z.string().optional(),
+  course_subject: z.string().optional(),
+  course_language: z.string().optional(),
 });
 
 export type OpportunityInput = z.infer<typeof opportunitySchema>;
@@ -34,6 +38,10 @@ export const searchSchema = z.object({
   subtype: z.string().optional(),
   funding: z.boolean().default(false),
   page: z.number().int().positive().default(1),
+  course_level: z.string().optional(),
+  course_subject: z.string().optional(),
+  course_language: z.string().optional(),
+  call_status: z.enum(["all", "activa", "por_salir", "pasada"]).default("all"),
 });
 
 export type SearchInput = z.infer<typeof searchSchema>;

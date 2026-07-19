@@ -141,7 +141,7 @@ INSERT INTO opportunities (title, institution, location, type, subtype, funding,
 ('Pierre Elliott Trudeau Foundation Doctoral Scholarships', 'Pierre Elliott Trudeau Foundation', 'Canada', 'scholarship', 'fellowship', true, 'For outstanding doctoral candidates studying social and human sciences in Canada.', 'https://www.trudeaufoundation.ca/scholarships/doctors', '2026-12-01T23:59:00Z', ARRAY['PhD', 'Canada', 'Social Sciences', 'Canadá'], false, 'posgrado', 'humanidades'),
 
 -- Qatar Government Scholarship (NEW)
-('Qatar Government Scholarship', 'Government of Qatar', 'Qatar', 'scholarship', 'full_scholarship', true, 'Fully funded scholarship for international students to study at Qatari universities.', 'https://www.scholarshiptab.com', '2026-08-15T23:59:00Z', ARRAY['Scholarship', 'Qatar', 'Middle East'], false, 'universidad', 'general'),
+('Qatar Government Scholarship', 'Government of Qatar', 'Qatar', 'scholarship', 'full_scholarship', true, 'Fully funded scholarship for international students to study at Qatari universities.', 'https://scholarship.edu.gov.qa', '2026-08-15T23:59:00Z', ARRAY['Scholarship', 'Qatar', 'Middle East'], false, 'universidad', 'general'),
 
 -- NSEP Boren Awards
 ('NSEP Boren Awards', 'U.S. Department of Defense', 'Various', 'scholarship', 'full_scholarship', true, 'For undergraduate and graduate students to study critical languages abroad.', 'https://www.borenawards.org/', '2027-01-27T23:59:00Z', ARRAY['Exchange', 'Language', 'Government', 'Estados Unidos'], false, 'universidad', 'general'),
@@ -195,10 +195,10 @@ INSERT INTO opportunities (title, institution, location, type, subtype, funding,
 ('Europubhealth+ Erasmus Mundus', 'European Consortium (8 universities)', 'Europe', 'scholarship', 'full_scholarship', true, 'Joint master''s in public health at 8 European universities. Double degree. Fully funded via Erasmus+ scholarships.', 'https://www.europubhealth.org/', '2027-01-08T23:59:00Z', ARRAY['Public Health', 'Europe', 'Europa', 'Masters', 'Salud Pública'], false, 'posgrado', 'ciencias_salud'),
 
 -- Kaohsiung Medical University (NEW)
-('Kaohsiung Medical University Scholarship', 'Kaohsiung Medical University', 'Taiwan', 'scholarship', 'full_scholarship', true, 'Full scholarship for international students to study medicine and other fields at KMU in Taiwan.', 'https://www.scholarshiptab.com', '2026-10-12T23:59:00Z', ARRAY['Taiwan', 'Medicine', 'Scholarship', 'Asia'], false, 'universidad', 'ciencias_salud'),
+('Kaohsiung Medical University Scholarship', 'Kaohsiung Medical University', 'Taiwan', 'scholarship', 'full_scholarship', true, 'Full scholarship for international students to study medicine and other fields at KMU in Taiwan.', 'https://enroll.kmu.edu.tw/scholarships/', '2026-10-12T23:59:00Z', ARRAY['Taiwan', 'Medicine', 'Scholarship', 'Asia'], false, 'universidad', 'ciencias_salud'),
 
 -- Amirana Scholarship (NEW)
-('Amirana Scholarship for Medical Students', 'Heidelberg University', 'Germany', 'scholarship', 'merit_based', true, 'Scholarship for international medical and dental students from the Global South to study at Heidelberg University.', 'https://www.scholarshiptab.com', '2026-11-15T23:59:00Z', ARRAY['Germany', 'Alemania', 'Medicine', 'Medicina', 'Global South'], false, 'universidad', 'ciencias_salud'),
+('Amirana Scholarship for Medical Students', 'Heidelberg University', 'Germany', 'scholarship', 'merit_based', true, 'Scholarship for international medical and dental students from the Global South to study at Heidelberg University.', 'https://www.uni-heidelberg.de/en/alumni/career/scholarships/amirana-scholarship', '2026-11-15T23:59:00Z', ARRAY['Germany', 'Alemania', 'Medicine', 'Medicina', 'Global South'], false, 'universidad', 'ciencias_salud'),
 
 -- DAAD EPOS (NEW)
 ('DAAD EPOS Scholarship', 'DAAD', 'Germany', 'scholarship', 'government', true, 'Development-related postgraduate courses scholarship. For students from developing countries to study in Germany.', 'https://www.daad.de/en/study-and-research-in-germany/scholarships/epos/', '2026-10-15T23:59:00Z', ARRAY['Germany', 'Alemania', 'Development', 'Masters', 'EPOS'], false, 'posgrado', 'general'),
