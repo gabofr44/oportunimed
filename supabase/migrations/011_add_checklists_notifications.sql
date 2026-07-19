@@ -15,9 +15,11 @@ CREATE TABLE IF NOT EXISTS checklists (
 
 ALTER TABLE checklists ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "Users can manage own checklists"
-  ON checklists FOR ALL
-  USING (auth.uid() = user_id);
+DO $$ BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'Users can manage own checklists' AND tablename = 'checklists') THEN
+    CREATE POLICY "Users can manage own checklists" ON checklists FOR ALL USING (auth.uid() = user_id);
+  END IF;
+END $$;
 
 -- Notification preferences
 CREATE TABLE IF NOT EXISTS notification_preferences (
@@ -35,9 +37,11 @@ CREATE TABLE IF NOT EXISTS notification_preferences (
 
 ALTER TABLE notification_preferences ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "Users can manage own notification preferences"
-  ON notification_preferences FOR ALL
-  USING (auth.uid() = user_id);
+DO $$ BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'Users can manage own notification preferences' AND tablename = 'notification_preferences') THEN
+    CREATE POLICY "Users can manage own notification preferences" ON notification_preferences FOR ALL USING (auth.uid() = user_id);
+  END IF;
+END $$;
 
 -- Notifications log
 CREATE TABLE IF NOT EXISTS notifications (
@@ -53,10 +57,11 @@ CREATE TABLE IF NOT EXISTS notifications (
 
 ALTER TABLE notifications ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "Users can read own notifications"
-  ON notifications FOR SELECT
-  USING (auth.uid() = user_id);
-
-CREATE POLICY "Users can update own notifications"
-  ON notifications FOR UPDATE
-  USING (auth.uid() = user_id);
+DO $$ BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'Users can read own notifications' AND tablename = 'notifications') THEN
+    CREATE POLICY "Users can read own notifications" ON notifications FOR SELECT USING (auth.uid() = user_id);
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE policyname = 'Users can update own notifications' AND tablename = 'notifications') THEN
+    CREATE POLICY "Users can update own notifications" ON notifications FOR UPDATE USING (auth.uid() = user_id);
+  END IF;
+END $$;

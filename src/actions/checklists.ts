@@ -50,18 +50,20 @@ export async function saveChecklist(opportunityId: string, items: { id: string; 
 export async function initChecklist(opportunityId: string) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return { error: "Unauthorized" };
+  if (!user) return { data: null, error: "Unauthorized" };
 
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from("checklists")
     .upsert({
       user_id: user.id,
       opportunity_id: opportunityId,
       items: defaultItems,
       updated_at: new Date().toISOString(),
-    }, { onConflict: "user_id, opportunity_id" });
+    }, { onConflict: "user_id, opportunity_id" })
+    .select()
+    .single();
 
-  if (error) return { error: error.message };
+  if (error) return { data: null, error: error.message };
   revalidatePath(`/opportunities/${opportunityId}`);
-  return { error: null };
+  return { data, error: null };
 }
