@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckSquare, Square, Plus, Loader2, PartyPopper, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import { saveChecklist, initChecklist } from "@/actions/checklists";
 
 interface ChecklistItem {
@@ -15,9 +16,10 @@ interface ChecklistItem {
 interface ChecklistSectionProps {
   opportunityId: string;
   initialItems?: ChecklistItem[] | null;
+  isAuthenticated?: boolean;
 }
 
-export function ChecklistSection({ opportunityId, initialItems }: ChecklistSectionProps) {
+export function ChecklistSection({ opportunityId, initialItems, isAuthenticated }: ChecklistSectionProps) {
   const [items, setItems] = useState<ChecklistItem[]>(initialItems || []);
   const [loading, setLoading] = useState(false);
   const [initLoading, setInitLoading] = useState(false);
@@ -54,6 +56,20 @@ export function ChecklistSection({ opportunityId, initialItems }: ChecklistSecti
     }
     setInitLoading(false);
   }, [opportunityId]);
+
+  if (!isAuthenticated) {
+    return (
+      <div className="mt-8 rounded-2xl border border-border bg-card p-6 noise">
+        <div className="relative z-10">
+          <h2 className="text-lg font-semibold text-text-main">Checklist de aplicación</h2>
+          <p className="mt-1 text-sm text-text-muted">Inicia sesión para crear tu checklist y dar seguimiento a los requisitos.</p>
+          <Link href="/auth/login">
+            <Button className="mt-3 rounded-xl text-sm">Iniciar sesión</Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   if (!hasChecklist) {
     return (

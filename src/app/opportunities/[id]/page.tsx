@@ -242,7 +242,7 @@ export default async function OpportunityDetailPage({ params }: Props) {
               )}
             </div>
 
-            <ChecklistSection opportunityId={opportunity.id} initialItems={checklistItems as any} />
+            <ChecklistSection opportunityId={opportunity.id} initialItems={checklistItems as any} isAuthenticated={!!user} />
           </div>
         </div>
       </div>
