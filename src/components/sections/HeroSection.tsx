@@ -2,8 +2,9 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Search, ArrowRight, Sparkles, GraduationCap, Beaker, Globe } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, FormEvent } from "react";
 
 interface HeroContent {
   headline?: string;
@@ -13,6 +14,9 @@ interface HeroContent {
   cta_1_link?: string;
   cta_2_text?: string;
   cta_2_link?: string;
+  totalOpps?: number;
+  totalCountries?: number;
+  totalTypes?: number;
 }
 
 function CountUp({ target, suffix = "" }: { target: number; suffix?: string }) {
@@ -48,6 +52,18 @@ function CountUp({ target, suffix = "" }: { target: number; suffix?: string }) {
 
 export function HeroSection({ content }: { content?: HeroContent }) {
   const c = content || {};
+  const router = useRouter();
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleSearch = (e: FormEvent) => {
+    e.preventDefault();
+    const q = searchValue.trim();
+    if (q) {
+      router.push(`/opportunities?q=${encodeURIComponent(q)}`);
+    } else {
+      router.push("/opportunities");
+    }
+  };
 
   return (
     <section className="relative overflow-hidden bg-background">
@@ -81,19 +97,20 @@ export function HeroSection({ content }: { content?: HeroContent }) {
           transition={{ duration: 0.5, delay: 0.15 }}
           className="mx-auto mt-8 max-w-2xl"
         >
-          <Link href={c.cta_1_link || "/opportunities"} className="flex items-center rounded-2xl border border-border bg-card p-2 shadow-sm transition-all hover:border-blue/30 hover:shadow-md focus-within:border-blue/40 focus-within:shadow-md">
+          <form onSubmit={handleSearch} className="flex items-center rounded-2xl border border-border bg-card p-2 shadow-sm transition-all hover:border-blue/30 hover:shadow-md focus-within:border-blue/40 focus-within:shadow-md">
             <Search className="ml-3 size-5 text-text-muted" />
             <input
               type="text"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
               placeholder={c.search_placeholder || "Beca, universidad, país..."}
               className="flex-1 bg-transparent px-3 py-2.5 text-sm text-text-main outline-none placeholder:text-text-muted/60"
-              readOnly
             />
-            <button className="flex items-center gap-1.5 rounded-xl bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-all hover:scale-[1.03]">
+            <button type="submit" className="flex items-center gap-1.5 rounded-xl bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-all hover:scale-[1.03]">
               {c.cta_1_text || "Buscar"}
               <ArrowRight className="size-3.5" />
             </button>
-          </Link>
+          </form>
         </motion.div>
 
         <motion.div
@@ -102,10 +119,7 @@ export function HeroSection({ content }: { content?: HeroContent }) {
           transition={{ duration: 0.5, delay: 0.25 }}
           className="mx-auto mt-6 flex max-w-2xl flex-wrap items-center justify-center gap-3 text-sm text-text-muted"
         >
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1 text-xs">
-            <Sparkles className="size-3 text-blue" />
-            IA inteligente
-          </span>
+
           <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1 text-xs">
             <Globe className="size-3 text-success" />
             +50 países
@@ -124,13 +138,12 @@ export function HeroSection({ content }: { content?: HeroContent }) {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-4 sm:grid-cols-4"
+          className="mx-auto mt-12 grid max-w-3xl grid-cols-3 gap-4"
         >
           {[
-            { value: 342, suffix: "+", label: "Convocatorias activas", icon: "📋" },
-            { value: 50, suffix: "+", label: "Países disponibles", icon: "🌍" },
-            { value: 12000, suffix: "+", label: "Estudiantes registrados", icon: "👥" },
-            { value: 89, suffix: "%", label: "Tasa de aceptación", icon: "🎯" },
+            { value: c.totalOpps || 0, suffix: "+", label: "Convocatorias", icon: "📋" },
+            { value: c.totalCountries || 0, suffix: "+", label: "Países disponibles", icon: "🌍" },
+            { value: c.totalTypes || 0, suffix: "", label: "Tipos de programa", icon: "🎯" },
           ].map((stat, i) => (
             <motion.div
               key={stat.label}

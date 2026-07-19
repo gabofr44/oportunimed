@@ -2,9 +2,9 @@ import { redirect } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getCurrentUser } from "@/actions/auth";
-import { getUserApplications } from "@/actions/applications";
+import { getUserApplications, updateApplicationStatus } from "@/actions/applications";
 import Link from "next/link";
-import { FileText, Clock, CheckCircle, ArrowUpRight } from "lucide-react";
+import { FileText, Clock, CheckCircle, ArrowUpRight, Eye, XCircle } from "lucide-react";
 
 const statusColors: Record<string, string> = {
   pending: "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950 dark:text-amber-300 dark:border-amber-800",
@@ -65,29 +65,54 @@ export default async function DashboardPage() {
 
           {applications && applications.length > 0 ? (
             <div className="mt-4 space-y-3">
-              {applications.map((app) => (
-                <div
-                  key={app.id}
-                  className="bento-shadow flex items-center justify-between rounded-2xl border border-border bg-card p-5 noise"
-                >
-                  <div className="relative z-10 flex-1">
-                    <h3 className="font-semibold text-text-main">
-                      {((app as Record<string, unknown>).opportunities as Record<string, string>)?.title || "Desconocido"}
-                    </h3>
-                    <p className="mt-1 text-xs text-text-muted">
-                      Postulado:{" "}
-                      {new Date(app.applied_at).toLocaleDateString("es-ES", {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                      })}
-                    </p>
+              {applications.map((app) => {
+                const oppData = (app as Record<string, unknown>).opportunities as Record<string, string> | null;
+                const oppId = app.opportunity_id;
+                return (
+                  <div
+                    key={app.id}
+                    className="bento-shadow flex items-center justify-between rounded-2xl border border-border bg-card p-5 noise"
+                  >
+                    <div className="relative z-10 flex-1">
+                      <h3 className="font-semibold text-text-main">
+                        {oppData?.title || "Desconocido"}
+                      </h3>
+                      <p className="mt-1 text-xs text-text-muted">
+                        Postulado:{" "}
+                        {new Date(app.applied_at).toLocaleDateString("es-ES", {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </p>
+                    </div>
+                    <div className="relative z-10 flex items-center gap-3">
+                      {oppId && (
+                        <Link href={`/opportunities/${oppId}`}>
+                          <Button variant="outline" size="sm" className="rounded-xl text-xs">
+                            <Eye className="mr-1 size-3" />
+                            Ver
+                          </Button>
+                        </Link>
+                      )}
+                      {app.status === "pending" && (
+                        <form action={async () => {
+                          "use server";
+                          await updateApplicationStatus(app.id, "withdrawn");
+                        }}>
+                          <Button type="submit" variant="outline" size="sm" className="rounded-xl text-xs border-red-200 text-red-600 hover:bg-red-50">
+                            <XCircle className="mr-1 size-3" />
+                            Retirar
+                          </Button>
+                        </form>
+                      )}
+                      <Badge variant="outline" className={statusColors[app.status]}>
+                        {statusLabels[app.status] || app.status}
+                      </Badge>
+                    </div>
                   </div>
-                  <Badge variant="outline" className={`relative z-10 ${statusColors[app.status]}`}>
-                    {statusLabels[app.status] || app.status}
-                  </Badge>
-                </div>
-              ))}
+                );
+              })}
             </div>
           ) : (
             <div className="mt-4 rounded-2xl border border-border bg-card py-12 text-center">

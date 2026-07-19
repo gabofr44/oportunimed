@@ -129,6 +129,23 @@ export async function getOpportunities(filters?: {
   return { data: results, count: results.length, error: null };
 }
 
+export async function getOpportunitiesByCountry(country: string) {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("opportunities")
+    .select("*")
+    .ilike("location", `%${country}%`)
+    .order("deadline", { ascending: true });
+
+  if (error) {
+    console.error("Error fetching opportunities by country:", error);
+    return { data: [], error: error.message };
+  }
+
+  return { data, error: null };
+}
+
 export async function getFeaturedOpportunities() {
   const supabase = await createClient();
 

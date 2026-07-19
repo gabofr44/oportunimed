@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Providers } from "@/components/providers";
+import { SiteLayout } from "@/components/layout/SiteLayout";
 import "./globals.css";
 
 const inter = Inter({
@@ -22,7 +23,9 @@ export default async function RootLayout({
   return (
     <html lang="es" className={`${inter.variable} h-full`} suppressHydrationWarning>
       <body className="min-h-full">
-        <Providers>{children}</Providers>
+        <Providers>
+          <SiteLayout>{children}</SiteLayout>
+        </Providers>
       </body>
     </html>
   );
