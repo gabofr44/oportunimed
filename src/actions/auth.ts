@@ -1,6 +1,5 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { authSchema, type AuthInput } from "@/lib/validations/opportunity";
 import { loginLimiter } from "@/lib/rate-limit";
@@ -14,7 +13,7 @@ async function checkLoginRateLimit(identifier: string) {
 
 export async function signUp(
   input: AuthInput
-): Promise<{ error?: Record<string, string[]> }> {
+): Promise<{ error?: Record<string, string[]>; success?: boolean }> {
   const parsed = authSchema.safeParse(input);
 
   if (!parsed.success) {
@@ -41,12 +40,12 @@ export async function signUp(
     return { error: { auth: [error.message] } };
   }
 
-  return {};
+  return { success: true };
 }
 
 export async function signIn(
   input: AuthInput
-): Promise<{ error?: Record<string, string[]> }> {
+): Promise<{ error?: Record<string, string[]>; success?: boolean }> {
   const parsed = authSchema.safeParse(input);
 
   if (!parsed.success) {
@@ -70,34 +69,12 @@ export async function signIn(
     return { error: { auth: [error.message] } };
   }
 
-  redirect("/");
-}
-
-export async function signInWithGoogle(): Promise<{ error?: string }> {
-  const supabase = await createClient();
-
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: "google",
-    options: {
-      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/api/auth/callback`,
-    },
-  });
-
-  if (error) {
-    return { error: error.message };
-  }
-
-  if (data.url) {
-    redirect(data.url);
-  }
-
-  return {};
+  return { success: true };
 }
 
 export async function signOut() {
   const supabase = await createClient();
   await supabase.auth.signOut();
-  redirect("/");
 }
 
 export async function getCurrentUser() {

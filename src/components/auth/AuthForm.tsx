@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Stethoscope, Loader2 } from "lucide-react";
+import { Stethoscope, Loader2, CheckCircle } from "lucide-react";
 
 interface AuthFormProps {
   type: "login" | "register";
-  onSubmit: (data: { email: string; password: string }) => Promise<{ error?: Record<string, string[]> }>;
+  onSubmit: (data: { email: string; password: string }) => Promise<{ error?: Record<string, string[]>; success?: boolean }>;
   onGoogle?: () => Promise<{ error?: string }>;
 }
 
@@ -16,17 +16,45 @@ export function AuthForm({ type, onSubmit, onGoogle }: AuthFormProps) {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const [loading, setLoading] = useState(false);
+  const [registered, setRegistered] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setErrors({});
     const result = await onSubmit({ email, password });
     if (result.error) {
       setErrors(result.error);
+      setLoading(false);
+    } else if (result.success) {
+      if (type === "login") {
+        window.location.href = "/";
+      } else {
+        setRegistered(true);
+        setTimeout(() => {
+          window.location.href = "/auth/login";
+        }, 2000);
+      }
     }
-    setLoading(false);
-  };
+  }, [onSubmit, type]);
+
+  if (registered) {
+    return (
+      <div className="w-full max-w-md space-y-6">
+        <div className="text-center">
+          <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-600">
+            <CheckCircle className="size-6" />
+          </div>
+          <h1 className="text-2xl font-bold tracking-tight text-text-main">
+            Cuenta creada
+          </h1>
+          <p className="mt-2 text-sm text-text-muted">
+            Revisa tu correo para confirmar tu cuenta. Redirigiendo al inicio de sesión...
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-md space-y-6">
