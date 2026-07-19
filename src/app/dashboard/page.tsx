@@ -28,6 +28,10 @@ export default async function DashboardPage() {
     redirect("/auth/login");
   }
 
+  if (!user.profile?.onboarding_complete) {
+    redirect("/onboarding");
+  }
+
   const { data: applications } = await getUserApplications();
   const { data: notifPrefs } = await getNotificationPreferences();
   const total = applications?.length || 0;

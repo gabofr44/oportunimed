@@ -155,17 +155,17 @@ export async function getOpportunityStats() {
     .from("opportunities")
     .select("location");
 
-  const { data: types } = await supabase
+  const { data: fields } = await supabase
     .from("opportunities")
-    .select("type");
+    .select("educational_field");
 
   const uniqueLocations = new Set((locations || []).map((l: { location: string }) => l.location?.trim()).filter(Boolean));
-  const uniqueTypes = new Set((types || []).map((t: { type: string }) => t.type).filter(Boolean));
+  const uniqueFields = new Set((fields || []).map((f: { educational_field: string | null }) => f.educational_field?.trim()).filter(Boolean));
 
   return {
     total: total || 0,
     countries: uniqueLocations.size,
-    types: uniqueTypes.size,
+    types: uniqueFields.size,
   };
 }
 
