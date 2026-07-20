@@ -6,6 +6,41 @@ import { getCurrentUser } from "@/actions/auth";
 import { getOpportunityStatus, getStatusLabel } from "@/types";
 import { Search, MapPin, Calendar, Sparkles, ArrowUpRight, GraduationCap, BookOpen, Timer, Star } from "lucide-react";
 import Link from "next/link";
+import { GuidedTour } from "@/components/onboarding/GuidedTour";
+import { TourHelpButton } from "@/components/onboarding/TourHelpButton";
+
+const tourSteps = [
+  {
+    targetId: "tour-search",
+    title: "Busca por palabras clave",
+    description: "Escribe el nombre de un país, tema o institución (ej. \"neurología\" o \"Alemania\") para encontrar convocatorias relacionadas.",
+  },
+  {
+    targetId: "tour-type",
+    title: "Filtra por tipo",
+    description: "Elige si buscas becas, investigación, internships, cursos u otro tipo de convocatoria. La subcategoría de abajo se ajusta según lo que elijas aquí.",
+  },
+  {
+    targetId: "tour-level-field",
+    title: "Ajusta a tu perfil académico",
+    description: "Nivel Educativo y Rama Educativa filtran las convocatorias según en qué etapa vas y qué área estudias, para no ver oportunidades que no te aplican.",
+  },
+  {
+    targetId: "tour-estado",
+    title: "Revisa el estado de la convocatoria",
+    description: "\"Activa\" significa que puedes aplicar ahora mismo; \"Por salir\" son próximas a abrir. Combínalo con \"Solo financiados\" si buscas apoyo económico.",
+  },
+  {
+    targetId: "tour-submit",
+    title: "Aplica los filtros",
+    description: "Los filtros no se aplican solos — dale clic aquí después de elegir los que te interesan.",
+  },
+  {
+    targetId: "tour-results",
+    title: "Ve el detalle y aplica",
+    description: "Cada tarjeta te lleva a la página de detalle, y de ahí a la convocatoria oficial. Ahí es donde realmente aplicas — nosotros solo te ayudamos a encontrarla.",
+  },
+];
 
 const typeColors: Record<string, string> = {
   scholarship: "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950 dark:text-emerald-300 dark:border-emerald-800",
@@ -159,6 +194,7 @@ interface Props {
   }>;
 }
 
+
 export default async function OpportunitiesPage({ searchParams }: Props) {
   const params = await searchParams;
   const user = await getCurrentUser();
@@ -185,11 +221,14 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
   return (
     <main className="flex-1 bg-background">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold tracking-tight text-text-main">Convocatorias</h1>
-          <p className="mt-2 text-text-muted">
-            Descubre {count} programas disponibles en todo el mundo
-          </p>
+        <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight text-text-main">Convocatorias</h1>
+            <p className="mt-2 text-text-muted">
+              Descubre {count} programas disponibles en todo el mundo
+            </p>
+          </div>
+          <TourHelpButton />
         </div>
 
         <div className="flex flex-col gap-6 lg:flex-row">
@@ -216,7 +255,7 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
                       </Link>
                     </div>
                   )}
-                  <div>
+                  <div id="tour-search">
                     <label className="mb-1 block text-sm font-medium text-text-main">
                       Buscar
                     </label>
@@ -226,7 +265,7 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
                     </div>
                   </div>
 
-                  <div>
+                  <div id="tour-type">
                     <label className="mb-1 flex items-center gap-1.5 text-sm font-medium text-text-main">
                       <span className="size-1.5 rounded-full bg-blue" />
                       Tipo de Convocatoria
@@ -271,7 +310,7 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
                     </select>
                   </div>
 
-                  <div>
+                  <div id="tour-level-field">
                     <label className="mb-1 flex items-center gap-1.5 text-sm font-medium text-text-main">
                       <GraduationCap className="size-3.5 text-blue" />
                       Nivel Educativo
@@ -385,7 +424,7 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
                     </>
                   )}
 
-                  <div>
+                  <div id="tour-estado">
                     <label className="mb-1 flex items-center gap-1.5 text-sm font-medium text-text-main">
                       <Timer className="size-3.5 text-blue" />
                       Estado
@@ -415,7 +454,7 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
                     </label>
                   </div>
 
-                  <Button type="submit" className="w-full rounded-xl bg-primary text-primary-foreground hover:bg-primary/90">
+                  <Button id="tour-submit" type="submit" className="w-full rounded-xl bg-primary text-primary-foreground hover:bg-primary/90">
                     Aplicar filtros
                   </Button>
                 </form>
@@ -425,7 +464,7 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
 
           <div className="flex-1">
             {opportunities && opportunities.length > 0 ? (
-              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              <div id="tour-results" className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                 {opportunities.map((opp) => (
                   <Link key={opp.id} href={`/opportunities/${opp.id}`}>
                     <div className="bento-shadow card-hover group flex h-full flex-col rounded-2xl border border-border bg-card p-5 noise">
@@ -517,6 +556,7 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
           </div>
         </div>
       </div>
+      <GuidedTour storageKey="oportunimed_tour_opportunities" steps={tourSteps} />
     </main>
   );
 }
