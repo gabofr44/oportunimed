@@ -1,5 +1,6 @@
 "use server";
 
+import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { authSchema, type AuthInput } from "@/lib/validations/opportunity";
 import { loginLimiter } from "@/lib/rate-limit";
@@ -75,6 +76,7 @@ export async function signIn(
 export async function signOut() {
   const supabase = await createClient();
   await supabase.auth.signOut();
+  redirect("/auth/login");
 }
 
 export async function getCurrentUser() {

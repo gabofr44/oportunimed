@@ -39,13 +39,21 @@ export function GuidedTour({ storageKey, steps }: Props) {
       setStepIndex((i) => (i < steps.length - 1 ? i + 1 : i));
       return;
     }
-    el.scrollIntoView({ block: "center", behavior: "smooth" });
-    const r = el.getBoundingClientRect();
-    setRect({
-      top: r.top - PADDING,
-      left: r.left - PADDING,
-      width: r.width + PADDING * 2,
-      height: r.height + PADDING * 2,
+    // Jump instantly (no smooth) para que el navegador termine de hacer scroll
+    // antes de medir - medir durante una animacion de scroll suave lee una
+    // posicion vieja (previa al scroll) y descoloca el spotlight/tooltip.
+    el.scrollIntoView({ block: "center", behavior: "auto" });
+    // Espera un ciclo completo de layout+paint a que el salto de scroll se asiente.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const r = el.getBoundingClientRect();
+        setRect({
+          top: r.top - PADDING,
+          left: r.left - PADDING,
+          width: r.width + PADDING * 2,
+          height: r.height + PADDING * 2,
+        });
+      });
     });
   }, [currentStep, steps.length]);
 

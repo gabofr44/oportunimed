@@ -3,6 +3,7 @@ import { getProfile } from "@/actions/profiles";
 import { getCurrentUser } from "@/actions/auth";
 import { ProfileForm } from "./profile-form";
 import { InterestsGoalsCard } from "./interests-goals";
+import { LogoutButton } from "@/components/auth/LogoutButton";
 import {
   Mail,
   Calendar,
@@ -219,7 +220,20 @@ export default async function CuentaPage() {
               </div>
             </div>
           </div>
-
+          {/* Cerrar sesión */}
+          <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
+            <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+              <div>
+                <h3 className="text-lg font-bold text-text-main">
+                  Cerrar sesión
+                </h3>
+                <p className="text-sm text-text-muted">
+                  Vas a salir de tu cuenta en este dispositivo.
+                </p>
+              </div>
+              <LogoutButton />
+            </div>
+          </div>
           {/* Danger Zone */}
           <div className="rounded-2xl border border-red-200 bg-red-50/50 p-6 dark:border-red-900 dark:bg-red-950/30 sm:p-8">
             <div className="mb-4 flex items-center gap-3">
