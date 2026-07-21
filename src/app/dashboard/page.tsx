@@ -3,9 +3,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getCurrentUser } from "@/actions/auth";
 import { getUserApplications, updateApplicationStatus } from "@/actions/applications";
+import { getSavedOpportunities } from "@/actions/favorites";
 import { getNotificationPreferences } from "@/actions/notifications";
 import Link from "next/link";
-import { FileText, Clock, CheckCircle, ArrowUpRight, Eye, XCircle, Bell, BellRing } from "lucide-react";
+import { FileText, Clock, CheckCircle, ArrowUpRight, Eye, XCircle, Bell, BellRing, Bookmark } from "lucide-react";
 
 const statusColors: Record<string, string> = {
   pending: "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950 dark:text-amber-300 dark:border-amber-800",
@@ -34,6 +35,7 @@ export default async function DashboardPage() {
 
   const { data: applications } = await getUserApplications();
   const { data: notifPrefs } = await getNotificationPreferences();
+  const { data: saved } = await getSavedOpportunities();
   const total = applications?.length || 0;
   const pending = applications?.filter((a) => a.status === "pending").length || 0;
   const accepted = applications?.filter((a) => a.status === "accepted").length || 0;
@@ -65,6 +67,25 @@ export default async function DashboardPage() {
             </div>
           ))}
         </div>
+
+        <Link href="/dashboard/favoritos" className="mt-4 block">
+          <div className="bento-shadow card-hover rounded-2xl border border-border bg-card p-6 noise">
+            <div className="relative z-10 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Bookmark className="size-5 text-blue" />
+                <div>
+                  <p className="font-semibold text-text-main">Favoritos</p>
+                  <p className="text-sm text-text-muted">
+                    {saved.length > 0
+                      ? `${saved.length} oportunidad${saved.length === 1 ? "" : "es"} guardada${saved.length === 1 ? "" : "s"}`
+                      : "Aún no guardas ninguna"}
+                  </p>
+                </div>
+              </div>
+              <ArrowUpRight className="size-4 text-text-muted" />
+            </div>
+          </div>
+        </Link>
 
         <div className="mt-8">
           <h2 className="text-xl font-semibold text-text-main">Mis postulaciones</h2>

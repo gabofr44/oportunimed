@@ -1,13 +1,17 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { getOpportunities } from "@/actions/opportunities";
 import { getCurrentUser } from "@/actions/auth";
+import { getSavedOpportunityIds } from "@/actions/favorites";
 import { getOpportunityStatus, getStatusLabel } from "@/types";
 import { Search, MapPin, Calendar, Sparkles, ArrowUpRight, GraduationCap, BookOpen, Timer, Star } from "lucide-react";
 import Link from "next/link";
 import { GuidedTour } from "@/components/onboarding/GuidedTour";
 import { TourHelpButton } from "@/components/onboarding/TourHelpButton";
+import { SaveButton } from "@/components/opportunities/SaveButton";
+import { SearchAutocomplete } from "@/components/opportunities/SearchAutocomplete";
+import { CompareButton } from "@/components/opportunities/CompareButton";
+import { CompareFloatingBar } from "@/components/opportunities/CompareFloatingBar";
 
 const tourSteps = [
   {
@@ -198,6 +202,7 @@ interface Props {
 export default async function OpportunitiesPage({ searchParams }: Props) {
   const params = await searchParams;
   const user = await getCurrentUser();
+  const savedIds = new Set(user ? await getSavedOpportunityIds() : []);
   const userLevel = user?.profile?.educational_level as string | undefined;
   const userField = user?.profile?.educational_field as string | undefined;
   const recommended = params.recommended === "true" && !!(userLevel || userField);
@@ -259,10 +264,7 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
                     <label className="mb-1 block text-sm font-medium text-text-main">
                       Buscar
                     </label>
-                    <div className="relative">
-                      <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-text-muted" />
-                      <Input name="q" placeholder="Palabras clave..." defaultValue={params.q} className="pl-9" />
-                    </div>
+                    <SearchAutocomplete defaultValue={params.q} />
                   </div>
 
                   <div id="tour-type">
@@ -473,12 +475,20 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
                           <div className="flex size-9 items-center justify-center rounded-xl bg-primary/5 text-sm font-bold text-primary">
                             {opp.title.charAt(0)}
                           </div>
-                          {opp.funding && (
-                            <Badge variant="outline" className="border-emerald-200 bg-emerald-50 text-emerald-700 text-xs dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
-                              <Sparkles className="mr-1 size-3" />
-                              Financiado
-                            </Badge>
-                          )}
+                          <div className="flex items-center gap-1.5">
+                            {opp.funding && (
+                              <Badge variant="outline" className="border-emerald-200 bg-emerald-50 text-emerald-700 text-xs dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+                                <Sparkles className="mr-1 size-3" />
+                                Financiado
+                              </Badge>
+                            )}
+                            <SaveButton
+                              opportunityId={opp.id}
+                              initialSaved={savedIds.has(opp.id)}
+                              isLoggedIn={!!user}
+                            />
+                            <CompareButton opportunityId={opp.id} />
+                          </div>
                         </div>
 
                         <h3 className="mt-3 text-base font-semibold text-text-main group-hover:text-blue transition-colors">
@@ -557,6 +567,7 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
         </div>
       </div>
       <GuidedTour storageKey="oportunimed_tour_opportunities" steps={tourSteps} />
+      <CompareFloatingBar />
     </main>
   );
 }

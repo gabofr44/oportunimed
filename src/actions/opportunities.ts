@@ -328,3 +328,38 @@ export async function deleteOpportunity(id: string) {
   revalidatePath("/opportunities");
   return { error: null };
 }
+
+export async function searchTitleSuggestions(query: string) {
+  if (!query || query.trim().length < 2) return [];
+
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("opportunities")
+    .select("id, title, type, location")
+    .ilike("title", `%${query.trim()}%`)
+    .order("title")
+    .limit(6);
+
+  if (error) return [];
+  return data || [];
+}
+
+export async function getOpportunitiesByIds(ids: string[]) {
+  if (!ids || ids.length === 0) return { data: [], error: null };
+
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("opportunities")
+    .select("*")
+    .in("id", ids);
+
+  if (error) return { data: [], error: error.message };
+
+  // Preserve the order the ids were requested in
+  const byId = new Map((data || []).map((o) => [o.id, o]));
+  const ordered = ids.map((id) => byId.get(id)).filter(Boolean);
+
+  return { data: ordered, error: null };
+}

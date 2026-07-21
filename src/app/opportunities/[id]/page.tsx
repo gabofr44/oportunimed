@@ -6,6 +6,9 @@ import { getOpportunityById } from "@/actions/opportunities";
 import { createClient } from "@/lib/supabase/server";
 import { ApplyButton } from "@/components/opportunities/ApplyButton";
 import { ChecklistSection } from "@/components/opportunities/ChecklistSection";
+import { SaveButton } from "@/components/opportunities/SaveButton";
+import { ReportLinkButton } from "@/components/opportunities/ReportLinkButton";
+import { getSavedOpportunityIds } from "@/actions/favorites";
 import { ArrowLeft, MapPin, Calendar, ExternalLink, Sparkles, GraduationCap, BookOpen, Timer } from "lucide-react";
 import { getOpportunityStatus, getStatusLabel } from "@/types";
 
@@ -63,6 +66,8 @@ export default async function OpportunityDetailPage({ params }: Props) {
 
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
+  const savedIds = user ? await getSavedOpportunityIds() : [];
+  const isSaved = savedIds.includes(id);
   let checklistItems = null;
   if (user) {
     const { data: cl } = await supabase
@@ -118,6 +123,12 @@ export default async function OpportunityDetailPage({ params }: Props) {
                 <span className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium ${typeColors[opportunity.type]}`}>
                   {typeLabels[opportunity.type] || opportunity.type}
                 </span>
+                <SaveButton
+                  opportunityId={opportunity.id}
+                  initialSaved={isSaved}
+                  isLoggedIn={!!user}
+                  size="md"
+                />
               </div>
             </div>
 
@@ -240,6 +251,10 @@ export default async function OpportunityDetailPage({ params }: Props) {
                   </Button>
                 </a>
               )}
+            </div>
+
+            <div className="mt-3">
+              <ReportLinkButton opportunityId={opportunity.id} />
             </div>
 
             <ChecklistSection opportunityId={opportunity.id} initialItems={checklistItems as any} isAuthenticated={!!user} />
