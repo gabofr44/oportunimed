@@ -31,6 +31,8 @@ export async function getOpportunities(filters?: {
   recommended?: boolean;
   userLevel?: string;
   userField?: string;
+  page?: number;
+  pageSize?: number;
 }) {
   const supabase = await createClient();
 
@@ -75,7 +77,7 @@ export async function getOpportunities(filters?: {
 
   if (error) {
     console.error("Error fetching opportunities:", error);
-    return { data: [], count: 0, error: error.message };
+    return { data: [], count: 0, page: filters?.page || 1, pageSize: filters?.pageSize || 24, totalPages: 1, error: error.message };
   }
 
   let results = data || [];
@@ -141,7 +143,20 @@ export async function getOpportunities(filters?: {
     });
   }
 
-  return { data: results, count: results.length, error: null };
+  const totalCount = results.length;
+  const pageSize = filters?.pageSize || 24;
+  const page = Math.max(1, filters?.page || 1);
+  const start = (page - 1) * pageSize;
+  const paginated = results.slice(start, start + pageSize);
+
+  return {
+    data: paginated,
+    count: totalCount,
+    page,
+    pageSize,
+    totalPages: Math.max(1, Math.ceil(totalCount / pageSize)),
+    error: null,
+  };
 }
 
 export async function getOpportunityStats() {

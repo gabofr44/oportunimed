@@ -56,6 +56,27 @@ interface Props {
   params: Promise<{ id: string }>;
 }
 
+export async function generateMetadata({ params }: Props) {
+  const { id } = await params;
+  const { data: opportunity } = await getOpportunityById(id);
+
+  if (!opportunity) {
+    return { title: "Convocatoria no encontrada | Oportunimed" };
+  }
+
+  const typeName = typeLabels[opportunity.type] || opportunity.type;
+  const title = `${opportunity.title} | ${typeName} en ${opportunity.location} | Oportunimed`;
+  const description =
+    opportunity.description?.slice(0, 155) ||
+    `${typeName} en ${opportunity.location}. Fecha límite: ${new Date(opportunity.deadline).toLocaleDateString("es-ES")}. Encuentra los detalles y aplica en Oportunimed.`;
+
+  return {
+    title,
+    description,
+    openGraph: { title, description, type: "website" },
+  };
+}
+
 export default async function OpportunityDetailPage({ params }: Props) {
   const { id } = await params;
   const { data: opportunity, error } = await getOpportunityById(id);

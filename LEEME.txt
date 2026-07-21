@@ -1,0 +1,80 @@
+CÓMO APLICAR ESTA ACTUALIZACIÓN
+================================
+
+1) DESCOMPRIME este ZIP directamente DENTRO de tu carpeta del proyecto
+   (la que tiene package.json, src/, supabase/, etc. - la de Downloads).
+
+   Cuando tu sistema pregunte "¿Reemplazar estos archivos?" dile que SÍ a todo.
+   Esto va a:
+   - Sobrescribir 7 archivos que ya existen (con las funcionalidades nuevas agregadas)
+   - Crear 6 archivos nuevos que no existían
+
+2) Revisa en PowerShell que los cambios se detectaron:
+
+   cd "C:\Users\gabof\Downloads\New OpenCode Project\global-pathways"
+   git status
+
+   Deberías ver como "modified" estos 7:
+     .env.local.example
+     src/actions/opportunities.ts
+     src/app/admin/page.tsx
+     src/app/dashboard/page.tsx
+     src/app/opportunities/[id]/page.tsx
+     src/app/opportunities/page.tsx
+
+   Y como "new file" / sin trackear estos:
+     src/actions/favorites.ts
+     src/actions/link-reports.ts
+     src/app/comparar/
+     src/app/dashboard/favoritos/
+     src/app/robots.ts
+     src/app/sitemap.ts
+     src/components/admin/LinkReportsPanel.tsx
+     src/components/opportunities/CompareButton.tsx
+     src/components/opportunities/CompareFloatingBar.tsx
+     src/components/opportunities/ReportLinkButton.tsx
+     src/components/opportunities/SaveButton.tsx
+     src/components/opportunities/SearchAutocomplete.tsx
+     src/lib/supabase/admin.ts
+     supabase/migrations/014_add_saved_opportunities.sql
+     supabase/migrations/015_add_link_reports.sql
+
+3) IMPORTANTE - agrega la variable de entorno que falta:
+
+   Abre tu archivo .env.local real (NO el .env.local.example que viene en este
+   ZIP, ese solo es la plantilla) y agrega esta línea:
+
+     SUPABASE_SERVICE_ROLE_KEY=<tu clave real>
+
+   La sacas de: Supabase -> Settings -> API -> "service_role" (secret).
+   NUNCA subas esta clave a GitHub - .env.local ya está en tu .gitignore,
+   así que estás a salvo mientras no la pegues en ningún otro archivo.
+
+   También agrega esa misma variable en Vercel:
+   Vercel -> tu proyecto -> Settings -> Environment Variables
+   Nombre: SUPABASE_SERVICE_ROLE_KEY
+   Valor: la misma clave
+   Marca Production y Preview -> Save
+   (Vas a necesitar hacer Redeploy después de agregarla, igual que
+   la vez pasada con NEXT_PUBLIC_SITE_URL)
+
+4) Sube el código:
+
+   git add .
+   git commit -m "feat: favoritos, autocompletado, reportar link, comparador, paginacion, panel de reportes y SEO"
+   git push
+
+5) Corre las 2 migraciones SQL nuevas en Supabase (SQL Editor), en este orden:
+   - supabase/migrations/014_add_saved_opportunities.sql
+   - supabase/migrations/015_add_link_reports.sql
+
+6) Después del deploy en Vercel, prueba:
+   - /opportunities: deberías ver el buscador con sugerencias, el ícono de
+     guardar (marcador) y el de comparar (balanza) en cada tarjeta, y
+     paginación al fondo de la lista.
+   - Guarda 2-3 oportunidades con el ícono de comparar -> aparece una barra
+     flotante abajo -> "Comparar" te lleva a /comparar
+   - /dashboard/favoritos: tus oportunidades guardadas
+   - En el detalle de una oportunidad: botón "Reportar link roto"
+   - /admin (con tu contraseña): nueva pestaña "Links Reportados"
+   - /sitemap.xml y /robots.txt: deberían cargar directo en el navegador

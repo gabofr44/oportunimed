@@ -6,6 +6,7 @@ import { AdminGate } from "@/components/admin/AdminGate";
 import { ContentEditor } from "@/components/admin/ContentEditor";
 import { OpportunityManager } from "@/components/admin/OpportunityManager";
 import { SectionEditor } from "@/components/admin/SectionEditor";
+import { LinkReportsPanel } from "@/components/admin/LinkReportsPanel";
 import {
   getSiteContent,
   getAllOpportunities,
@@ -13,9 +14,9 @@ import {
 } from "@/actions/admin";
 import { clearAdminSession } from "@/lib/admin-auth";
 import type { Opportunity } from "@/types";
-import { Stethoscope, RefreshCw, ExternalLink, FileText, Target, Settings, LogOut } from "lucide-react";
+import { Stethoscope, RefreshCw, ExternalLink, FileText, Target, Settings, LogOut, Flag } from "lucide-react";
 
-type Tab = "page" | "opportunities" | "settings";
+type Tab = "page" | "opportunities" | "reports" | "settings";
 
 interface Section {
   id: string;
@@ -169,6 +170,7 @@ function AdminPanel() {
           {([
             { key: "page" as Tab, label: "Editor de páginas", icon: <FileText className="size-4" /> },
             { key: "opportunities" as Tab, label: "Convocatorias", icon: <Target className="size-4" /> },
+            { key: "reports" as Tab, label: "Links Reportados", icon: <Flag className="size-4" /> },
             { key: "settings" as Tab, label: "Configuración", icon: <Settings className="size-4" /> },
           ]).map((t) => (
             <button
@@ -243,6 +245,7 @@ function AdminPanel() {
             {tab === "opportunities" && (
               <OpportunityManager opportunities={data.opportunities} />
             )}
+            {tab === "reports" && <LinkReportsPanel />}
             {tab === "settings" && <ContentEditor content={data.content} />}
           </>
         )}

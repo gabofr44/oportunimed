@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import type { Metadata } from "next";
 import { getOpportunities } from "@/actions/opportunities";
 import { getCurrentUser } from "@/actions/auth";
 import { getSavedOpportunityIds } from "@/actions/favorites";
@@ -12,6 +13,12 @@ import { SaveButton } from "@/components/opportunities/SaveButton";
 import { SearchAutocomplete } from "@/components/opportunities/SearchAutocomplete";
 import { CompareButton } from "@/components/opportunities/CompareButton";
 import { CompareFloatingBar } from "@/components/opportunities/CompareFloatingBar";
+
+export const metadata: Metadata = {
+  title: "Convocatorias de Becas, Investigación e Internships | Oportunimed",
+  description:
+    "Explora cientos de becas, programas de investigación, internships y cursos para estudiantes de ciencias de la salud en todo el mundo. Filtra por nivel educativo, área y financiamiento.",
+};
 
 const tourSteps = [
   {
@@ -195,6 +202,7 @@ interface Props {
     course_language?: string;
     call_status?: string;
     recommended?: string;
+    page?: string;
   }>;
 }
 
@@ -207,7 +215,9 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
   const userField = user?.profile?.educational_field as string | undefined;
   const recommended = params.recommended === "true" && !!(userLevel || userField);
 
-  const { data: opportunities, count } = await getOpportunities({
+  const currentPage = Math.max(1, parseInt(params.page || "1", 10) || 1);
+
+  const { data: opportunities, count, totalPages } = await getOpportunities({
     search: params.q,
     type: params.type,
     subtype: params.subtype,
@@ -221,7 +231,25 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
     recommended: recommended || undefined,
     userLevel,
     userField,
+    page: currentPage,
   });
+
+  const buildPageHref = (targetPage: number) => {
+    const sp = new URLSearchParams();
+    if (params.q) sp.set("q", params.q);
+    if (params.type) sp.set("type", params.type);
+    if (params.subtype) sp.set("subtype", params.subtype);
+    if (params.funding) sp.set("funding", params.funding);
+    if (params.level) sp.set("level", params.level);
+    if (params.field) sp.set("field", params.field);
+    if (params.course_level) sp.set("course_level", params.course_level);
+    if (params.course_subject) sp.set("course_subject", params.course_subject);
+    if (params.course_language) sp.set("course_language", params.course_language);
+    if (params.call_status) sp.set("call_status", params.call_status);
+    if (params.recommended) sp.set("recommended", params.recommended);
+    sp.set("page", String(targetPage));
+    return `/opportunities?${sp.toString()}`;
+  };
 
   return (
     <main className="flex-1 bg-background">
@@ -561,6 +589,34 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
                 <p className="mt-1 text-sm text-text-muted">
                   Ajusta tus filtros o vuelve pronto para ver nuevas oportunidades.
                 </p>
+              </div>
+            )}
+
+            {totalPages > 1 && (
+              <div className="mt-8 flex items-center justify-center gap-2">
+                <Link
+                  href={buildPageHref(Math.max(1, currentPage - 1))}
+                  aria-disabled={currentPage === 1}
+                  className={`rounded-xl border border-border bg-card px-3 py-2 text-sm font-medium text-text-main transition-colors hover:border-blue/30 ${
+                    currentPage === 1 ? "pointer-events-none opacity-40" : ""
+                  }`}
+                >
+                  Anterior
+                </Link>
+
+                <span className="px-2 text-sm text-text-muted">
+                  Página {currentPage} de {totalPages}
+                </span>
+
+                <Link
+                  href={buildPageHref(Math.min(totalPages, currentPage + 1))}
+                  aria-disabled={currentPage === totalPages}
+                  className={`rounded-xl border border-border bg-card px-3 py-2 text-sm font-medium text-text-main transition-colors hover:border-blue/30 ${
+                    currentPage === totalPages ? "pointer-events-none opacity-40" : ""
+                  }`}
+                >
+                  Siguiente
+                </Link>
               </div>
             )}
           </div>
