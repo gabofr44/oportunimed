@@ -3,7 +3,12 @@ import { Input as InputPrimitive } from "@base-ui/react/input"
 
 import { cn } from "@/lib/utils"
 
-function Input({ className, type, ...props }: React.ComponentProps<"input">) {
+// NOTE: this wraps Base UI's Input primitive, not a native <input>.
+// Its controlled API is `value` + `onValueChange` (not `onChange`) -
+// typing this as React.ComponentProps<"input"> let callers pass an
+// `onChange` handler that TypeScript accepted but Base UI silently
+// ignored, so controlled forms (e.g. login/register) never updated.
+function Input({ className, type, ...props }: React.ComponentProps<typeof InputPrimitive>) {
   return (
     <InputPrimitive
       type={type}

@@ -36,7 +36,7 @@ export function AuthForm({ type, onSubmit, onGoogle }: AuthFormProps) {
         }, 2000);
       }
     }
-  }, [onSubmit, type]);
+  }, [onSubmit, type, email, password]);
 
   if (registered) {
     return (
@@ -89,7 +89,7 @@ export function AuthForm({ type, onSubmit, onGoogle }: AuthFormProps) {
             id="email"
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onValueChange={(value) => setEmail(value)}
             placeholder="tu@email.com"
             required
             className="rounded-xl"
@@ -107,7 +107,7 @@ export function AuthForm({ type, onSubmit, onGoogle }: AuthFormProps) {
             id="password"
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onValueChange={(value) => setPassword(value)}
             placeholder="••••••••"
             required
             minLength={8}
