@@ -54,7 +54,7 @@ export async function getOpportunities(filters?: {
   }
 
   if (filters?.level && filters.level !== "all") {
-    query = query.eq("educational_level", filters.level);
+    query = query.contains("educational_level", [filters.level]);
   }
 
   if (filters?.field && filters.field !== "all") {
@@ -126,9 +126,9 @@ export async function getOpportunities(filters?: {
   if (filters?.recommended && (filters.userLevel || filters.userField)) {
     results = results.sort((a, b) => {
       let scoreA = 0, scoreB = 0;
-      if (filters.userLevel && a.educational_level === filters.userLevel) scoreA += 2;
+      if (filters.userLevel && a.educational_level?.includes(filters.userLevel)) scoreA += 2;
       if (filters.userField && a.educational_field === filters.userField) scoreA += 1;
-      if (filters.userLevel && b.educational_level === filters.userLevel) scoreB += 2;
+      if (filters.userLevel && b.educational_level?.includes(filters.userLevel)) scoreB += 2;
       if (filters.userField && b.educational_field === filters.userField) scoreB += 1;
       return scoreB - scoreA;
     });

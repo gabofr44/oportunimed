@@ -8,9 +8,10 @@ import {
   adminCreateOpportunity,
   adminUpdateOpportunity,
   adminDeleteOpportunity,
+  markOpportunityVerified,
 } from "@/actions/admin";
 import type { Opportunity } from "@/types";
-import { Plus, Pencil, Trash2, Loader2 } from "lucide-react";
+import { Plus, Pencil, Trash2, Loader2, CheckCircle2 } from "lucide-react";
 
 const emptyForm = {
   title: "",
@@ -109,6 +110,19 @@ export function OpportunityManager({
       if (!error) {
         setItems((prev) => prev.filter((i) => i.id !== id));
         setMessage("Eliminado!");
+        setTimeout(() => setMessage(""), 2000);
+      }
+    });
+  };
+
+  const handleVerify = (id: string) => {
+    startTransition(async () => {
+      const { error } = await markOpportunityVerified(id);
+      if (!error) {
+        setItems((prev) =>
+          prev.map((i) => (i.id === id ? { ...i, last_verified_at: new Date().toISOString() } : i))
+        );
+        setMessage("Marcado como verificado!");
         setTimeout(() => setMessage(""), 2000);
       }
     });
@@ -227,9 +241,23 @@ export function OpportunityManager({
                 {opp.is_featured && (
                   <Badge className="bg-blue/8 text-blue text-xs">Destacado</Badge>
                 )}
+                {opp.last_verified_at && (
+                  <span className="shrink-0 text-xs text-text-muted">
+                    Verificado {new Date(opp.last_verified_at).toLocaleDateString("es-ES", { day: "numeric", month: "short" })}
+                  </span>
+                )}
               </div>
             </div>
             <div className="relative z-10 flex gap-1">
+              <Button
+                variant="ghost"
+                size="sm"
+                title="Marcar como verificado hoy"
+                className="text-emerald-600 hover:bg-emerald-50 hover:text-emerald-700"
+                onClick={() => handleVerify(opp.id)}
+              >
+                <CheckCircle2 className="size-3.5" />
+              </Button>
               <Button variant="ghost" size="sm" onClick={() => handleEdit(opp)}>
                 <Pencil className="size-3.5" />
               </Button>

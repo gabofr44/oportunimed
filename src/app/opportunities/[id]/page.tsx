@@ -8,8 +8,9 @@ import { ApplyButton } from "@/components/opportunities/ApplyButton";
 import { ChecklistSection } from "@/components/opportunities/ChecklistSection";
 import { SaveButton } from "@/components/opportunities/SaveButton";
 import { ReportLinkButton } from "@/components/opportunities/ReportLinkButton";
+import { ShareButton } from "@/components/opportunities/ShareButton";
 import { getSavedOpportunityIds } from "@/actions/favorites";
-import { ArrowLeft, MapPin, Calendar, ExternalLink, Sparkles, GraduationCap, BookOpen, Timer } from "lucide-react";
+import { ArrowLeft, MapPin, Calendar, ExternalLink, Sparkles, GraduationCap, BookOpen, Timer, CheckCircle2 } from "lucide-react";
 import { getOpportunityStatus, getStatusLabel } from "@/types";
 
 const typeColors: Record<string, string> = {
@@ -173,6 +174,17 @@ export default async function OpportunityDetailPage({ params }: Props) {
                   })}
                 </span>
               )}
+              {opportunity.last_verified_at && (
+                <span className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">
+                  <CheckCircle2 className="size-4" />
+                  Verificado el{" "}
+                  {new Date(opportunity.last_verified_at).toLocaleDateString("es-ES", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </span>
+              )}
             </div>
 
             <div className="mt-5 flex flex-wrap gap-2">
@@ -184,12 +196,14 @@ export default async function OpportunityDetailPage({ params }: Props) {
             </div>
 
             <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {opportunity.educational_level && (
+              {opportunity.educational_level && opportunity.educational_level.length > 0 && (
                 <div className="flex items-center gap-2 rounded-xl border border-border bg-surface px-4 py-3">
                   <GraduationCap className="size-5 text-primary" />
                   <div>
                     <p className="text-xs text-text-muted">Nivel Educativo</p>
-                    <p className="font-medium text-text-main">{educationalLevelLabels[opportunity.educational_level] || opportunity.educational_level}</p>
+                    <p className="font-medium text-text-main">
+                      {opportunity.educational_level.map((lv: string) => educationalLevelLabels[lv] || lv).join(", ")}
+                    </p>
                   </div>
                 </div>
               )}
@@ -274,7 +288,8 @@ export default async function OpportunityDetailPage({ params }: Props) {
               )}
             </div>
 
-            <div className="mt-3">
+            <div className="mt-3 flex items-center gap-3">
+              <ShareButton title={opportunity.title} path={`/opportunities/${opportunity.id}`} />
               <ReportLinkButton opportunityId={opportunity.id} />
             </div>
 

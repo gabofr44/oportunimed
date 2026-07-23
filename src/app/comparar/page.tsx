@@ -67,7 +67,11 @@ const rows: CompareRow[] = [
   },
   {
     label: "Nivel Educativo",
-    render: (o) => (o.educational_level ? levelLabels[o.educational_level as string] || (o.educational_level as string) : "—"),
+    render: (o) => {
+      const levels = o.educational_level as string[] | null;
+      if (!levels || levels.length === 0) return "—";
+      return levels.map((lv) => levelLabels[lv] || lv).join(", ");
+    },
   },
   {
     label: "Rama Educativa",

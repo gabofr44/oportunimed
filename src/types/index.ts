@@ -86,13 +86,14 @@ export interface Opportunity {
   created_by: string | null;
   created_at: string;
   updated_at: string;
-  educational_level?: string;
+  educational_level?: string[];
   educational_field?: string;
   course_level?: string;
   course_duration?: string;
   course_subject?: string;
   course_language?: string;
   call_frequency?: string | null;
+  last_verified_at?: string | null;
 }
 
 export interface Application {

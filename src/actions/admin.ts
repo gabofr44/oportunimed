@@ -133,14 +133,25 @@ export async function adminUpdateOpportunity(
 
 export async function adminDeleteOpportunity(id: string) {
   const supabase = await requireAdmin();
-  const { error } = await supabase
-    .from("opportunities")
-    .delete()
-    .eq("id", id);
+
+  const { error } = await supabase.from("opportunities").delete().eq("id", id);
 
   if (error) return { error: error.message };
   revalidatePath("/opportunities");
   revalidatePath("/");
+  return { error: null };
+}
+
+export async function markOpportunityVerified(id: string) {
+  const supabase = await requireAdmin();
+
+  const { error } = await supabase
+    .from("opportunities")
+    .update({ last_verified_at: new Date().toISOString() })
+    .eq("id", id);
+
+  if (error) return { error: error.message };
+  revalidatePath("/opportunities");
   return { error: null };
 }
 

@@ -536,11 +536,13 @@ export default async function OpportunitiesPage({ searchParams }: Props) {
                               {subtypeLabels[opp.subtype] || opp.subtype}
                             </span>
                           )}
-                          {opp.educational_level && opp.educational_level !== 'universidad' && (
-                            <span className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-300">
-                              {levelLabels[opp.educational_level] || opp.educational_level}
-                            </span>
-                          )}
+                          {opp.educational_level
+                            ?.filter((lv: string) => lv !== 'universidad')
+                            .map((lv: string) => (
+                              <span key={lv} className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-300">
+                                {levelLabels[lv] || lv}
+                              </span>
+                            ))}
                           {opp.educational_field && opp.educational_field !== 'general' && (
                             <span className="inline-flex items-center rounded-full border border-border bg-surface px-2 py-0.5 text-xs font-medium text-text-muted">
                               {fieldLabels[opp.educational_field] || opp.educational_field}

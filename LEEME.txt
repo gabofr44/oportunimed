@@ -1,80 +1,80 @@
-CÓMO APLICAR ESTA ACTUALIZACIÓN
-================================
+CÓMO APLICAR ESTA ACTUALIZACIÓN (4 funcionalidades)
+=====================================================
 
-1) DESCOMPRIME este ZIP directamente DENTRO de tu carpeta del proyecto
-   (la que tiene package.json, src/, supabase/, etc. - la de Downloads).
+Contiene: compartir oportunidad, fecha de "última verificación",
+nivel educativo múltiple, y recordatorio de deadlines por correo.
 
-   Cuando tu sistema pregunte "¿Reemplazar estos archivos?" dile que SÍ a todo.
-   Esto va a:
-   - Sobrescribir 7 archivos que ya existen (con las funcionalidades nuevas agregadas)
-   - Crear 6 archivos nuevos que no existían
+1) INSTALA LA LIBRERÍA NUEVA (antes de copiar los archivos)
 
-2) Revisa en PowerShell que los cambios se detectaron:
+   En PowerShell, parado en tu carpeta del proyecto:
 
-   cd "C:\Users\gabof\Downloads\New OpenCode Project\global-pathways"
-   git status
+     npm install resend
 
-   Deberías ver como "modified" estos 7:
-     .env.local.example
-     src/actions/opportunities.ts
-     src/app/admin/page.tsx
-     src/app/dashboard/page.tsx
-     src/app/opportunities/[id]/page.tsx
-     src/app/opportunities/page.tsx
+2) DESCOMPRIME este ZIP dentro de tu carpeta del proyecto (igual que la
+   vez pasada) - dile que sí a reemplazar cuando pregunte.
 
-   Y como "new file" / sin trackear estos:
-     src/actions/favorites.ts
-     src/actions/link-reports.ts
-     src/app/comparar/
-     src/app/dashboard/favoritos/
-     src/app/robots.ts
-     src/app/sitemap.ts
-     src/components/admin/LinkReportsPanel.tsx
-     src/components/opportunities/CompareButton.tsx
-     src/components/opportunities/CompareFloatingBar.tsx
-     src/components/opportunities/ReportLinkButton.tsx
-     src/components/opportunities/SaveButton.tsx
-     src/components/opportunities/SearchAutocomplete.tsx
-     src/lib/supabase/admin.ts
-     supabase/migrations/014_add_saved_opportunities.sql
-     supabase/migrations/015_add_link_reports.sql
+3) Revisa con git status que se detectaron los cambios esperados:
+   - Modificados: src/actions/admin.ts, src/actions/opportunities.ts,
+     src/app/comparar/page.tsx, src/app/opportunities/[id]/page.tsx,
+     src/app/opportunities/page.tsx, src/components/admin/OpportunityManager.tsx,
+     src/types/index.ts
+   - Nuevos: src/app/api/cron/deadline-reminders/route.ts,
+     src/components/opportunities/ShareButton.tsx,
+     3 migraciones nuevas (016, 017, 018), vercel.json
 
-3) IMPORTANTE - agrega la variable de entorno que falta:
+4) AGREGA 2 VARIABLES DE ENTORNO NUEVAS
 
-   Abre tu archivo .env.local real (NO el .env.local.example que viene en este
-   ZIP, ese solo es la plantilla) y agrega esta línea:
+   En tu .env.local Y en Vercel (Settings -> Environment Variables),
+   igual que hiciste con SUPABASE_SERVICE_ROLE_KEY:
 
-     SUPABASE_SERVICE_ROLE_KEY=<tu clave real>
+     RESEND_API_KEY=<la sacas de resend.com, ver abajo>
+     CRON_SECRET=<cualquier texto largo y aleatorio que tu inventes>
 
-   La sacas de: Supabase -> Settings -> API -> "service_role" (secret).
-   NUNCA subas esta clave a GitHub - .env.local ya está en tu .gitignore,
-   así que estás a salvo mientras no la pegues en ningún otro archivo.
+   Para RESEND_API_KEY:
+   a) Crea una cuenta gratis en https://resend.com (con tu correo o GitHub)
+   b) En el dashboard, ve a "API Keys" -> "Create API Key" -> copia la clave
+   c) Nota: el plan gratis te deja enviar correos de prueba solo a tu propio
+      correo verificado, a menos que verifiques un dominio propio (ve a
+      "Domains" en Resend y sigue sus instrucciones - necesitas acceso a
+      la configuracion DNS de tu dominio). Mientras no verifiques un dominio,
+      cambia esta linea en route.ts para pruebas:
+        from: "Oportunimed <onboarding@resend.dev>"
+      (resend.dev es su dominio de pruebas, siempre funciona)
 
-   También agrega esa misma variable en Vercel:
-   Vercel -> tu proyecto -> Settings -> Environment Variables
-   Nombre: SUPABASE_SERVICE_ROLE_KEY
-   Valor: la misma clave
-   Marca Production y Preview -> Save
-   (Vas a necesitar hacer Redeploy después de agregarla, igual que
-   la vez pasada con NEXT_PUBLIC_SITE_URL)
+   Para CRON_SECRET: es solo una contraseña que tú inventas, para que nadie
+   más que Vercel pueda activar el envío de correos. Ejemplo:
+   CRON_SECRET=x7k9mQp2vL8nR4wT6yB1
 
-4) Sube el código:
+   En Vercel, cuando agregues CRON_SECRET como variable de entorno, Vercel
+   Cron la usa automáticamente para autenticarse - no tienes que hacer nada
+   más ahí.
+
+5) Sube el código:
 
    git add .
-   git commit -m "feat: favoritos, autocompletado, reportar link, comparador, paginacion, panel de reportes y SEO"
+   git commit -m "feat: compartir, fecha de verificacion, niveles multiples, recordatorio de correo"
    git push
 
-5) Corre las 2 migraciones SQL nuevas en Supabase (SQL Editor), en este orden:
-   - supabase/migrations/014_add_saved_opportunities.sql
-   - supabase/migrations/015_add_link_reports.sql
+6) Corre las 3 migraciones SQL nuevas en Supabase, EN ESTE ORDEN:
+   - 016_add_last_verified.sql
+   - 017_educational_level_array.sql   <- esta es la mas importante, revisa
+     que corra sin error antes de seguir (convierte una columna de texto a
+     lista)
+   - 018_add_reminder_tracking.sql
 
-6) Después del deploy en Vercel, prueba:
-   - /opportunities: deberías ver el buscador con sugerencias, el ícono de
-     guardar (marcador) y el de comparar (balanza) en cada tarjeta, y
-     paginación al fondo de la lista.
-   - Guarda 2-3 oportunidades con el ícono de comparar -> aparece una barra
-     flotante abajo -> "Comparar" te lleva a /comparar
-   - /dashboard/favoritos: tus oportunidades guardadas
-   - En el detalle de una oportunidad: botón "Reportar link roto"
-   - /admin (con tu contraseña): nueva pestaña "Links Reportados"
-   - /sitemap.xml y /robots.txt: deberían cargar directo en el navegador
+7) Después del deploy en Vercel:
+   - Ve a Vercel -> tu proyecto -> pestaña "Cron Jobs" (o "Settings" ->
+     "Cron Jobs") y confirma que aparece el job "/api/cron/deadline-reminders"
+     corriendo diario. Vercel también te deja darle "Run" manual desde ahí
+     para probarlo sin esperar al horario programado.
+   - Prueba el botón "Compartir" en el detalle de una convocatoria
+   - En /admin -> pestaña Convocatorias, prueba el ícono de check verde para
+     marcar una como verificada, y confirma que aparece la fecha
+   - Guarda una oportunidad con deadline próximo en Favoritos, corre el cron
+     manualmente desde Vercel, y revisa si te llega el correo (revisa spam)
+
+NOTA sobre el nivel educativo múltiple: el formulario de admin para crear/
+editar convocatorias todavía NO tiene un campo visual para elegir varios
+niveles (antes tampoco tenía campo para elegir ni uno solo - ese dato
+siempre se cargó por SQL directo). Si quieres poder editarlo desde el
+panel admin, es una mejora aparte que podemos hacer después.
