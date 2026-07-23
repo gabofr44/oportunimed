@@ -96,7 +96,7 @@ export async function GET(request: Request) {
       .join("");
 
     try {
-      await resend.emails.send({
+      const result = await resend.emails.send({
         from: "Oportunimed <onboarding@resend.dev>",
         to: email,
         subject: `Tienes ${rows.length} convocatoria${rows.length === 1 ? "" : "s"} guardada${rows.length === 1 ? "" : "s"} por vencer`,
@@ -111,6 +111,11 @@ export async function GET(request: Request) {
           </div>
         `,
       });
+      if (result.error) {
+        console.error(`Resend rechazo el correo para usuario ${userId}:`, result.error);
+        continue;
+      }
+
       sentCount++;
       savedIdsToMark.push(...rows.map((r) => r.id));
     } catch (err) {
